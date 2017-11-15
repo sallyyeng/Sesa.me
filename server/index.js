@@ -3,7 +3,7 @@ const port = process.env.PORT || 3000;
 
 const requestHandler = (request, response) => {
   console.log(request.url)
-  response.end('Hellos California')
+  response.end(process.env.PORT)
 }
 
 const server = http.createServer(requestHandler);
