@@ -1,13 +1,13 @@
-# Project Name
+# Tic Tac Toe with a Twist
 
-> Pithy project description
+> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  Target audience is human trafficking and domestic violence victims.
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Anne Pruett
+  - Amanda Bozigian
+  - Michael Cooper
+  - Rebecca Townsend
 
 ## Table of Contents
 
@@ -21,15 +21,15 @@
 
 ## Usage
 
-> Some usage instructions
+> Victims of domestic violence can use our app to discreetly login to a secure messaging system to request help from a qualified organization. Users will click the center of the tic tac toe board 10 times in a row, log in to the secure system (or create an account) and then send and recieve secure help messages.
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 9.x.x
+- npm 5.5.1
+- SQL ?
+- Sequelize
+- Express
 
 ## Development
 
@@ -45,7 +45,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](http://bit.ly/2zLjWhM)
 
 
 ## Contributing
