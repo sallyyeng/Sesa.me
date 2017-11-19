@@ -33,7 +33,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(parser.json());
 
 // Routes
-app.use('/', router); ????
+app.use('/', router); 
 
 // Static Files
 app.use(express.static(__dirname + '../client'));
