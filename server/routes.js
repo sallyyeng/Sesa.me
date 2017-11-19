@@ -10,5 +10,6 @@ router.post('/signup', controller.signup.post);
 
 router.get('/submissions', controller.submissions.get);
 router.post('/submissions', controller.submissions.post);
+router.patch('/submissions', controller.submissions.patch);
 
 module.exports = router;
