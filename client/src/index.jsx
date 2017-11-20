@@ -1,12 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Game from './components/user/tictactoeView/game.jsx';
 
-var App = (props) => (
-<div> 
-  <h2>Apple Pie</h2>
-</div>
-);
- 
+class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+// // this.state = {}
+//   }; 
+
+render() {
+  return (
+    <div>
+    <Game/>
+
+    </div>
+
+
+
+
+
+
+  )
+}
+
+
+
+
+
+
+} 
   
 
 

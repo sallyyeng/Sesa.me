@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './tictactoe.css';
+//import CSS from './game.css';
+import $ from 'jquery';
+
 
 function Square(props) {
   return (
@@ -41,7 +43,7 @@ class Board extends React.Component {
       </div>
     );
   }
-}
+}  
 
 class Game extends React.Component {
   constructor() {
@@ -123,9 +125,12 @@ class Game extends React.Component {
   }
 }
 
-// ========================================
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+
+
+
+export default Game;
+
 
 function calculateWinner(squares) {
   const lines = [
@@ -146,4 +151,3 @@ function calculateWinner(squares) {
   }
   return null;
 }
-
