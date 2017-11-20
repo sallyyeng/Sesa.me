@@ -9,25 +9,13 @@ class App extends React.Component {
 // // this.state = {}
 //   }; 
 
-render() {
-  return (
-    <div>
-    <Game/>
-
-    </div>
-
-
-
-
-
-
-  )
-}
-
-
-
-
-
+  render() {
+    return (
+      <div>
+      <Game/>
+      </div>
+    )
+  }
 
 } 
   
