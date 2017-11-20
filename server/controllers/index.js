@@ -2,7 +2,7 @@
   // /login, /signup, /submissions
 // These handlers will utilize instances of sequelize models to query the database directly 
 
-const db = require('../db/index.js');
+// const db = require('../db/index.js');
 
 module.exports = {
 
