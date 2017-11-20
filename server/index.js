@@ -1,29 +1,29 @@
-const env = require('dotenv').load();
+// const env = require('dotenv').load();
 const express = require('express');
 const app = express();
 const passport = require('passport'),
-  LocalStrategiy = require('passport-local').Strategy;
+  LocalStrategy = require('passport-local').Strategy;
 
 // Middleware
 var parser = require('body-parser');
 
 // Router
-var router = require('/routes.js');
+var router = require('./routes.js');
 
 // Set port
 app.set('port', process.env.PORT || 3000);
 
 // Parsing
 app.use(parser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(parser.urlencoded({extended: true}));
 
 // Routes
 app.use('/', router); 
 
 // Authentication
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
@@ -46,7 +46,7 @@ passport.use(new LocalStrategy(
 ));
 
 // Static Files
-app.use(express.static(__dirname + '../client'));
+app.use(express.static(__dirname + '/../client/dist'));
 
 // Init server
 app.listen(app.get('port'));

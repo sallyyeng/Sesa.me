@@ -25,9 +25,11 @@ module.exports = {
   login: {
     get: (req, res) => {
       // display user info from submissions table
+      console.log('login get');
     },
     post: (req, res) => {
       // authenticate user
+      console.log('login post');
     }
   },
 
@@ -38,12 +40,15 @@ module.exports = {
         // display messages from users
       // if user
         // display responses from admin to messages sent
+      console.log('submissions get');
     },
     post: (req, res) => {
       // user only - add message to submission table
+      console.log('submissions post');
     },
     patch: (req, res) => {
       // admin only - add response to existing submission row in sub. table
+      console.log('submissions patch');
     }
   }
 
