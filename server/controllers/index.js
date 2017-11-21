@@ -5,14 +5,12 @@
 // const db = require('../db/index.js');
 
 module.exports = {
-  //signup controller
   signup: {
     //creates a new user or finds an already existing user
+    //***TODO***: handle incorrect pw but pre-existing user
     post: (req, res) => {
       db.User.findOrCreate({
-        //***TODO*** add PW to created user, handle incorrect PW. takes admin and pw
-          //***TODO***: check is username exists, if yes find. if no, create with given PW
-        where: {username: req.body.username}
+        where: {username: req.body.username, hash: req.body.hash}
       })
       .spread((user, created) => {
         console.log('Signup POST with', user.get({plain: true}));
@@ -21,36 +19,114 @@ module.exports = {
     }
   },
 
-  //login controller
   login: {
-    //***TODO***: authenticate user (check username and matching pw, hashing?)
+    //authenticate user, verifying username and hashed pw match
     post: (req, res) => {
-      console.log('login post');
+      db.User.findOne({
+        where: {
+          username: req.body.username,
+          hash: req.body.hash
+        }
+      })
+      .then((user) => {
+        console.log('Successful authentication')
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log('Incorrect login details with error:', err);
+        res.sendStatus(400);
+      })
     }
   },
-
-  //submissions controller
   submissions: {
-    //***TODO***: display all or some user info on GET from componentDidMount
-      //send username, admin status
-        //if req.body.admin, send everything else send whatever matches username
+    //send a specific user's messages or all messages for an admin
     get: (req, res) => {
-      // if admin
-        // display messages from users
-      // if user
-        // display responses from admin to messages sent
-      console.log('submissions get');
+      if (req.body.account_type === 'admin') {
+        db.Submission.findAll()
+        .then((allMessages) => {
+          console.log('Fetched all msgs for admin with', allMessages);
+          res.status(200).json(allMessages);
+        })
+        .catch((err) => {
+          console.log('Error fetching msgs for admin with', err);
+          res.sendStatus(404);
+        })
+      } else {
+        db.Submission.findAll({
+          where: {
+            //Note: userId is the FK in the submission model that points to a particular user
+            userId: req.body.username
+          }
+        })
+        .then((userMessages) => {
+          console.log('Fetched all msgs for user with', userMessages);
+          res.status(200).json(userMessages);
+        })
+        .catch((err) => {
+          console.log('Error fetching msgs for user with', err);
+          res.sendStatus(404);
+        })
+      }
     },
+    //write a message to the db associated with a particular user
     post: (req, res) => {
-      // user only - add message to submission table
-        //req.body.postUsername
-      console.log('submissions post');
+      if (req.body.account_type !== 'admin') {
+        db.User.findOne({
+          where: {
+            username: req.body.username
+          }
+        })
+        .then((user) => {
+          db.Submission.create({
+            userId: user.get('id'),
+            user_message: req.body.user_message,
+            user_contact: req.body.user_contact,
+            user_urgency: req.body.user_urgency
+          })
+          .then((createdMessage) => {
+            console.log('Successful user message creation with', createdMessage);
+            res.sendStatus(201);
+          })
+        })
+        .catch((err) => {
+          console.log('Error creating user message with', err);
+          res.sendStatus(400);
+        })
+      } else {
+        console.log('Admins cannot create messages, only amend existing ones');
+        res.sendStatus(400);
+      }
     },
+    //allows an admin to edit most recent submission associated with a user
     patch: (req, res) => {
-      // admin only - add response to existing submission row in sub. table
-        //req.body.postUsername
-      console.log('submissions patch');
+      if (req.body.account_type === 'admin') {
+        //find most recent message from a specific user
+        db.Submission.findAll({
+          limit: 1,
+          where: {
+            username: req.body.username
+          },
+          order: [['createdAt', 'DESC']]
+        })
+        //update that message with admin's response
+        .then((latestMessage) => {
+          latestMessage.update({
+            admin_response: req.body.admin_response,
+            admin_complete: req.body.admin_complete
+          })
+          .then((updatedMessage) => {
+            console.log('Successful message update with', updatedMessage);
+            res.sendStatus(201);
+          })
+          .catch((err) => {
+            console.log('Error amending user message with', err);
+            res.sendStatus(400);
+          })
+        })
+      } else {
+        console.log('Only admins can amend messages');
+        res.sendStatus(400);
+      }
     }
   }
-
 }
