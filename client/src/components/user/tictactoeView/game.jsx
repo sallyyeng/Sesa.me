@@ -12,6 +12,10 @@ function Square(props) {
   );
 }
 
+function HotSquare(props) {
+  return <button className="square">{props.value}</button>;
+}
+
 class Board extends React.Component {
   renderSquare(i) {
     return (
@@ -20,6 +24,13 @@ class Board extends React.Component {
         onClick={() => this.props.onClick(i)}
       />
     );
+  }
+
+  renderHotSquare(i) {
+    return (
+      <HotSquare
+        value={this.props.squares[i]} 
+        onClick={ () => this.props.onClick(i)}/>);
   }
 
   render() {
@@ -36,7 +47,7 @@ class Board extends React.Component {
           {this.renderSquare(5)}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
+          {this.renderHotSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
