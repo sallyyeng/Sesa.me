@@ -30,9 +30,9 @@ class Login extends React.Component {
     return (
       <div>
         <div>Login Form: This will be rendered conditionally</div>
-        <label className="login-username">Username: <input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input></label>
+        <label className="login-username">Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input></label>
         <br></br>
-        <label className="login-password">Password: <input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input></label>
+        <label className="login-password">Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input></label>
         <br></br>
         <button className="login-button" onClick={this.onSubmit.bind(this)}>Log In</button>
       </div>
