@@ -30,14 +30,14 @@ class App extends React.Component {
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
 
-  createUser(username, password, admin) {
-    console.log(` ${username}, ${password}, ${admin} posted to server`);
+  createUser(username, hash, admin) {
+    console.log(` ${username}, ${hash}, ${admin} posted to server`);
     $.ajax({
       method: 'POST',
       url: '/signup',
       data: {
         username: username,
-        password: password,
+        hash: hash,
         admin: admin
       },
       success: (data) => {
@@ -56,14 +56,14 @@ class App extends React.Component {
     });
   }
 
-  logInUser(username, password) {
-    console.log(`${username}, ${password} posted to server`);
+  logInUser(username, hash) {
+    console.log(`${username}, ${hash} posted to server`);
     $.ajax({
       method: 'POST',
       url: '/login',
       data: {
         username: username,
-        password: password
+        hash: hash
       },
       success: (data) => {
         console.log(data);
