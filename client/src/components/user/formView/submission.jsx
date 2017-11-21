@@ -26,15 +26,19 @@ class Submission extends React.Component {
     }
   }
 
+  //On component load call method to retrieve admin responses for this user from server
   componentDidMount() {
     this.props.retrieveResponses(this.props.username, (data) => {
       this.setState({
-        //may have to change this depending on what format the data is returned as
+        //may have to change 'data' depending on what format the data is returned as
         responses: data
       });
     });
   }
 
+  /* ================================ */
+  /* Update state based on user input */
+  /* ================================ */
   updateFirst(e) {
     this.setState({
       first: e.target.value
@@ -65,6 +69,9 @@ class Submission extends React.Component {
     });
   }
 
+/* ===========================*/
+
+  // on submission, call method to send form data to server
   onSubmit() {
     console.log('clicked');
     this.props.sendMessage(

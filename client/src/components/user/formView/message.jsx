@@ -6,6 +6,7 @@ class Message extends React.Component {
     super(props);
   }
 
+  //Render all admin responses for this user in reverse chronological order of original message submission date
   render() {
     return (
       <div>
