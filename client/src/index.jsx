@@ -4,6 +4,8 @@ import $ from 'jquery';
 import Game from './components/user/tictactoeView/game.jsx';
 import Login from './components/user/formView/login.jsx';
 import Signup from './components/user/formView/signup.jsx';
+import Submission from './components/user/formView/submission.jsx';
+import AdminView from './components/admin/adminView.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -92,6 +94,8 @@ class App extends React.Component {
         <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
+        <Submission/>
+        <AdminView/>
       </div>
     )
   }

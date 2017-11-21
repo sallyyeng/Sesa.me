@@ -8,7 +8,7 @@ class Signup extends React.Component {
       username: '',
       password: '',
       checkPassword: '',
-      admin: false
+      admin: ''
     }
   }
 
@@ -32,7 +32,7 @@ class Signup extends React.Component {
 
   onAdminCheck(e) {
     this.setState({
-      admin: true
+      admin: 'admin'
     });
   }
 
