@@ -13,10 +13,26 @@ function Square(props) {
 }
 
 function HotSquare(props) {
-  return <button className="square">{props.value}</button>;
+  return <button className="square" onClick={props.onClick}>{props.value}</button>;
 }
 
 class Board extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      hotSquareClickCount: 0
+    }
+  }
+
+  incrementHotSquareClickCount(){
+    this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
+    if(this.state.hotSquareClickCount === 10) {
+      // do something
+      // execute a callback from the App component
+    }
+  }
+
   renderSquare(i) {
     return (
       <Square
@@ -30,7 +46,10 @@ class Board extends React.Component {
     return (
       <HotSquare
         value={this.props.squares[i]} 
-        onClick={ () => this.props.onClick(i)}/>);
+        onClick={ () => {
+          this.incrementHotSquareClickCount();
+          this.props.onClick(i);
+        }}/>);
   }
 
   render() {
