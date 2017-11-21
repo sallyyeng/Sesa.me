@@ -1,0 +1,6 @@
+.user-message-main,
+.user-status-main,
+.admin-response-main,
+.admin-inbox-main {
+  border: 1px solid black;
+}
