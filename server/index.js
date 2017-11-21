@@ -18,7 +18,7 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 // Routes
-app.use('/', router); 
+app.use('/', router);
 
 // Authentication
 // app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));
