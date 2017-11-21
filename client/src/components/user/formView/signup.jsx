@@ -56,13 +56,11 @@ class Signup extends React.Component {
       <div>
         <div>Signup Form: This will be rendered conditionally</div>
         <label className="signup-username">
-          Username: 
-          <input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input>
+          Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input>
         </label>
         <br></br>
         <label className="signup-password">
-          Password: 
-          <input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input>
+          Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input>
         </label>
         <br></br>
         <label className="signup-password">
