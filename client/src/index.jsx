@@ -38,7 +38,7 @@ class App extends React.Component {
         admin: admin
       },
       success: (data) => {
-        console.log(success);
+        console.log('success');
         this.setState({
           view: 'login'
         });
