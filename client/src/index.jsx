@@ -74,6 +74,29 @@ class App extends React.Component {
     });
   }
 
+  sendMessage(username, first, last, contact, urgency, message) {
+    console.log(`${username}, ${first}, ${last}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
+    $.ajax({
+      method: 'POST',
+      url: '/submissions/post',
+      data: {
+        username: username,
+        first_name: first,
+        last_name: last,
+        user_contact: contact,
+        user_urgency: urgency,
+        user_message: message
+      },
+      success: (data) => {
+        console.log(data);
+        alert('Your message was sent succesfully. Check back often for status updates.');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login'
@@ -94,7 +117,7 @@ class App extends React.Component {
         <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
-        <Submission/>
+        <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)}/>
         <AdminView/>
       </div>
     )
