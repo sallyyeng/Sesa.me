@@ -139,7 +139,9 @@ class App extends React.Component {
     if (this.state.showBugButton === true) {
       return <div>
         <Game/>
-        <p>It looks like you've found a bug.  Would you like to report it?</p><button>yes</button><button>no</button>
+        <p>It looks like you've found a bug.  Would you like to report it?</p>
+        <button>yes</button>
+        <button>no</button>
       </div>;
 
     } 
