@@ -19,7 +19,6 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "babel-loader": "^7.1.2",
-    "express": "^4.16.2",
     "jquery": "^3.2.1",
     "mysql": "^2.15.0",
     "passport": "^0.4.0",
