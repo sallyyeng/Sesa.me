@@ -30,6 +30,7 @@ class Board extends React.Component {
     if(this.state.hotSquareClickCount === 10) {
       // do something
       // execute a callback from the App component
+      this.props.unlockForms();
     }
   }
 
@@ -144,6 +145,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            unlockForms={this.props.unlockForms}
           />
         </div>
         <div className="game-info">
