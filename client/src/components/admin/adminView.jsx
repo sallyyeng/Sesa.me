@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Message from './message.jsx'
+import Message from './message.jsx';
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -26,7 +26,9 @@ class AdminView extends React.Component {
           user_contact: 'Test contact info 2',
           user_urgency: '1'
         }
-      ]
+      ],
+      messageId: null,
+      response: ''
     }
   }
 
@@ -39,23 +41,43 @@ class AdminView extends React.Component {
     });
   }
 
+  //sets state variable messageId to currently selected message's id
+  setResponseId(id) {
+    this.setState({
+      messageId: id
+    });
+  }
+
+  //when admin types a response, updates state variable response
+  updateResponse(e) {
+    this.setState({
+      response: e.target.value
+    });
+  }
+
+  //when admin submits a response, calls the submitAdminResponse method to send id and response to server as a patch request
+  sendResponse() {
+    this.props.submitAdminResponse(this.state.messageId, this.state.response);
+  }
+
   render() {
     return (
       <div>
         <div>Admin View: This will be rendered conditionally</div>
         <div className="admin-response-main">
-          <h5>New Message</h5>
+          <h5>New Response</h5>
           <label className="message">Respond to message:</label>
           <br></br>
-          <textarea type="text" placeholder="Response..."></textarea>
+          <textarea onChange={this.updateResponse.bind(this)} type="text" placeholder="Response..."></textarea>
           <br></br>
+          <button onClick={this.sendResponse.bind(this)}>Submit Response</button>
         </div>
 
         <div className="admin-inbox-main">
           <h5>Inbox</h5>
           <ul>
             {this.state.messages.map( (message, index) => {
-              return <Message key={index} message={message}/>
+              return <Message setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
             })}
           </ul>
         </div>

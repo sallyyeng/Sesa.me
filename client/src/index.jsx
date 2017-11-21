@@ -134,6 +134,25 @@ class App extends React.Component {
     });
   }
 
+  submitAdminResponse(id, response) {
+    console.log(`in submitAdminResponse with ${id}, ${response}`);
+    $.ajax({
+      method: 'PATCH',
+      url: '/submissions',
+      data: {
+        id: id,
+        admin_response: response
+      },
+      success: (data) => {
+        console.log(data);
+        alert('Your response was sent successfully');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login'
@@ -170,7 +189,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        <AdminView submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
       </div>
     )
   }
