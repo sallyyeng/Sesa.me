@@ -7,6 +7,7 @@ import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -78,7 +79,7 @@ class App extends React.Component {
     console.log(`${username}, ${first}, ${last}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
     $.ajax({
       method: 'POST',
-      url: '/submissions/post',
+      url: '/submissions',
       data: {
         username: username,
         first_name: first,
@@ -90,6 +91,24 @@ class App extends React.Component {
       success: (data) => {
         console.log(data);
         alert('Your message was sent succesfully. Check back often for status updates.');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  retrieveResponses(username, callback) {
+    console.log(`in retrieveResponses with ${username}`);
+    $.ajax({
+      method: 'GET',
+      url: '/submissions',
+      data: {
+        username: username
+      },
+      success: (data) => {
+        console.log(data);
+        callback(data);
       },
       error: (error) => {
         console.log(error);
@@ -117,7 +136,7 @@ class App extends React.Component {
         <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
-        <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)}/>
+        <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
         <AdminView/>
       </div>
     )

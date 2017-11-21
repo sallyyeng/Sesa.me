@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Message from './message.jsx';
+
 
 class Submission extends React.Component {
   constructor(props) {
@@ -9,8 +11,28 @@ class Submission extends React.Component {
       last: '',
       contact: '',
       urgency: '',
-      message: ''
+      message: '',
+      //sample response data for mocking
+      responses: [
+        {
+          createdAt: '10/20/2017',
+          admin_response: 'Test'
+        },
+        {
+          createdAt: '10/21/2017',
+          admin_response: 'Test2'
+        }
+      ]
     }
+  }
+
+  componentDidMount() {
+    this.props.retrieveResponses(this.props.username, (data) => {
+      this.setState({
+        //may have to change this depending on what format the data is returned as
+        responses: data
+      });
+    });
   }
 
   updateFirst(e) {
@@ -92,6 +114,11 @@ class Submission extends React.Component {
 
         <div className="user-status-main">
           <h5>Message Replies</h5>
+          <ul>
+            {this.state.responses.map((response, index) => {
+              return <Message key={index} response={response}/>
+            })}
+          </ul>
         </div>
 
       </div>
