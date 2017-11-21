@@ -1,18 +1,97 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 import Game from './components/user/tictactoeView/game.jsx';
+import Login from './components/user/formView/login.jsx';
+import Signup from './components/user/formView/signup.jsx';
 
 class App extends React.Component {
-//   constructor(props) {
-//     super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      type: '',
+      showForms: false,
+      //Possible view values:
+        // restricted: only render game
+        // unrestricted: render game, login and signup buttons (after user has clicked button 10x)
+        // login: render login component (if user clicks on login button)
+        // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
+        // submissions: render sumbissions component (if user is successfully logged in)
+      view: 'restricted'
+    }
+  }
 
-// // this.state = {}
-//   }; 
+  //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
+
+  createUser(username, password, admin) {
+    console.log(` ${username}, ${password}, ${admin} posted to server`);
+    $.ajax({
+      method: 'POST',
+      url: '/signup',
+      data: {
+        username: username,
+        password: password,
+        admin: admin
+      },
+      success: (data) => {
+        console.log(success);
+        this.setState({
+          view: 'login'
+        });
+      },
+      error: (error) => {
+        console.log(error);
+        alert('Woops, looks like that username is already taken!');
+        this.setState({
+          view: 'signUp'
+        });
+      }
+    });
+  }
+
+  logInUser(username, password) {
+    console.log(`${username}, ${password} posted to server`);
+    $.ajax({
+      method: 'POST',
+      url: '/login',
+      data: {
+        username: username,
+        password: password
+      },
+      success: (data) => {
+        console.log(data);
+        this.setState({
+          view: 'submissions',
+          // should this recieve data from db to set state values for type (admin?) and username???
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  showLogIn() {
+    this.setState({
+      view: 'login'
+    });
+  }
+
+  showSignUp() {
+    this.setState({
+      view: 'signup'
+    });
+  }
 
   render() {
     return (
       <div>
-      <Game/>
+        <Game/>
+        <button onClick={this.showLogIn.bind(this)}>Log In</button>
+        <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
+        <Login logInUser={this.logInUser.bind(this)}/>
+        <Signup createUser={this.createUser.bind(this)}/>
       </div>
     )
   }

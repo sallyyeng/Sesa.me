@@ -3,7 +3,11 @@
 
 const Sequelize = require('sequelize');
 //db is named messages
-const db = new Sequelize('messages', 'root', '');
+const db = new Sequelize('messages', 'root', '', {
+  dialect: 'mysql'
+});
+
+
 
 const User = db.define('user', {
   //id is already created by default as PK
