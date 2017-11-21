@@ -119,6 +119,21 @@ class App extends React.Component {
     });
   }
 
+  retrieveOpenMessages(callback) {
+    console.log(`in retrieveAllResponses`);
+    $.ajax({
+      method: 'GET',
+      url: '/submissions',
+      success: (data) => {
+        console.log(data);
+        callback(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login'
@@ -155,7 +170,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView/>
+        <AdminView retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
       </div>
     )
   }
