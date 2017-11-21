@@ -7,6 +7,7 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       password: '',
+      checkPassword: '',
       admin: false
     }
   }
@@ -23,6 +24,12 @@ class Signup extends React.Component {
     });
   }
 
+  onCheckPasswordChange(e) {
+    this.setState({
+      checkPassword: e.target.value
+    });
+  }  
+
   onAdminCheck(e) {
     this.setState({
       admin: true
@@ -35,6 +42,9 @@ class Signup extends React.Component {
     }
     if (this.state.password.length < 8) {
       return alert('Oops! Password must be at least 8 characters long. Let\'s try that again.');
+    }
+    if (this.state.password !== this.state.checkPassword) {
+      return alert('Oops! Make sure both password fields match.');
     }
     this.props.createUser(this.state.username, this.state.password, this.state.admin);
   }
@@ -53,6 +63,11 @@ class Signup extends React.Component {
         <label className="signup-password">
           Password: 
           <input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input>
+        </label>
+        <br></br>
+        <label className="signup-password">
+          Re-enter Password: 
+          <input type="password" placeholder="re-enter password..." onChange={this.onCheckPasswordChange.bind(this)}></input>
         </label>
         <br></br>
         <label className="signup-user-type">
