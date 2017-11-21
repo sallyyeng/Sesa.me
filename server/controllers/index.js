@@ -8,15 +8,14 @@ module.exports = {
 
   //signup controller
   signup: {
+    //creates a new user or finds an already existing user
     post: (req, res) => {
-      //create user
       db.User.findOrCreate({
         where: {username: req.body.username}
       })
       .spread((user, created) => {
         console.log('Signup POST with', user.get({plain: true}));
-        //need to integrate passport strat
-        // res.sendStatus(created ? 201 : 200);
+        res.sendStatus(created ? 201 : 200);
       })
     }
   },
