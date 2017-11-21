@@ -30,6 +30,12 @@ class Signup extends React.Component {
   }
 
   onSubmit() {
+    if (this.state.username === '') {
+      return alert('Oops! Username cannot be empty. Let\'s try that again.');
+    }
+    if (this.state.password.length < 8) {
+      return alert('Oops! Password must be at least 8 characters long. Let\'s try that again.');
+    }
     this.props.createUser(this.state.username, this.state.password, this.state.admin);
   }
 

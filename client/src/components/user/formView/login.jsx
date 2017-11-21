@@ -23,7 +23,6 @@ class Login extends React.Component {
   }
 
   onSubmit() {
-    console.log('clicked submit');
     this.props.logInUser(this.state.username, this.state.password);
   }
 
