@@ -27,6 +27,7 @@ class App extends React.Component {
 
     this.unlockForms = this.unlockForms.bind(this);
     this.onEsc = this.onEsc.bind(this);
+    this.hideBugButton = this.hideBugButton.bind(this);
   }
 
   componentDidMount(){
@@ -182,6 +183,12 @@ class App extends React.Component {
     });
   }
 
+  hideBugButton(){
+    this.setState({
+      showBugButton: false
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login',
@@ -212,7 +219,7 @@ class App extends React.Component {
         <Game/>
         <p>It looks like you've found a bug.  Would you like to report it?</p>
         <button onClick={this.showLogIn.bind(this)}>yes</button>
-        <button>no</button>
+        <button onClick={this.hideBugButton}>no</button>
       </div>;
 
     } else if (this.state.view === 'login') {
