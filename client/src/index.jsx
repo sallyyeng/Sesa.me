@@ -174,7 +174,8 @@ class App extends React.Component {
 
   showLogIn() {
     this.setState({
-      view: 'login'
+      view: 'login',
+      showBugButton: false
     });
   }
 
@@ -188,16 +189,27 @@ class App extends React.Component {
     this.setState({showBugButton: true});
   }
 
+
+
   render() {
     if (this.state.showBugButton === true) {
       return <div>
         <Game/>
         <p>It looks like you've found a bug.  Would you like to report it?</p>
-        <button>yes</button>
+        <button onClick={this.showLogIn.bind(this)}>yes</button>
         <button>no</button>
       </div>;
 
-    } 
+    } else if (this.state.view === 'login') {
+      return (<div>
+        <Game/>
+        <div>
+          <h3>Login or signup to report a bug</h3><br/>
+          <Login logInUser={this.logInUser.bind(this)}/>
+        </div>
+
+      </div>);
+    }
 
     return (
       <div>
