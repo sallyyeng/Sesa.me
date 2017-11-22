@@ -11,18 +11,7 @@ class Submission extends React.Component {
       last: '',
       contact: '',
       urgency: '',
-      message: '',
-      //sample response data for mocking
-      responses: [
-        {
-          createdAt: '10/20/2017',
-          admin_response: 'Test'
-        },
-        {
-          createdAt: '10/21/2017',
-          admin_response: 'Test2'
-        }
-      ]
+      message: ''
     }
   }
 
