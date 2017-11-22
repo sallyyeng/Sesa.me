@@ -38,9 +38,10 @@ class App extends React.Component {
       data: {
         username: username,
         hash: hash,
-        admin: admin
+        account_type: admin
       },
       success: (data) => {
+        alert('You have successfully created an account');
         console.log('success');
         this.setState({
           view: 'login'
@@ -66,14 +67,18 @@ class App extends React.Component {
         hash: hash
       },
       success: (data) => {
-        console.log(data);
+        alert('You have successfully logged in');
+        console.log('LOGIN STATE', data.username)
         this.setState({
           view: 'submissions',
+          username: data.username,
+          type: data.account_type
           // should this recieve data from db to set state values for type (admin?) and username???
         });
       },
       error: (error) => {
-        console.log(error);
+        alert('Incorrect password');
+        console.log('Unsuccessful login with error: ', error);
       }
     });
   }
@@ -96,7 +101,7 @@ class App extends React.Component {
         alert('Your message was sent succesfully. Check back often for status updates.');
       },
       error: (error) => {
-        console.log(error);
+        console.log('Error sending message with', error);
       }
     });
   }
@@ -105,12 +110,9 @@ class App extends React.Component {
     console.log(`in retrieveResponses with ${username}`);
     $.ajax({
       method: 'GET',
-      url: '/submissions',
-      data: {
-        username: username
-      },
+      url: '/submissions?username=' + username + '&account_type=null',
       success: (data) => {
-        console.log(data);
+        console.log('USER MESSAGES', data);
         callback(data);
       },
       error: (error) => {
@@ -123,7 +125,7 @@ class App extends React.Component {
     console.log(`in retrieveAllResponses`);
     $.ajax({
       method: 'GET',
-      url: '/submissions',
+      url: '/submissions?username=' + this.state.username + '&account_type=' + this.state.type,
       success: (data) => {
         console.log(data);
         callback(data);
