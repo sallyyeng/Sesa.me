@@ -32,7 +32,7 @@ class AdminView extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillReceiveProps() {
     this.props.retrieveOpenMessages( (data) => {
       this.setState({
         //may have to change 'data' depending on format
