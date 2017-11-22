@@ -26,6 +26,14 @@ class App extends React.Component {
     }
 
     this.unlockForms = this.unlockForms.bind(this);
+    this.onEsc = this.onEsc.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this.onEsc, false);
+  }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.onEsc, false);
   }
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
@@ -191,6 +199,11 @@ class App extends React.Component {
     this.setState({showBugButton: true});
   }
 
+  onEsc(e){
+    if(e.keyCode === 27) {
+      console.log('hi');
+    }
+  }
 
 
   render() {
