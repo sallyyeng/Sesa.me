@@ -41,6 +41,7 @@ class App extends React.Component {
         account_type: admin
       },
       success: (data) => {
+        alert('You have successfully created an account');
         console.log('success');
         this.setState({
           view: 'login'
@@ -66,14 +67,18 @@ class App extends React.Component {
         hash: hash
       },
       success: (data) => {
+        alert('You have successfully logged in');
         console.log('LOGIN WITH', data);
         this.setState({
           view: 'submissions',
+          username: data.username,
+          type: data.account_type
           // should this recieve data from db to set state values for type (admin?) and username???
         });
       },
       error: (error) => {
-        console.log(error);
+        alert('Incorrect password');
+        console.log('Unsuccessful login with error: ', error);
       }
     });
   }
@@ -96,7 +101,7 @@ class App extends React.Component {
         alert('Your message was sent succesfully. Check back often for status updates.');
       },
       error: (error) => {
-        console.log(error);
+        console.log('Error sending message with', error);
       }
     });
   }

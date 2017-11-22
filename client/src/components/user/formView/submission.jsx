@@ -74,6 +74,7 @@ class Submission extends React.Component {
   // on submission, call method to send form data to server
   onSubmit() {
     console.log('clicked');
+    console.log('PROPS USERNAME', this.props.username);
     this.props.sendMessage(
       this.props.username,
       this.state.first,

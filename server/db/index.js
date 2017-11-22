@@ -11,7 +11,7 @@ const db = new Sequelize('messages', 'root', '', {
 
 const User = db.define('user', {
   //id is already created by default as PK
-  username: Sequelize.STRING,
+  username: {type: Sequelize.STRING, unique: true},
   hash: Sequelize.STRING,
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,

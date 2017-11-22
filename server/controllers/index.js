@@ -13,28 +13,35 @@ module.exports = {
         where: {username: req.body.username, hash: req.body.hash, account_type: req.body.account_type}
       })
       .spread((user, created) => {
-        console.log('Signup POST with', user.get({plain: true}));
+        console.log('User created with', user.get({plain: true}));
         res.sendStatus(created ? 201 : 200);
+      })
+      .catch((err) => {
+        console.log('Error. User ', req.body.username, ' already exists');
+        res.sendStatus(400);
       })
     }
   },
 
   login: {
     //authenticate user, verifying username and hashed pw match
-    //***TODO***: handle incorrect pw; currently logs in anyone
     post: (req, res) => {
       db.User.findOne({
         where: {
-          username: req.body.username,
-          hash: req.body.hash
+          username: req.body.username
         }
       })
       .then((user) => {
-        console.log('Successful authentication')
-        res.status(201).json({username: user.username, account_type: user.account_type});
+        if (user.get('hash') === req.body.hash) {
+          console.log('Successful authentication with', user.get('username'), user.get('account_type'));
+          res.status(201).json({username: user.get('username'), account_type: user.get('account_type')});
+        } else {
+          console.log('incorrect login details for ', req.body.username);
+          res.sendStatus(400);
+        }
       })
       .catch((err) => {
-        console.log('Incorrect login details with error:', err);
+        console.log('Bad request with error:', err);
         res.sendStatus(400);
       })
     }
@@ -72,31 +79,40 @@ module.exports = {
     //write a message to the db associated with a particular user
     post: (req, res) => {
       if (req.body.account_type !== 'admin') {
+        //find user by username
         db.User.findOne({
           where: {
             username: req.body.username
           }
         })
         .then((user) => {
-          //***TODO***: handle first and last name (amend user object with name)
-          db.Submission.create({
-            userId: user.get('id'),
-            user_message: req.body.user_message,
-            user_contact: req.body.user_contact,
-            user_urgency: req.body.user_urgency
+          //amend user object with first and last name
+          user.update({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name
           })
-          .then((createdMessage) => {
-            console.log('Successful user message creation with', createdMessage);
-            res.sendStatus(201);
+          .then((updatedUser) => {
+            //create a submission record tied to that particular user
+            db.Submission.create({
+              userId: updatedUser.get('id'),
+              user_message: req.body.user_message,
+              user_contact: req.body.user_contact,
+              user_urgency: req.body.user_urgency
+            })
+            .then((createdMessage) => {
+              console.log('Successful user message creation with', createdMessage);
+              res.sendStatus(201);
+            })
+            .catch((err) => {
+              console.log('Error creating user message with', err);
+              res.sendStatus(400);
+            })
           })
-        })
-        .catch((err) => {
-          console.log('Error creating user message with', err);
-          res.sendStatus(400);
         })
       } else {
+        //disallow non-users from sending messages
         console.log('Admins cannot create messages, only amend existing ones');
-        res.sendStatus(400);
+        res.sendStatus(400);        
       }
     },
     //allows an admin to edit most recent submission associated with a user
