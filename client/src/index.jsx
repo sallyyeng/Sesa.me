@@ -220,6 +220,11 @@ class App extends React.Component {
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
+    } else if(this.state.view === 'admin') {
+      return (
+        <div>
+          <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        </div>);
     }
 
     return (
