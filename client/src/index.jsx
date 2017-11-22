@@ -204,11 +204,20 @@ class App extends React.Component {
       return (<div>
         <Game/>
         <div>
-          <h3>Login or signup to report a bug</h3><br/>
-          <Login logInUser={this.logInUser.bind(this)}/>
+          <h3>Login or signup to report a bug:</h3><br/>
+          <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         </div>
 
       </div>);
+    } else if (this.state.view === 'signup') {
+      return (<div>
+        <Game/>
+        <div>
+          <h3>Signup:</h3>
+          <br></br>
+          <Signup createUser={this.createUser.bind(this)}/>
+        </div>
+      </div>)
     }
 
     return (
@@ -217,7 +226,7 @@ class App extends React.Component {
         
         <button onClick={this.showLogIn.bind(this)}>Log In</button>
         <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
-        <Login logInUser={this.logInUser.bind(this)}/>
+        <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
         <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>

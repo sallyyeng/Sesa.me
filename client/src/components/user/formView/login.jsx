@@ -29,12 +29,15 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <div>Login Form: This will be rendered conditionally</div>
+        <div>Login</div>
         <label className="login-username">Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input></label>
         <br></br>
         <label className="login-password">Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input></label>
         <br></br>
         <button className="login-button" onClick={this.onSubmit.bind(this)}>Log In</button>
+        <br></br>
+        <p>Don't have an account?  Sign up:</p>
+        <button onClick={this.props.showSignUp}>Signup</button>
       </div>
     );
   }
