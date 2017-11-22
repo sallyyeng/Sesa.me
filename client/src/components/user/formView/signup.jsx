@@ -54,7 +54,7 @@ class Signup extends React.Component {
   render() {
     return (
       <div>
-        <div>Signup Form: This will be rendered conditionally</div>
+        <div>Signup:</div>
         <label className="signup-username">
           Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input>
         </label>
@@ -73,6 +73,10 @@ class Signup extends React.Component {
         </label>
         <br></br>
         <button onClick={this.onSubmit.bind(this)}>Create Account</button>
+        <br></br>
+        <p>
+          <button onClick={this.props.showLogIn}>Return to log in page</button>
+        </p>
       </div>
     );
   }

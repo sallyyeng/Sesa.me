@@ -215,7 +215,7 @@ class App extends React.Component {
         <div>
           <h3>Signup:</h3>
           <br></br>
-          <Signup createUser={this.createUser.bind(this)}/>
+          <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
     }
