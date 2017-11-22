@@ -1,4 +1,5 @@
 import React from 'react';
+import Response from './response.jsx';
 
 class UserResponses extends React.Component {
 	constructor(props) {
