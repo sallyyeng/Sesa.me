@@ -220,10 +220,21 @@ class App extends React.Component {
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
+
     } else if(this.state.view === 'admin') {
       return (
         <div>
           <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        </div>);
+    } else if(this.state.view === 'submission') {
+      return (
+        <div>
+          <Game/>
+          <div>
+            <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
+          </div>
+
+
         </div>);
     }
 
