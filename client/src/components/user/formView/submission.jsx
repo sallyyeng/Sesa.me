@@ -101,7 +101,7 @@ class Submission extends React.Component {
   render() {
     return (
       <div>
-        <div>User Submission View: This will be rendered conditionally</div>
+        <div>Hello {this.props.username}, submit a bug report below:</div>
         <div className="user-message-main">
           <h5>New Message</h5>
           <label className="firstname">First Name:<input onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></input></label>
@@ -134,7 +134,7 @@ class Submission extends React.Component {
         </div>
 
         <div className="user-status-main">
-          <h5>Responses</h5>
+          <h5>Correspondence history:</h5>
           <ul>
             {this.state.responses.map((response, index) => {
               return <Response key={index} response={response}/>
