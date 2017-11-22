@@ -201,7 +201,7 @@ class App extends React.Component {
 
   onEsc(e){
     if(e.keyCode === 27) {
-      console.log('hi');
+      this.setState({view: 'restricted'});
     }
   }
 
@@ -233,6 +233,12 @@ class App extends React.Component {
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
+
+    } else if(this.state.view === 'restricted') {
+      return (
+        <div>
+          <Game unlockForms={this.unlockForms}/>
+        </div>);
     }
 
     return (
