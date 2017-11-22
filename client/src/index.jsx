@@ -26,6 +26,14 @@ class App extends React.Component {
     }
 
     this.unlockForms = this.unlockForms.bind(this);
+    this.onEsc = this.onEsc.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this.onEsc, false);
+  }
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.onEsc, false);
   }
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
@@ -191,6 +199,11 @@ class App extends React.Component {
     this.setState({showBugButton: true});
   }
 
+  onEsc(e){
+    if(e.keyCode === 27) {
+      this.setState({view: 'restricted'});
+    }
+  }
 
 
   render() {
@@ -226,6 +239,7 @@ class App extends React.Component {
         <div>
           <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
         </div>);
+
     } else if(this.state.view === 'submission') {
       return (
         <div>
@@ -233,11 +247,14 @@ class App extends React.Component {
           <div>
             <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
           </div>
-
+        </div>);
+    } else if(this.state.view === 'restricted') {
+      return (
+        <div>
+          <Game unlockForms={this.unlockForms}/>
 
         </div>);
     }
-
     return (
       <div>
         <Game unlockForms={this.unlockForms}/>

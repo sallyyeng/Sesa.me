@@ -28,9 +28,8 @@ class Board extends React.Component {
   incrementHotSquareClickCount(){
     this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
     if(this.state.hotSquareClickCount === 10) {
-      // do something
-      // execute a callback from the App component
       this.props.unlockForms();
+      this.state.hotSquareClickCount = 0;
     }
   }
 
