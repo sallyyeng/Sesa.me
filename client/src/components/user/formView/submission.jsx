@@ -90,9 +90,9 @@ class Submission extends React.Component {
   render() {
     return (
       <div>
-        <div>Hello {this.props.username}, submit a bug report below:</div>
+        <div><h3>Hello {this.props.username}! Submit a bug report below:</h3></div>
         <div className="user-message-main">
-          <h5>New Message</h5>
+
           <label className="firstname">First Name:<input onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></input></label>
           <br></br>
           <label className="lastname">Last Name:<input onChange={this.updateLast.bind(this)}type="text" placeholder="last name"></input></label>
