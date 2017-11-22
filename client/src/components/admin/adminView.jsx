@@ -32,7 +32,7 @@ class AdminView extends React.Component {
     }
   }
 
-  componentWillReceiveProps() {
+  componentDidMount() {
     this.props.retrieveOpenMessages( (data) => {
       console.log('ADMIN MESSAGES', data);
       this.setState({
@@ -41,6 +41,16 @@ class AdminView extends React.Component {
       });
     });
   }
+
+  // componentWillReceiveProps() {
+  //   this.props.retrieveOpenMessages( (data) => {
+  //     console.log('ADMIN MESSAGES', data);
+  //     this.setState({
+  //       //may have to change 'data' depending on format
+  //       messages: data
+  //     });
+  //   });
+  // }
 
   //sets state variable messageId to currently selected message's id
   setResponseId(id) {
