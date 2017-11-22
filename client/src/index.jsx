@@ -6,6 +6,7 @@ import Login from './components/user/formView/login.jsx';
 import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
+import UserResponses from './components/user/formView/userResponses.jsx';
 
 
 class App extends React.Component {
@@ -28,6 +29,7 @@ class App extends React.Component {
     this.unlockForms = this.unlockForms.bind(this);
     this.onEsc = this.onEsc.bind(this);
     this.hideBugButton = this.hideBugButton.bind(this);
+    this.showAdminResponses = this.showAdminResponses.bind(this);
   }
 
   componentDidMount(){
@@ -202,6 +204,12 @@ class App extends React.Component {
     });
   }
 
+  showAdminResponses(){
+    this.setState({
+      view: 'responses'
+    });
+  }
+
   unlockForms(){
     this.setState({showBugButton: true});
   }
@@ -252,14 +260,23 @@ class App extends React.Component {
         <div>
           <Game/>
           <div>
-            <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
+            <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)} showAdminResponses={this.showAdminResponses}/>
           </div>
         </div>);
+
+    } else if(this.state.view === 'responses'){
+      return(
+        <div>
+         <Game/>
+         <div>
+           <UserResponses retrieveResponses={this.retrieveResponses.bind(this)} username={this.state.username}/>
+         </div>
+        </div> 
+        );  
     } else if(this.state.view === 'restricted') {
       return (
         <div>
           <Game unlockForms={this.unlockForms}/>
-          <h1>{JSON.stringify(this.retrieveResponses)}</h1>
         </div>);
     }
     return (
@@ -272,7 +289,7 @@ class App extends React.Component {
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
         <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
-        
+
       </div>
     )
   }

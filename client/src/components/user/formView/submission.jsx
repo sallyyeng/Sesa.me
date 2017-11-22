@@ -67,7 +67,7 @@ class Submission extends React.Component {
   render() {
     return (
       <div>
-        <div><h3>Hello {this.props.username}! Submit a bug report below:</h3></div>
+        <div><h3>Hello {this.props.username}! Submit a bug report below:</h3> <button onClick={this.props.showAdminResponses}>view correspondence</button></div>
         <div className="user-message-main">
 
           <label className="firstname">First Name:<input onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></input></label>
@@ -98,8 +98,6 @@ class Submission extends React.Component {
           <br></br>
           <button onClick={this.onSubmit.bind(this)}>Submit Message</button>
         </div>
-
-        <UserResponses retrieveResponses={this.props.retrieveResponses.bind(this)} username={this.props.username}/>
 
       </div>
     )
