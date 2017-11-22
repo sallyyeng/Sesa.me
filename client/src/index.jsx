@@ -30,6 +30,7 @@ class App extends React.Component {
     this.onEsc = this.onEsc.bind(this);
     this.hideBugButton = this.hideBugButton.bind(this);
     this.showAdminResponses = this.showAdminResponses.bind(this);
+    this.showSubmissionForm = this.showSubmissionForm.bind(this);
   }
 
   componentDidMount(){
@@ -210,6 +211,12 @@ class App extends React.Component {
     });
   }
 
+  showSubmissionForm(){
+    this.setState({
+      view: 'submission'
+    });
+  }
+
   unlockForms(){
     this.setState({showBugButton: true});
   }
@@ -269,7 +276,7 @@ class App extends React.Component {
         <div>
          <Game/>
          <div>
-           <UserResponses retrieveResponses={this.retrieveResponses.bind(this)} username={this.state.username}/>
+           <UserResponses showSubmissionForm={this.showSubmissionForm} retrieveResponses={this.retrieveResponses.bind(this)} username={this.state.username}/>
          </div>
         </div> 
         );  

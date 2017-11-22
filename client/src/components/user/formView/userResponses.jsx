@@ -23,7 +23,7 @@ class UserResponses extends React.Component {
 	render(){
 		return (
 			<div className="user-status-main">
-	          <h5>Correspondence history:</h5>
+	          <h5>Correspondence history:</h5> <span><button onClick={this.props.showSubmissionForm}>submit a bug report</button></span>
 	          <ul>
 	            {this.state.responses.map((response, index) => {
 	              return <Response key={JSON.stringify(response)} response={response}/>
