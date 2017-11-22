@@ -153,6 +153,25 @@ class App extends React.Component {
     });
   }
 
+  markAsComplete(id) {
+    console.log(`in markAsComplete with ${id}`);
+    $.ajax({
+      method: 'PATCH',
+      url: '/submissions',
+      data: {
+        id: id,
+        admin_complete: true
+      },
+      success: (data) => {
+        console.log(data);
+        alert('This messages has been marked as complete. It will no longer appear in your inbox.')
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login'
@@ -189,7 +208,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
       </div>
     )
   }

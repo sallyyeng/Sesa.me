@@ -28,7 +28,7 @@ class AdminView extends React.Component {
         }
       ],
       messageId: null,
-      response: ''
+      response: ''    
     }
   }
 
@@ -60,6 +60,12 @@ class AdminView extends React.Component {
     this.props.submitAdminResponse(this.state.messageId, this.state.response);
   }
 
+  //calls the markAsComplete method in index.jsx to send id and status to server
+  setStatus(id) {
+    this.props.markAsComplete(id);
+  }
+
+
   render() {
     return (
       <div>
@@ -77,7 +83,7 @@ class AdminView extends React.Component {
           <h5>Inbox</h5>
           <ul>
             {this.state.messages.map( (message, index) => {
-              return <Message setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
+              return <Message setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
             })}
           </ul>
         </div>
