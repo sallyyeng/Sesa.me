@@ -124,20 +124,18 @@ module.exports = {
       }
     },
     //allows an admin to edit most recent submission associated with a user
-      //***TODO***Select and edit by submission id
     patch: (req, res) => {
-      if (req.body.account_type === 'admin') {
-        //find most recent message from a specific user
-        db.Submission.findAll({
-          limit: 1,
+      console.log('ADMIN PATCH WITH ', req.body)
+      // if (req.body.account_type === 'admin') {
+        //find message by message id
+        db.Submission.findOne({
           where: {
-            username: req.body.username
-          },
-          order: [['createdAt', 'DESC']]
+            id: req.body.id,
+          }
         })
         //update that message with admin's response
-        .then((latestMessage) => {
-          latestMessage.update({
+        .then((message) => {
+          message.update({
             admin_response: req.body.admin_response,
             admin_complete: req.body.admin_complete
           })
@@ -150,10 +148,10 @@ module.exports = {
             res.sendStatus(400);
           })
         })
-      } else {
-        console.log('Only admins can amend messages');
-        res.sendStatus(400);
-      }
+      // } else {
+      //   console.log('Only admins can amend messages');
+      //   res.sendStatus(400);
+      // }
     }
   }
 }
