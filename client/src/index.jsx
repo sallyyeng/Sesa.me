@@ -259,7 +259,7 @@ class App extends React.Component {
       return (
         <div>
           <Game unlockForms={this.unlockForms}/>
-
+          <h1>{JSON.stringify(this.retrieveResponses)}</h1>
         </div>);
     }
     return (
@@ -272,6 +272,7 @@ class App extends React.Component {
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
         <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        
       </div>
     )
   }

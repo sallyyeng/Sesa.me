@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Response from './response.jsx';
+// import Response from './response.jsx';
+import UserResponses from './userResponses.jsx';
 
 
 class Submission extends React.Component {
@@ -27,16 +28,16 @@ class Submission extends React.Component {
   }
 
   //On component load call method to retrieve admin responses for this user from server
-  componentDidMount() {
-    console.log('USER PROPS', this.props);
-    this.props.retrieveResponses(this.props.username, (data) => {
-      console.log('USER MESSAGES ON SUB COMPONENT', data);
-      this.setState({
-        //may have to change 'data' depending on what format the data is returned as
-        responses: data
-      });
-    });
-  }
+  // componentDidMount() {
+  //   console.log('USER PROPS', this.props);
+  //   this.props.retrieveResponses(this.props.username, (data) => {
+  //     console.log('USER MESSAGES ON SUB COMPONENT', data);
+  //     this.setState({
+  //       //may have to change 'data' depending on what format the data is returned as
+  //       responses: data
+  //     });
+  //   });
+  // }
 
   /* ================================ */
   /* Update state based on user input */
@@ -122,14 +123,7 @@ class Submission extends React.Component {
           <button onClick={this.onSubmit.bind(this)}>Submit Message</button>
         </div>
 
-        <div className="user-status-main">
-          <h5>Correspondence history:</h5>
-          <ul>
-            {this.state.responses.map((response, index) => {
-              return <Response key={index} response={response}/>
-            })}
-          </ul>
-        </div>
+        <UserResponses retrieveResponses={this.props.retrieveResponses.bind(this)} username={this.props.username}/>
 
       </div>
     )
