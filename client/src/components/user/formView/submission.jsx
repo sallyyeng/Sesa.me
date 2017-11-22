@@ -27,8 +27,10 @@ class Submission extends React.Component {
   }
 
   //On component load call method to retrieve admin responses for this user from server
-  componentWillReceiveProps() {
-    this.props.retrieveResponses(this.props.username, (data) => {
+  componentWillReceiveProps(nextProps) {
+    console.log('USER PROPS', this.props)
+    this.props.retrieveResponses(nextProps.username, (data) => {
+      console.log('USER MESSAGES ON SUB COMPONENT', data);
       this.setState({
         //may have to change 'data' depending on what format the data is returned as
         responses: data

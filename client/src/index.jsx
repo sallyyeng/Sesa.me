@@ -68,7 +68,7 @@ class App extends React.Component {
       },
       success: (data) => {
         alert('You have successfully logged in');
-        console.log('LOGIN WITH', data);
+        console.log('LOGIN STATE', data.username)
         this.setState({
           view: 'submissions',
           username: data.username,
@@ -110,13 +110,9 @@ class App extends React.Component {
     console.log(`in retrieveResponses with ${username}`);
     $.ajax({
       method: 'GET',
-      url: '/submissions',
-      data: {
-        username: username,
-        account_type: this.state.account_type
-      },
+      url: '/submissions?username=' + username + '&account_type=null',
       success: (data) => {
-        console.log(data);
+        console.log('USER MESSAGES', data);
         callback(data);
       },
       error: (error) => {
@@ -129,10 +125,7 @@ class App extends React.Component {
     console.log(`in retrieveAllResponses`);
     $.ajax({
       method: 'GET',
-      url: '/submissions',
-      data: {
-        account_type: this.state.account_type
-      },
+      url: '/submissions?username=' + this.state.username + '&account_type=' + this.state.type,
       success: (data) => {
         console.log(data);
         callback(data);

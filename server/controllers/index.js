@@ -49,7 +49,8 @@ module.exports = {
   submissions: {
     //send a specific user's messages or all messages for an admin
     get: (req, res) => {
-      if (req.body.account_type === 'admin') {
+      console.log('GET with query', req.query);
+      if (req.query.account_type === 'admin') {
         db.Submission.findAll()
         .then((allMessages) => {
           console.log('Fetched all msgs for admin with', allMessages);
@@ -60,19 +61,26 @@ module.exports = {
           res.sendStatus(404);
         })
       } else {
-        db.Submission.findAll({
+        db.User.findOne({
           where: {
-            //Note: userId is the FK in the submission model that points to a particular user
-            userId: req.body.username
+            username: req.query.username
           }
         })
-        .then((userMessages) => {
-          console.log('Fetched all msgs for user with', userMessages);
-          res.status(200).json(userMessages);
-        })
-        .catch((err) => {
-          console.log('Error fetching msgs for user with', err);
-          res.sendStatus(404);
+        .then((user) => {
+          db.Submission.findAll({
+            where: {
+              //Note: userId is the FK in the submission model that points to a particular user
+              userId: user.get('id')
+            }
+          })
+          .then((userMessages) => {
+            console.log('Fetched all msgs for user with', userMessages);
+            res.status(200).json(userMessages);
+          })
+          .catch((err) => {
+            console.log('Error fetching msgs for user with', err);
+            res.sendStatus(404);            
+          })
         })
       }
     },
