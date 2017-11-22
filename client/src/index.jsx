@@ -30,14 +30,14 @@ class App extends React.Component {
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
 
-  createUser(username, password, admin) {
-    console.log(` ${username}, ${password}, ${admin} posted to server`);
+  createUser(username, hash, admin) {
+    console.log(` ${username}, ${hash}, ${admin} posted to server`);
     $.ajax({
       method: 'POST',
       url: '/signup',
       data: {
         username: username,
-        password: password,
+        hash: hash,
         admin: admin
       },
       success: (data) => {
@@ -56,14 +56,14 @@ class App extends React.Component {
     });
   }
 
-  logInUser(username, password) {
-    console.log(`${username}, ${password} posted to server`);
+  logInUser(username, hash) {
+    console.log(`${username}, ${hash} posted to server`);
     $.ajax({
       method: 'POST',
       url: '/login',
       data: {
         username: username,
-        password: password
+        hash: hash
       },
       success: (data) => {
         console.log(data);
@@ -119,6 +119,59 @@ class App extends React.Component {
     });
   }
 
+  retrieveOpenMessages(callback) {
+    console.log(`in retrieveAllResponses`);
+    $.ajax({
+      method: 'GET',
+      url: '/submissions',
+      success: (data) => {
+        console.log(data);
+        callback(data);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  submitAdminResponse(id, response) {
+    console.log(`in submitAdminResponse with ${id}, ${response}`);
+    $.ajax({
+      method: 'PATCH',
+      url: '/submissions',
+      data: {
+        id: id,
+        admin_response: response
+      },
+      success: (data) => {
+        console.log(data);
+        alert('Your response was sent successfully');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  markAsComplete(id) {
+    console.log(`in markAsComplete with ${id}`);
+    $.ajax({
+      method: 'PATCH',
+      url: '/submissions',
+      data: {
+        id: id,
+        admin_complete: true
+      },
+      success: (data) => {
+        console.log(data);
+        alert('This messages has been marked as complete. It will no longer appear in your inbox.')
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   showLogIn() {
     this.setState({
       view: 'login'
@@ -155,7 +208,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView/>
+        <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Message extends React.Component {
+class Response extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,4 +17,4 @@ class Message extends React.Component {
   }
 }
 
-export default Message;
+export default Response;

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Message from './message.jsx';
+import Response from './response.jsx';
 
 
 class Submission extends React.Component {
@@ -120,10 +120,10 @@ class Submission extends React.Component {
         </div>
 
         <div className="user-status-main">
-          <h5>Message Replies</h5>
+          <h5>Responses</h5>
           <ul>
             {this.state.responses.map((response, index) => {
-              return <Message key={index} response={response}/>
+              return <Response key={index} response={response}/>
             })}
           </ul>
         </div>
