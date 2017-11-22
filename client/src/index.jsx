@@ -76,13 +76,13 @@ class App extends React.Component {
       },
       success: (data) => {
         alert('You have successfully logged in');
-        console.log('LOGIN STATE', data.username)
         this.setState({
-          view: 'submissions',
+          view: 'submission',
           username: data.username,
           type: data.account_type
           // should this recieve data from db to set state values for type (admin?) and username???
         });
+        console.log('LOGIN STATE', this.state);
       },
       error: (error) => {
         alert('Incorrect password');
@@ -234,7 +234,7 @@ class App extends React.Component {
         </div>
       </div>)
 
-    } else if(this.state.view === 'admin') {
+    } else if(this.state.view === 'submission' && this.state.type === 'admin') {
       return (
         <div>
           <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
