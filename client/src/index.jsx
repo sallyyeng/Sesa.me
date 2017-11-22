@@ -112,7 +112,8 @@ class App extends React.Component {
       method: 'GET',
       url: '/submissions',
       data: {
-        username: username
+        username: username,
+        account_type: this.state.account_type
       },
       success: (data) => {
         console.log(data);
@@ -129,6 +130,9 @@ class App extends React.Component {
     $.ajax({
       method: 'GET',
       url: '/submissions',
+      data: {
+        account_type: this.state.account_type
+      },
       success: (data) => {
         console.log(data);
         callback(data);
