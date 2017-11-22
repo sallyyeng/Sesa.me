@@ -51,7 +51,11 @@ module.exports = {
     get: (req, res) => {
       console.log('GET with query', req.query);
       if (req.query.account_type === 'admin') {
-        db.Submission.findAll()
+        db.Submission.findAll({
+          where: {
+            admin_complete: null
+          }
+        })
         .then((allMessages) => {
           console.log('Fetched all msgs for admin with', allMessages);
           res.status(200).json(allMessages);
