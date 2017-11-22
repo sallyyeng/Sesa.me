@@ -10,7 +10,7 @@ module.exports = {
     //***TODO***: handle incorrect pw but pre-existing user
     post: (req, res) => {
       db.User.findOrCreate({
-        where: {username: req.body.username, hash: req.body.hash}
+        where: {username: req.body.username, hash: req.body.hash, account_type: req.body.account_type}
       })
       .spread((user, created) => {
         console.log('Signup POST with', user.get({plain: true}));
@@ -21,6 +21,7 @@ module.exports = {
 
   login: {
     //authenticate user, verifying username and hashed pw match
+    //***TODO***: handle incorrect pw; currently logs in anyone
     post: (req, res) => {
       db.User.findOne({
         where: {
@@ -30,7 +31,7 @@ module.exports = {
       })
       .then((user) => {
         console.log('Successful authentication')
-        res.sendStatus(201);
+        res.status(201).json({username: user.username, account_type: user.account_type});
       })
       .catch((err) => {
         console.log('Incorrect login details with error:', err);
@@ -77,6 +78,7 @@ module.exports = {
           }
         })
         .then((user) => {
+          //***TODO***: handle first and last name (amend user object with name)
           db.Submission.create({
             userId: user.get('id'),
             user_message: req.body.user_message,

@@ -38,7 +38,7 @@ class App extends React.Component {
       data: {
         username: username,
         hash: hash,
-        admin: admin
+        account_type: admin
       },
       success: (data) => {
         console.log('success');
@@ -66,7 +66,7 @@ class App extends React.Component {
         hash: hash
       },
       success: (data) => {
-        console.log(data);
+        console.log('LOGIN WITH', data);
         this.setState({
           view: 'submissions',
           // should this recieve data from db to set state values for type (admin?) and username???
