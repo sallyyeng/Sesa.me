@@ -12,7 +12,28 @@ function Square(props) {
   );
 }
 
+function HotSquare(props) {
+  return <button className="square" onClick={props.onClick}>{props.value}</button>;
+}
+
 class Board extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      hotSquareClickCount: 0
+    }
+  }
+
+  incrementHotSquareClickCount(){
+    this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
+    if(this.state.hotSquareClickCount === 10) {
+      // do something
+      // execute a callback from the App component
+      this.props.unlockForms();
+    }
+  }
+
   renderSquare(i) {
     return (
       <Square
@@ -20,6 +41,16 @@ class Board extends React.Component {
         onClick={() => this.props.onClick(i)}
       />
     );
+  }
+
+  renderHotSquare(i) {
+    return (
+      <HotSquare
+        value={this.props.squares[i]} 
+        onClick={ () => {
+          this.incrementHotSquareClickCount();
+          this.props.onClick(i);
+        }}/>);
   }
 
   render() {
@@ -36,7 +67,7 @@ class Board extends React.Component {
           {this.renderSquare(5)}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
+          {this.renderHotSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
@@ -114,6 +145,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
+            unlockForms={this.props.unlockForms}
           />
         </div>
         <div className="game-info">

@@ -21,8 +21,11 @@ class App extends React.Component {
         // login: render login component (if user clicks on login button)
         // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
         // submissions: render sumbissions component (if user is successfully logged in)
-      view: 'restricted'
+      view: 'restricted',
+      showBugButton: false
     }
+
+    this.unlockForms = this.unlockForms.bind(this);
   }
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
@@ -128,10 +131,25 @@ class App extends React.Component {
     });
   }
 
+  unlockForms(){
+    this.setState({showBugButton: true});
+  }
+
   render() {
+    if (this.state.showBugButton === true) {
+      return <div>
+        <Game/>
+        <p>It looks like you've found a bug.  Would you like to report it?</p>
+        <button>yes</button>
+        <button>no</button>
+      </div>;
+
+    } 
+
     return (
       <div>
-        <Game/>
+        <Game unlockForms={this.unlockForms}/>
+        
         <button onClick={this.showLogIn.bind(this)}>Log In</button>
         <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
         <Login logInUser={this.logInUser.bind(this)}/>
