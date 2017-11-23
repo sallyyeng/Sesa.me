@@ -1,13 +1,7 @@
-.user-message-main,
-.user-status-main,
-.admin-response-main,
-.admin-inbox-main {
-  border: 1px solid black;
-}
-
-.container,
-.signup-buttons {
-  text-align: center
+/*====MAIN STYLES====*/
+* {
+  font-family: 'Merriweather Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 .col-centered {
@@ -15,8 +9,52 @@
   justify-content: center
 }
 
-.inline-el {
-  display: inline;
-  width: 40%;
-  padding: 3%;
+.user-message-main,
+.user-status-main,
+.admin-response-main,
+.admin-inbox-main {
+  border: 1px solid black;
+}
+
+.control-label {
+  text-align: left;
+}
+
+.form-control {
+  min-width: 250px;
+}
+
+/*====SIGN UP====*/
+.container,
+.signup-buttons {
+  text-align: center
+}
+
+.signup-container {
+  font-size: 20px;
+}
+
+.sign-up-button {
+  min-width: 175px;
+}
+
+.admin-checkbox {
+  font-size: 14px;
+}
+
+/*====LOG IN====*/
+
+.login-container {
+  font-size: 20px;
+}
+
+/*====HOME PAGE====*/
+
+.report-bug-message {
+  font-size: 14px;
+  text-align: center;
+}
+
+.report-bug-buttons {
+  margin: 0 47%;
 }

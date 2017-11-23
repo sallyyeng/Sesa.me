@@ -5,6 +5,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -61,26 +62,23 @@ class Signup extends React.Component {
       <div className="container signup-container">
         <PageHeader><small>Signup</small></PageHeader>
         <ControlLabel className="signup-username">
-          Username:<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
+          Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
         </ControlLabel>
         <br></br>
         <ControlLabel className="signup-password">
-          Password:<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl>
+          Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl>
         </ControlLabel>
         <br></br>
         <ControlLabel className="signup-password">
-          Re-enter Password: 
-          <FormControl type="password" placeholder="re-enter password..." onChange={this.onCheckPasswordChange.bind(this)}></FormControl>
+          Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)}></FormControl>
         </ControlLabel>
         <br></br>
-        <ControlLabel className="signup-user-type">
-          Admin <FormControl type="checkbox" onChange={this.onAdminCheck.bind(this)}></FormControl>
-        </ControlLabel>
+        <Checkbox className="admin-checkbox" onChange={this.onAdminCheck.bind(this)}>Administrator</Checkbox>
         <br></br>
         <div className="col-centered">
           <ButtonToolbar>
-            <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
-            <Button bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
+            <Button className="sign-up-button" bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
+            <Button className="sign-up-button" bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
           </ButtonToolbar>
         </div>
       </div>

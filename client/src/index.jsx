@@ -7,6 +7,8 @@ import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
 import UserResponses from './components/user/formView/userResponses.jsx';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 
 class App extends React.Component {
@@ -232,16 +234,19 @@ class App extends React.Component {
     if (this.state.showBugButton === true) {
       return <div>
         <Game/>
-        <p>It looks like you've found a bug.  Would you like to report it?</p>
-        <button onClick={this.showLogIn.bind(this)}>yes</button>
-        <button onClick={this.hideBugButton}>no</button>
+        <div className="report-bug-message">
+          <p>It looks like you've found a bug.  Would you like to report it?</p>
+          <ButtonToolbar className="report-bug-buttons">
+            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
+            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.hideBugButton}>no</Button>
+          </ButtonToolbar>
+        </div>
       </div>;
 
     } else if (this.state.view === 'login') {
       return (<div>
         <Game/>
         <div>
-          <h3>Login or signup to report a bug:</h3><br/>
           <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         </div>
 
@@ -250,8 +255,6 @@ class App extends React.Component {
       return (<div>
         <Game/>
         <div>
-          <h3>Signup:</h3>
-          <br></br>
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
