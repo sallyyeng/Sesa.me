@@ -34,7 +34,9 @@ class UserResponses extends React.Component {
 		} else {
       return (
         <div className="user-status-main">
-          <h3>Correspondence history:</h3> <div>No responses yet.  Please check back later!</div>
+          <h3>Correspondence history:</h3>
+          <div><button onClick={this.props.showSubmissionForm}>navigate to bug report form</button></div>
+          <div>No responses yet.  Please check back later!</div>
         </div>);
     }	
 	}
