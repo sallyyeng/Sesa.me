@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Response from './response.jsx';
+import UserResponses from './userResponses.jsx';
 
 
 class Submission extends React.Component {
@@ -11,43 +11,9 @@ class Submission extends React.Component {
       last: '',
       contact: '',
       urgency: '',
-      message: '',
-      //sample response data for mocking
-      responses: [
-        {
-          createdAt: '10/20/2017',
-          admin_response: 'Test'
-        },
-        {
-          createdAt: '10/21/2017',
-          admin_response: 'Test2'
-        }
-      ]
+      message: ''
     }
   }
-
-  //On component load call method to retrieve admin responses for this user from server
-  componentDidMount() {
-    console.log('USER PROPS', this.props);
-    this.props.retrieveResponses(this.props.username, (data) => {
-      console.log('USER MESSAGES ON SUB COMPONENT', data);
-      this.setState({
-        //may have to change 'data' depending on what format the data is returned as
-        responses: data
-      });
-    });
-  }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('USER PROPS', this.props)
-  //   this.props.retrieveResponses(nextProps.username, (data) => {
-  //     console.log('USER MESSAGES ON SUB COMPONENT', data);
-  //     this.setState({
-  //       //may have to change 'data' depending on what format the data is returned as
-  //       responses: data
-  //     });
-  //   });
-  // }
 
   /* ================================ */
   /* Update state based on user input */
@@ -101,9 +67,9 @@ class Submission extends React.Component {
   render() {
     return (
       <div>
-        <div>User Submission View: This will be rendered conditionally</div>
+        <div><h3>Hello {this.props.username}! Submit a bug report below:</h3> <button onClick={this.props.showAdminResponses}>view correspondence</button></div>
         <div className="user-message-main">
-          <h5>New Message</h5>
+
           <label className="firstname">First Name:<input onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></input></label>
           <br></br>
           <label className="lastname">Last Name:<input onChange={this.updateLast.bind(this)}type="text" placeholder="last name"></input></label>
@@ -131,15 +97,6 @@ class Submission extends React.Component {
           <textarea onChange={this.updateMessage.bind(this)}type="text" placeholder="Additional information..."></textarea>
           <br></br>
           <button onClick={this.onSubmit.bind(this)}>Submit Message</button>
-        </div>
-
-        <div className="user-status-main">
-          <h5>Responses</h5>
-          <ul>
-            {this.state.responses.map((response, index) => {
-              return <Response key={index} response={response}/>
-            })}
-          </ul>
         </div>
 
       </div>
