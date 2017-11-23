@@ -10,7 +10,7 @@ class Response extends React.Component {
   render() {
     return (
       <div>
-        <div className="message-created-at">{this.props.response.createdAt}</div>
+        <div className="message-created-at">{this.props.response.updatedAt}</div>
         <div className="message-response">{this.props.response.admin_response}</div>
       </div>
     );
