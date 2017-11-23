@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from 'react-bootstrap/lib/Button';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,16 +32,16 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Login</div>
-        <label className="login-username">Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input></label>
+      <div className="container login-container">
+        <PageHeader><small>Login</small></PageHeader>
+        <ControlLabel className="login-username">Username:<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl></ControlLabel>
         <br></br>
-        <label className="login-password">Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input></label>
+        <ControlLabel className="login-password">Password:<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl></ControlLabel>
         <br></br>
-        <button className="login-button" onClick={this.onSubmit.bind(this)}>Log In</button>
+        <Button bsStyle="primary" className="login-button" onClick={this.onSubmit.bind(this)}>Log In</Button>
         <br></br>
-        <p>Don't have an account?  Sign up:</p>
-        <button onClick={this.props.showSignUp}>Signup</button>
+        <PageHeader><small>Don't have an account?  Sign up:</small></PageHeader>
+        <Button bsStyle="primary" onClick={this.props.showSignUp}>Signup</Button>
       </div>
     );
   }

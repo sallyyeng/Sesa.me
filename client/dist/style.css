@@ -4,3 +4,7 @@
 .admin-inbox-main {
   border: 1px solid black;
 }
+
+.container {
+  text-align: center
+}

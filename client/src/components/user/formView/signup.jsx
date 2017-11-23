@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from 'react-bootstrap/lib/Button';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -53,29 +57,29 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Signup:</div>
-        <label className="signup-username">
-          Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input>
-        </label>
+      <div className="container signup-container">
+        <PageHeader><small>Signup</small></PageHeader>
+        <ControlLabel className="signup-username">
+          Username:<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-password">
-          Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input>
-        </label>
+        <ControlLabel className="signup-password">
+          Password:<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-password">
+        <ControlLabel className="signup-password">
           Re-enter Password: 
-          <input type="password" placeholder="re-enter password..." onChange={this.onCheckPasswordChange.bind(this)}></input>
-        </label>
+          <FormControl type="password" placeholder="re-enter password..." onChange={this.onCheckPasswordChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-user-type">
-          Admin <input type="checkbox" onChange={this.onAdminCheck.bind(this)}></input>
-        </label>
+        <ControlLabel className="signup-user-type">
+          Admin <FormControl type="checkbox" onChange={this.onAdminCheck.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <button onClick={this.onSubmit.bind(this)}>Create Account</button>
+        <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
         <br></br>
         <p>
-          <button onClick={this.props.showLogIn}>Return to log in page</button>
+          <Button bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
         </p>
       </div>
     );
