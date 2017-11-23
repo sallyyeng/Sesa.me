@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message.jsx';
+import Response from './response.jsx';
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -59,18 +60,6 @@ class AdminView extends React.Component {
     });
   }
 
-  //when admin types a response, updates state variable response
-  updateResponse(e) {
-    this.setState({
-      response: e.target.value
-    });
-  }
-
-  //when admin submits a response, calls the submitAdminResponse method to send id and response to server as a patch request
-  sendResponse() {
-    this.props.submitAdminResponse(this.state.messageId, this.state.response);
-  }
-
   //calls the markAsComplete method in index.jsx to send id and status to server
   setStatus(id) {
     this.props.markAsComplete(id);
@@ -80,25 +69,19 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
-        <div>Admin View: This will be rendered conditionally</div>
-        <div className="admin-response-main">
-          <h5>New Response</h5>
-          <label className="message">Respond to message:</label>
-          <br></br>
-          <textarea onChange={this.updateResponse.bind(this)} type="text" placeholder="Response..."></textarea>
-          <br></br>
-          <button onClick={this.sendResponse.bind(this)}>Submit Response</button>
+        <div className="admin-header">
+          <h3>Welcome to the admin command center!</h3>
+          <h4>You can view and respond to user messages here.</h4>
         </div>
+        
+        <ul className="user-message-ul">
+          {this.state.messages.map( (message, index) => {
+            return <Message setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
+          })}
+        </ul>
 
-        <div className="admin-inbox-main">
-          <h5>Inbox</h5>
-          <ul>
-            {this.state.messages.map( (message, index) => {
-              return <Message setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
-            })}
-          </ul>
-        </div>
-
+        <Response className="group"/>
+      
       </div>
     )
   }
