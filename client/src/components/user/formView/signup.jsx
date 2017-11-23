@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -76,11 +77,12 @@ class Signup extends React.Component {
           Admin <FormControl type="checkbox" onChange={this.onAdminCheck.bind(this)}></FormControl>
         </ControlLabel>
         <br></br>
-        <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
-        <br></br>
-        <p>
-          <Button bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
-        </p>
+        <div className="col-centered">
+          <ButtonToolbar>
+            <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
+            <Button bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
+          </ButtonToolbar>
+        </div>
       </div>
     );
   }

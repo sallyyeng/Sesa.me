@@ -5,6 +5,18 @@
   border: 1px solid black;
 }
 
-.container {
+.container,
+.signup-buttons {
   text-align: center
+}
+
+.col-centered {
+  display: flex;
+  justify-content: center
+}
+
+.inline-el {
+  display: inline;
+  width: 40%;
+  padding: 3%;
 }
