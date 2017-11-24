@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import UserResponses from './userResponses.jsx';
+import Button from 'react-bootstrap/lib/Button';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 
 class Submission extends React.Component {
@@ -66,37 +72,46 @@ class Submission extends React.Component {
 
   render() {
     return (
-      <div>
-        <div><h3>Hello {this.props.username}! Submit a bug report below:</h3> <button onClick={this.props.showAdminResponses}>view correspondence</button></div>
-        <div className="user-message-main">
+      <div className="user-submission-main">
 
-          <label className="firstname">First Name:<input onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></input></label>
+        <PageHeader>Submission Form</PageHeader>
+        <h5>Use this form to submit a bug or to respond to an admin's request for additional information.</h5>
+        <Button bsStyle="primary" className="change-view-button" onClick={this.props.showAdminResponses}>View Correspondence</Button>
+
+
+        <div className="user-submission-container">
+
+          <ControlLabel className="firstname">First Name<FormControl onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></FormControl></ControlLabel>
           <br></br>
-          <label className="lastname">Last Name:<input onChange={this.updateLast.bind(this)}type="text" placeholder="last name"></input></label>
+          <ControlLabel className="lastname">Last Name<FormControl onChange={this.updateLast.bind(this)}type="text" placeholder="last name"></FormControl></ControlLabel>
           <br></br>
-          <label className="contact-info">How can we contact you?</label>
+          <ControlLabel className="contact-info">How can we contact you?</ControlLabel>
           <br></br>
-          <textarea onChange={this.updateContact.bind(this)}type="text" placeholder="contact information"></textarea>
+          <FormControl componentClass="textarea" onChange={this.updateContact.bind(this)}type="text" placeholder="contact information"></FormControl>
           <br></br>
-          <div>Please rank the urgency of your situation on a scale of 1 through 5, where 1 is the least urgent, and 5 indicates that you are in immediate danger.
+
+          <div>
+            <ControlLabel>Please rank the urgency of this bug on a scale of 1 through 5, where 1 is the least urgent, and 5 indicates that the bug is of immediate urgency.</ControlLabel>
             <br></br>
-            <label>1</label>
+            <span>1</span>
             <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="1"></input>
-            <label>2</label>
+            <span>2</span>
             <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="2"></input>
-            <label>3</label>
+            <span>3</span>
             <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="3"></input>
-            <label>4</label>
+            <span>4</span>
             <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="4"></input>
-            <label>5</label>
+            <span>5</span>
             <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="5"></input>
           </div>
           <br></br>
-          <label className="message">Please provide any information about your situation that we may use to help you:</label>
+
+          <ControlLabel className="message">Please provide any information about the bug that we may use to help you:</ControlLabel>
           <br></br>
-          <textarea onChange={this.updateMessage.bind(this)}type="text" placeholder="Additional information..."></textarea>
+          <FormControl componentClass="textarea" onChange={this.updateMessage.bind(this)}type="text" placeholder="Additional information..."></FormControl>
           <br></br>
-          <button onClick={this.onSubmit.bind(this)}>Submit Message</button>
+          <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit Message</Button>
+
         </div>
 
       </div>

@@ -260,7 +260,7 @@ class App extends React.Component {
     } else if(this.state.view === 'submission' && this.state.type === 'admin') {
       return (
         <div>
-          <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+          <AdminView showLogIn={this.showLogIn.bind(this)}markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
         </div>);
 
     } else if(this.state.view === 'submission') {
@@ -297,7 +297,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        <AdminView showLogIn={this.showLogIn.bind(this)} username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
 
       </div>
     )

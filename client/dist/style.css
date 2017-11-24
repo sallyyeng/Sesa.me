@@ -21,6 +21,7 @@ body {
 
 .control-label {
   text-align: left;
+  padding-top: 30px;
 }
 
 .form-control {
@@ -119,5 +120,82 @@ body {
   padding: 20px 10%;
   border: none;
 }
+
+/*====USER====*/
+.admin-response-container {
+  margin: 5px 50px 5px 0;
+  border: 0.25px solid #4B586E;
+  background: #FFF;
+  text-align: left;
+/*  box-shadow: 5px 5px 2px 0px #323B4A;
+*/}
+
+.admin-response-container span {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.admin-response-container p {
+  display: inline;
+  font-size: 14px;
+}
+
+.user-header {
+  text-align: center;
+}
+
+.admin-response-container Button {
+  margin: 10px auto;
+}
+
+.response-contents {
+  float: left;
+  width: 75%;
+}
+
+.response-actions {
+  float: left;
+}
+
+.admin-change-user-button {
+  float: right;
+}
+
+/*====USER SUBMISSION FORM====*/
+
+.user-submission-main {
+  text-align: center;
+}
+
+.change-view-button {
+  margin: 30px auto 100px auto;
+  width: 20%;
+}
+
+.user-submission-container {
+  border-top: 3px solid #4B586E;
+  width: 80%;
+  margin: auto;
+  font-size: 20px;
+  text-align: left
+}
+
+.user-submission-container span {
+  padding: 0 5px;
+}
+
+.welcome-header {
+  margin-top: 50px;
+}
+
+.admin-change-user-button {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+
+
 
 

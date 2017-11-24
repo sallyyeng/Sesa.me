@@ -56,7 +56,7 @@ class Signup extends React.Component {
   }
 
 
-
+  //On deployment: remove option to sign up as an admin. This will be done directly within the database.
   render() {
     return (
       <div className="container signup-container">

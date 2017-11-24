@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message.jsx';
+import Button from 'react-bootstrap/lib/Button';
+
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -68,8 +70,9 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
-        <div className="admin-header">
-          <h3>Welcome to the admin command center!</h3>
+        <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button>
+        <div className="admin-header group">
+          <h3 className="welcome-header">Welcome to Your Inbox!</h3>
           <h4>You can view and respond to user messages here.</h4>
         </div>
         
