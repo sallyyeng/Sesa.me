@@ -109,7 +109,9 @@ module.exports = {
               userId: updatedUser.get('id'),
               user_message: req.body.user_message,
               user_contact: req.body.user_contact,
-              user_urgency: req.body.user_urgency
+              user_urgency: req.body.user_urgency,
+              first_name: req.body.first_name,
+              last_name: req.body.last_name
             })
             .then((createdMessage) => {
               console.log('Successful user message creation with', createdMessage);
