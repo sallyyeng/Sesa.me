@@ -81,12 +81,10 @@ class App extends React.Component {
         hash: hash
       },
       success: (data) => {
-        alert('You have successfully logged in');
         this.setState({
           view: 'submission',
           username: data.username,
           type: data.account_type
-          // should this recieve data from db to set state values for type (admin?) and username???
         });
         console.log('LOGIN STATE', this.state);
       },
@@ -287,6 +285,7 @@ class App extends React.Component {
       return (
         <div>
           <Game unlockForms={this.unlockForms}/>
+          <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
         </div>);
     }
     return (
@@ -298,7 +297,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        <AdminView username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
 
       </div>
     )

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background: linear-gradient(45deg, #EAFFF0, #DFE7FF);
+}
+
 .col-centered {
   display: flex;
   justify-content: center
@@ -11,8 +15,7 @@
 
 .user-message-main,
 .user-status-main,
-.admin-response-main,
-.admin-inbox-main {
+.admin-response-main {
   border: 1px solid black;
 }
 
@@ -22,6 +25,19 @@
 
 .form-control {
   min-width: 250px;
+}
+
+/*====CLEARFIX====*/
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+} 
+.group:after {
+  clear: both;
+}
+.group {
+  zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
 /*====SIGN UP====*/
@@ -58,3 +74,43 @@
 .report-bug-buttons {
   margin: 0 47%;
 }
+
+/*====ADMIN====*/
+
+.admin-header {
+  text-align: center;
+}
+
+.user-message-container {
+  margin-right: 50px;
+  border: 1px solid #4B586E;
+  background: #FFFFF0;
+  box-shadow: 5px 5px 2px 0px #323B4A;
+}
+
+.user-message-ul {
+  margin: 5px 10px;
+}
+
+.user-message-container span {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-message-container p {
+  display: inline;
+  font-size: 14px;
+}
+
+.message-contents {
+  float: left;
+  width: 75%;
+}
+
+.message-actions {
+  float: left;
+}
+
+
