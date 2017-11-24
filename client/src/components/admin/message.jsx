@@ -11,6 +11,7 @@ class Message extends React.Component {
     super(props);
     this.state = {
       messageId: this.props.message.id,
+      messageName: this.props.message.first_name + ' ' + this.props.message.last_name,
       showResponseForm: false
     }
   }
@@ -50,7 +51,7 @@ class Message extends React.Component {
             <Button bsStyle="primary" onClick={this.onRespondClick.bind(this)} className="admin-response-button">Hide Response Form</Button>
           </div>
           <div className="message-response group">
-            <Response/>
+            <Response messageName={this.state.messageName} messageId={this.state.messageId} submitAdminResponse={this.props.submitAdminResponse}/>
           </div>
         </div>
       );

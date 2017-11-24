@@ -75,7 +75,7 @@ class AdminView extends React.Component {
         
         <ul className="user-message-ul">
           {this.state.messages.map( (message, index) => {
-            return <Message setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
+            return <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
           })}
         </ul>
 
