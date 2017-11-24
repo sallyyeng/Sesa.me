@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message.jsx';
-import Response from './response.jsx';
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class AdminView extends React.Component {
         }
       ],
       messageId: null,
-      response: ''    
+      response: '',   
     }
   }
 
@@ -80,8 +79,6 @@ class AdminView extends React.Component {
           })}
         </ul>
 
-        <Response className="group"/>
-      
       </div>
     )
   }

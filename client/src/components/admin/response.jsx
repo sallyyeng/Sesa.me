@@ -27,18 +27,11 @@ class Response extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="admin-response-main">
-          <h5>New Response</h5>
-          <FormGroup>
-            <ControlLabel className="message">Respond to message:</ControlLabel>
-            <br></br>
-            <FormControl componentClass="textarea" onChange={this.updateResponse.bind(this)} type="text" placeholder="Response..."></FormControl>
-            <br></br>
-            <Button onClick={this.sendResponse.bind(this)}>Submit Response</Button>
-          </FormGroup>
-        </div>
-      </div>
+      <FormGroup>
+        <FormControl componentClass="textarea" onChange={this.updateResponse.bind(this)} type="text" placeholder="Response..."></FormControl>
+        <br></br>
+        <Button bsStyle="primary" onClick={this.sendResponse.bind(this)}>Submit Response</Button>
+      </FormGroup>
     );
   }
 }

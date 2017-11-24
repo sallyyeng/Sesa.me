@@ -82,11 +82,11 @@ body {
 }
 
 .user-message-container {
-  margin-right: 50px;
-  border: 1px solid #4B586E;
-  background: #FFFFF0;
-  box-shadow: 5px 5px 2px 0px #323B4A;
-}
+  margin: 5px 50px 5px 0;
+  border: 0.25px solid #4B586E;
+  background: #FFF;
+/*  box-shadow: 5px 5px 2px 0px #323B4A;
+*/}
 
 .user-message-ul {
   margin: 5px 10px;
@@ -111,6 +111,13 @@ body {
 
 .message-actions {
   float: left;
+}
+
+.message-response {
+  float: left;
+  width: 100%;
+  padding: 20px 10%;
+  border: none;
 }
 
 
