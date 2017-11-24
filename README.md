@@ -21,15 +21,17 @@
 
 ## Usage
 
-> Victims of domestic violence can use our app to discreetly login to a secure messaging system to request help from a qualified organization. Users will click the center of the tic tac toe board 10 times in a row, log in to the secure system (or create an account) and then send and recieve secure help messages.
+> Victims of domestic violence can use our app to discreetly login to a secure messaging system to request help from a qualified organization. Users will click the center of the tic tac toe board 10 times in a row, log in to the secure system (or create an account) and then send and receive secure help messages.
 
 ## Requirements
 
 - Node 9.x.x
 - npm 5.5.1
-- SQL ?
-- Sequelize
-- Express
+- Babel CLI 6.7.5
+- Babel Preset es2015 6.6.0
+- Babel Preset React 6.24.1
+- Babel Register 6.7.2
+- Webpack 3.8.1
 
 ## Development
 
@@ -38,10 +40,22 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
+
+### Starting the Server
+
+```sh
+npm run server-dev
+```
+
+### Webpack Bundling
+
+```sh
+npm run react-dev
+```
+
+Open [http://localhost:3000/](http://localhost:3000/) to see your app, refresh for changes.
 
 ### Roadmap
 
