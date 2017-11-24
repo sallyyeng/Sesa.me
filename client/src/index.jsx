@@ -7,6 +7,8 @@ import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
 import UserResponses from './components/user/formView/userResponses.jsx';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 
 class App extends React.Component {
@@ -79,12 +81,10 @@ class App extends React.Component {
         hash: hash
       },
       success: (data) => {
-        alert('You have successfully logged in');
         this.setState({
           view: 'submission',
           username: data.username,
           type: data.account_type
-          // should this recieve data from db to set state values for type (admin?) and username???
         });
         console.log('LOGIN STATE', this.state);
       },
@@ -232,16 +232,19 @@ class App extends React.Component {
     if (this.state.showBugButton === true) {
       return <div>
         <Game/>
-        <p>It looks like you've found a bug.  Would you like to report it?</p>
-        <button onClick={this.showLogIn.bind(this)}>yes</button>
-        <button onClick={this.hideBugButton}>no</button>
+        <div className="report-bug-message">
+          <p>It looks like you've found a bug.  Would you like to report it?</p>
+          <ButtonToolbar className="report-bug-buttons">
+            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
+            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.hideBugButton}>no</Button>
+          </ButtonToolbar>
+        </div>
       </div>;
 
     } else if (this.state.view === 'login') {
       return (<div>
         <Game/>
         <div>
-          <h3>Login or signup to report a bug:</h3><br/>
           <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         </div>
 
@@ -250,8 +253,6 @@ class App extends React.Component {
       return (<div>
         <Game/>
         <div>
-          <h3>Signup:</h3>
-          <br></br>
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
@@ -259,7 +260,7 @@ class App extends React.Component {
     } else if(this.state.view === 'submission' && this.state.type === 'admin') {
       return (
         <div>
-          <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+          <AdminView showLogIn={this.showLogIn.bind(this)}markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
         </div>);
 
     } else if(this.state.view === 'submission') {
@@ -284,6 +285,7 @@ class App extends React.Component {
       return (
         <div>
           <Game unlockForms={this.unlockForms}/>
+          <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
         </div>);
     }
     return (
@@ -295,7 +297,7 @@ class App extends React.Component {
         <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         <Signup createUser={this.createUser.bind(this)}/>
         <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+        <AdminView showLogIn={this.showLogIn.bind(this)} username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
 
       </div>
     )

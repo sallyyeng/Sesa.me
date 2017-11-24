@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from 'react-bootstrap/lib/Button';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import Checkbox from 'react-bootstrap/lib/Checkbox';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -50,33 +56,31 @@ class Signup extends React.Component {
   }
 
 
-
+  //On deployment: remove option to sign up as an admin. This will be done directly within the database.
   render() {
     return (
-      <div>
-        <div>Signup:</div>
-        <label className="signup-username">
-          Username:<input type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></input>
-        </label>
+      <div className="container signup-container">
+        <PageHeader><small>Signup</small></PageHeader>
+        <ControlLabel className="signup-username">
+          Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-password">
-          Password:<input type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></input>
-        </label>
+        <ControlLabel className="signup-password">
+          Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-password">
-          Re-enter Password: 
-          <input type="password" placeholder="re-enter password..." onChange={this.onCheckPasswordChange.bind(this)}></input>
-        </label>
+        <ControlLabel className="signup-password">
+          Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)}></FormControl>
+        </ControlLabel>
         <br></br>
-        <label className="signup-user-type">
-          Admin <input type="checkbox" onChange={this.onAdminCheck.bind(this)}></input>
-        </label>
+        <Checkbox className="admin-checkbox" onChange={this.onAdminCheck.bind(this)}>Administrator</Checkbox>
         <br></br>
-        <button onClick={this.onSubmit.bind(this)}>Create Account</button>
-        <br></br>
-        <p>
-          <button onClick={this.props.showLogIn}>Return to log in page</button>
-        </p>
+        <div className="col-centered">
+          <ButtonToolbar>
+            <Button className="sign-up-button" bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
+            <Button className="sign-up-button" bsStyle="primary" onClick={this.props.showLogIn}>Return to log in page</Button>
+          </ButtonToolbar>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,201 @@
+/*====MAIN STYLES====*/
+* {
+  font-family: 'Merriweather Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(45deg, #EAFFF0, #DFE7FF);
+}
+
+.col-centered {
+  display: flex;
+  justify-content: center
+}
+
 .user-message-main,
 .user-status-main,
-.admin-response-main,
-.admin-inbox-main {
+.admin-response-main {
   border: 1px solid black;
 }
+
+.control-label {
+  text-align: left;
+  padding-top: 30px;
+}
+
+.form-control {
+  min-width: 250px;
+}
+
+/*====CLEARFIX====*/
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+} 
+.group:after {
+  clear: both;
+}
+.group {
+  zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+/*====SIGN UP====*/
+.container,
+.signup-buttons {
+  text-align: center
+}
+
+.signup-container {
+  font-size: 20px;
+}
+
+.sign-up-button {
+  min-width: 175px;
+}
+
+.admin-checkbox {
+  font-size: 14px;
+}
+
+/*====LOG IN====*/
+
+.login-container {
+  font-size: 20px;
+}
+
+/*====HOME PAGE====*/
+
+.report-bug-message {
+  font-size: 14px;
+  text-align: center;
+}
+
+.report-bug-buttons {
+  margin: 0 47%;
+}
+
+/*====ADMIN====*/
+
+.admin-header {
+  text-align: center;
+}
+
+.user-message-container {
+  margin: 5px 50px 5px 0;
+  border: 0.25px solid #4B586E;
+  background: #FFF;
+/*  box-shadow: 5px 5px 2px 0px #323B4A;
+*/}
+
+.user-message-ul {
+  margin: 5px 10px;
+}
+
+.user-message-container span {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-message-container p {
+  display: inline;
+  font-size: 14px;
+}
+
+.message-contents {
+  float: left;
+  width: 75%;
+}
+
+.message-actions {
+  float: left;
+}
+
+.message-response {
+  float: left;
+  width: 100%;
+  padding: 20px 10%;
+  border: none;
+}
+
+/*====USER====*/
+.admin-response-container {
+  margin: 5px 50px 5px 0;
+  border: 0.25px solid #4B586E;
+  background: #FFF;
+  text-align: left;
+/*  box-shadow: 5px 5px 2px 0px #323B4A;
+*/}
+
+.admin-response-container span {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.admin-response-container p {
+  display: inline;
+  font-size: 14px;
+}
+
+.user-header {
+  text-align: center;
+}
+
+.admin-response-container Button {
+  margin: 10px auto;
+}
+
+.response-contents {
+  float: left;
+  width: 75%;
+}
+
+.response-actions {
+  float: left;
+}
+
+.admin-change-user-button {
+  float: right;
+}
+
+/*====USER SUBMISSION FORM====*/
+
+.user-submission-main {
+  text-align: center;
+}
+
+.change-view-button {
+  margin: 30px auto 100px auto;
+  width: 20%;
+}
+
+.user-submission-container {
+  border-top: 3px solid #4B586E;
+  width: 80%;
+  margin: auto;
+  font-size: 20px;
+  text-align: left
+}
+
+.user-submission-container span {
+  padding: 0 5px;
+}
+
+.welcome-header {
+  margin-top: 50px;
+}
+
+.admin-change-user-button {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+
+
+
+

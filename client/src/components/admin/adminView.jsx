@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message.jsx';
+import Button from 'react-bootstrap/lib/Button';
+
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ class AdminView extends React.Component {
         }
       ],
       messageId: null,
-      response: ''    
+      response: '',   
     }
   }
 
@@ -59,18 +61,6 @@ class AdminView extends React.Component {
     });
   }
 
-  //when admin types a response, updates state variable response
-  updateResponse(e) {
-    this.setState({
-      response: e.target.value
-    });
-  }
-
-  //when admin submits a response, calls the submitAdminResponse method to send id and response to server as a patch request
-  sendResponse() {
-    this.props.submitAdminResponse(this.state.messageId, this.state.response);
-  }
-
   //calls the markAsComplete method in index.jsx to send id and status to server
   setStatus(id) {
     this.props.markAsComplete(id);
@@ -80,24 +70,17 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
-        <div>Admin View: This will be rendered conditionally</div>
-        <div className="admin-response-main">
-          <h5>New Response</h5>
-          <label className="message">Respond to message:</label>
-          <br></br>
-          <textarea onChange={this.updateResponse.bind(this)} type="text" placeholder="Response..."></textarea>
-          <br></br>
-          <button onClick={this.sendResponse.bind(this)}>Submit Response</button>
+        <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button>
+        <div className="admin-header group">
+          <h3 className="welcome-header">Welcome to Your Inbox!</h3>
+          <h4>You can view and respond to user messages here.</h4>
         </div>
-
-        <div className="admin-inbox-main">
-          <h5>Inbox</h5>
-          <ul>
-            {this.state.messages.map( (message, index) => {
-              return <Message setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
-            })}
-          </ul>
-        </div>
+        
+        <ul className="user-message-ul">
+          {this.state.messages.map( (message, index) => {
+            return <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message}/>
+          })}
+        </ul>
 
       </div>
     )
