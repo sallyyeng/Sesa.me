@@ -142,7 +142,7 @@ module.exports = {
         //update that message with admin's response
         .then((message) => {
           message.update({
-            admin_response: req.body.admin_response,
+            admin_response: req.body.admin_response || 'Case marked as complete',
             admin_complete: req.body.admin_complete
           })
           .then((updatedMessage) => {
