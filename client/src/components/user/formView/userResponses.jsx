@@ -35,8 +35,8 @@ class UserResponses extends React.Component {
               return <Response showSubmissionForm={this.props.showSubmissionForm} key={JSON.stringify(response)} response={response}/>
             })}
           </ul>
-        );
-    	</div>);
+    	  </div>
+      );
 		} else {
       return (
         <div className='user-header'>

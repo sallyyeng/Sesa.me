@@ -4,16 +4,23 @@ import Response from './response.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-
+import moment from 'moment';
 
 class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageId: this.props.message.id,
+      messageId: this.props.messageId,
       messageName: this.props.message.first_name + ' ' + this.props.message.last_name,
       showResponseForm: false
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      messageId: nextProps.message.id,
+      messageName: nextProps.message.first_name + ' ' + nextProps.message.last_name,
+    })
   }
 
   // Call initiateResponse in adminView with this message's id
@@ -32,11 +39,12 @@ class Message extends React.Component {
   //Render all open user messages in reverse chrono order
   //Nice to have: order by urgency
   render() {
+    console.log('MESSAGE PROPS', this.props);
     if (this.state.showResponseForm) {
       return (
         <div className="user-message-container group">
           <div className="message-contents group">
-            <span className="message-created-at">Created: </span><p>{this.props.message.createdAt}</p>
+            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <br></br>
             <span className="message-name">Name: </span><p>{this.props.message.first_name} {this.props.message.last_name}</p>
             <br></br>
@@ -59,7 +67,7 @@ class Message extends React.Component {
       return (
         <div className="user-message-container group">
           <div className="message-contents group">
-            <span className="message-created-at">Created: </span><p>{this.props.message.createdAt}</p>
+            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <br></br>
             <span className="message-name">Name: </span><p>{this.props.message.first_name} {this.props.message.last_name}</p>
             <br></br>

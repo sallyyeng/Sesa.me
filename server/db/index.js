@@ -27,7 +27,9 @@ const Submission = db.define('submission', {
   user_urgency: Sequelize.INTEGER,
   admin_response: Sequelize.TEXT,
   //Sequelize Boolean will be converted to TINYINT(1)
-  admin_complete: Sequelize.BOOLEAN
+  admin_complete: Sequelize.BOOLEAN,
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING
 })
 
 //define 1:many relationship of Users:Submissions

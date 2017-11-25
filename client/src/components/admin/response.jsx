@@ -27,6 +27,7 @@ class Response extends React.Component {
   }
 
   render() {
+    console.log('RESPONSE PROPS', this.props);
     return (
       <FormGroup>
         <div>Respond to {this.props.messageName}'s message:</div>
