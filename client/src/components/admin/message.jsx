@@ -10,10 +10,17 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageId: this.props.message.id,
+      messageId: this.props.messageId,
       messageName: this.props.message.first_name + ' ' + this.props.message.last_name,
       showResponseForm: false
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      messageId: nextProps.message.id,
+      messageName: nextProps.message.first_name + ' ' + nextProps.message.last_name,
+    })
   }
 
   // Call initiateResponse in adminView with this message's id
@@ -32,6 +39,7 @@ class Message extends React.Component {
   //Render all open user messages in reverse chrono order
   //Nice to have: order by urgency
   render() {
+    console.log('MESSAGE PROPS', this.props);
     if (this.state.showResponseForm) {
       return (
         <div className="user-message-container group">
