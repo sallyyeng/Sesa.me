@@ -1,8 +1,5 @@
-// const env = require('dotenv').load();
 const express = require('express');
 const app = express();
-const passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy;
 
 // Middleware
 var parser = require('body-parser');
@@ -19,31 +16,6 @@ app.use(parser.urlencoded({extended: true}));
 
 // Routes
 app.use('/', router);
-
-// Authentication
-// app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-passport.use(new LocalStrategy(
-  (username, password, done) => {
-    User.findOne({username: username}, (err, user) => {
-      // If an exception occurs, provide err to done()
-      if (err) {
-        return done(err);
-      }
-      // If credentials are not valid, provide false to done() 
-      if (!user) {
-        return done(null, false, {message: 'Incorrect username.'});
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, {message: 'Incorrect password.'});
-      }
-      // If credentials are valid, provide user to done()
-      return done(null, user);
-    });
-  }
-));
 
 // Static Files
 app.use(express.static(__dirname + '/../client/dist'));

@@ -3,23 +3,31 @@
 // These handlers will utilize instances of sequelize models to query the database directly 
 
 const db = require('../db/index.js');
+const bcrypt = require('bcrypt');
 
 module.exports = {
   signup: {
     //creates a new user or finds an already existing user
     //***TODO***: handle incorrect pw but pre-existing user
     post: (req, res) => {
-      db.User.findOrCreate({
-        where: {username: req.body.username, hash: req.body.hash, account_type: req.body.account_type}
-      })
-      .spread((user, created) => {
-        console.log('User created with', user.get({plain: true}));
-        res.sendStatus(created ? 201 : 200);
-      })
-      .catch((err) => {
-        console.log('Error. User ', req.body.username, ' already exists');
-        res.sendStatus(400);
-      })
+      bcrypt.hash(req.body.hash, 10, (err, hash) => {
+        if (err) {
+          console.log('Error hashing password ', err);
+          res.sendStatus(400);
+        }
+        db.User.findOrCreate({
+          where: {username: req.body.username, hash: hash, account_type: req.body.account_type}
+        })
+        .spread((user, created) => {
+          console.log('User created with', user.get({plain: true}));
+          console.log(user);
+          res.sendStatus(created ? 201 : 200);
+        })
+        .catch((err) => {
+          console.log('Error. User ', req.body.username, ' already exists');
+          res.sendStatus(400);
+        })
+      });
     }
   },
 

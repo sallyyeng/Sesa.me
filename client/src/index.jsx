@@ -288,19 +288,19 @@ class App extends React.Component {
           <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
         </div>);
     }
-    return (
-      <div>
-        <Game unlockForms={this.unlockForms}/>
+    // return (
+    //   <div>
+    //     <Game unlockForms={this.unlockForms}/>
         
-        <button onClick={this.showLogIn.bind(this)}>Log In</button>
-        <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
-        <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
-        <Signup createUser={this.createUser.bind(this)}/>
-        <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
-        <AdminView showLogIn={this.showLogIn.bind(this)} username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+    //     <button onClick={this.showLogIn.bind(this)}>Log In</button>
+    //     <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
+    //     <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
+    //     <Signup createUser={this.createUser.bind(this)}/>
+    //     <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
+    //     <AdminView showLogIn={this.showLogIn.bind(this)} username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
 
-      </div>
-    )
+    //   </div>
+    // )
   }
 
 } 
