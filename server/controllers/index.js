@@ -4,6 +4,8 @@
 
 const db = require('../db/index.js');
 const bcrypt = require('bcrypt');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
   signup: {
@@ -84,7 +86,10 @@ module.exports = {
           db.Submission.findAll({
             where: {
               //Note: userId is the FK in the submission model that points to a particular user
-              userId: user.get('id')
+              userId: user.get('id'),
+              admin_response: {
+                [Op.not]: null
+              }
             }
           })
           .then((userMessages) => {

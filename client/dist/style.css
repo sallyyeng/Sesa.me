@@ -157,6 +157,7 @@ body {
 
 .response-actions {
   float: left;
+  padding-left: 10%;
 }
 
 .admin-change-user-button {
@@ -182,8 +183,9 @@ body {
   text-align: left
 }
 
-.user-submission-container span {
-  padding: 0 5px;
+.user-submission-container span,
+.user-submission-container p {
+  padding: 5px 5px;
 }
 
 .welcome-header {
