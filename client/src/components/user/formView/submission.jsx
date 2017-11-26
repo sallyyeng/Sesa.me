@@ -13,8 +13,6 @@ class Submission extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first: '',
-      last: '',
       contact: '',
       urgency: '',
       message: ''
@@ -24,17 +22,17 @@ class Submission extends React.Component {
   /* ================================ */
   /* Update state based on user input */
   /* ================================ */
-  updateFirst(e) {
-    this.setState({
-      first: e.target.value
-    });
-  }
+  // updateFirst(e) {
+  //   this.setState({
+  //     first: e.target.value
+  //   });
+  // }
 
-  updateLast(e) {
-    this.setState({
-      last: e.target.value
-    });
-  }
+  // updateLast(e) {
+  //   this.setState({
+  //     last: e.target.value
+  //   });
+  // }
 
   updateContact(e) {
     this.setState({
@@ -58,12 +56,8 @@ class Submission extends React.Component {
 
   // on submission, call method to send form data to server
   onSubmit() {
-    console.log('clicked');
-    console.log('PROPS USERNAME', this.props.username);
     this.props.sendMessage(
       this.props.username,
-      this.state.first,
-      this.state.last,
       this.state.contact,
       this.state.urgency,
       this.state.message
@@ -80,11 +74,6 @@ class Submission extends React.Component {
 
 
         <div className="user-submission-container">
-
-          <ControlLabel className="firstname">First Name<FormControl onChange={this.updateFirst.bind(this)}type="text" placeholder="first name"></FormControl></ControlLabel>
-          <br></br>
-          <ControlLabel className="lastname">Last Name<FormControl onChange={this.updateLast.bind(this)}type="text" placeholder="last name"></FormControl></ControlLabel>
-          <br></br>
           <ControlLabel className="contact-info">How can we contact you?</ControlLabel>
           <br></br>
           <FormControl componentClass="textarea" onChange={this.updateContact.bind(this)}type="text" placeholder="contact information"></FormControl>
