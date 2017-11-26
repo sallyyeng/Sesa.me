@@ -12,7 +12,7 @@ class Message extends React.Component {
     this.state = {
       messageId: this.props.messageId,
       messageName: this.props.message.first_name + ' ' + this.props.message.last_name,
-      showResponseForm: false
+      showResponseForm: false,
     }
   }
 
@@ -20,7 +20,7 @@ class Message extends React.Component {
     this.setState({
       messageId: nextProps.message.id,
       messageName: nextProps.message.first_name + ' ' + nextProps.message.last_name,
-    })
+    });
   }
 
   // Call initiateResponse in adminView with this message's id
@@ -30,6 +30,9 @@ class Message extends React.Component {
     this.setState({
       showResponseForm: !this.state.showResponseForm
     });
+    if (this.props.admin_response === null) {
+      alert('null');
+    }
   }
 
   onCompleteCheck() {
@@ -50,9 +53,13 @@ class Message extends React.Component {
             <br></br>
             <span className="message-urgency">Urgency: </span><p>{this.props.message.user_urgency}</p>
             <br></br>
-            <span className="message-contact">Contact Information: </span><p>{this.props.message.user_contact}</p>
+            <span className="message-contact">Contact Information: </span>
             <br></br>
-            <span className="message-body">Message: </span><p>{this.props.message.user_message}</p>
+            <p>{this.props.message.user_contact}</p>
+            <br></br>
+            <span className="message-body">Message: </span>
+            <br></br>
+            <p>{this.props.message.user_message}</p>
           </div>
           <div className="message-actions group">
             <Checkbox onClick={this.onCompleteCheck.bind(this)} type="checkbox">Case Complete</Checkbox>
@@ -69,13 +76,13 @@ class Message extends React.Component {
           <div className="message-contents group">
             <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
             <br></br>
-            <span className="message-name">Name: </span><p>{this.props.message.first_name} {this.props.message.last_name}</p>
+            <span className="message-name">Name: <p>{this.props.message.first_name} {this.props.message.last_name}</p></span>
             <br></br>
-            <span className="message-urgency">Urgency: </span><p>{this.props.message.user_urgency}</p>
+            <span className="message-urgency">Urgency: <p>{this.props.message.user_urgency}</p></span>
             <br></br>
-            <span className="message-contact">Contact Information: </span><p>{this.props.message.user_contact}</p>
+            <span className="message-contact">Contact Information: <p>{this.props.message.user_contact}</p></span>
             <br></br>
-            <span className="message-body">Message: </span><p>{this.props.message.user_message}</p>
+            <span className="message-body">Message: <p>{this.props.message.user_message}</p></span>
           </div>
           <div className="message-actions group">
             <Checkbox onClick={this.onCompleteCheck.bind(this)} type="checkbox">Case Complete</Checkbox>

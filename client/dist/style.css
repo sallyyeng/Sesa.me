@@ -13,6 +13,12 @@ body {
   justify-content: center
 }
 
+.main-title {
+  text-align: center;
+  color: #4B586E;
+  font-size: 70px;
+}
+
 .user-message-main,
 .user-status-main,
 .admin-response-main {
@@ -72,8 +78,8 @@ body {
   text-align: center;
 }
 
-.report-bug-buttons {
-  margin: 0 47%;
+.bug-button {
+  margin: 0 1%;
 }
 
 /*====ADMIN====*/
@@ -112,6 +118,7 @@ body {
 
 .message-actions {
   float: left;
+  padding-left: 10%;
 }
 
 .message-response {
@@ -157,6 +164,7 @@ body {
 
 .response-actions {
   float: left;
+  padding-left: 10%;
 }
 
 .admin-change-user-button {
@@ -182,8 +190,9 @@ body {
   text-align: left
 }
 
-.user-submission-container span {
-  padding: 0 5px;
+.user-submission-container span,
+.user-submission-container p {
+  padding: 5px 5px;
 }
 
 .welcome-header {
