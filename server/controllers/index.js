@@ -40,13 +40,15 @@ module.exports = {
         }
       })
       .then((user) => {
-        if (user.get('hash') === req.body.hash) {
-          console.log('Successful authentication with', user.get('username'), user.get('account_type'));
-          res.status(201).json({username: user.get('username'), account_type: user.get('account_type')});
-        } else {
-          console.log('incorrect login details for ', req.body.username);
-          res.sendStatus(400);
-        }
+        bcrypt.compare(req.body.hash, user.get('hash'), (err, result) => {
+          if (result) {
+            console.log('Successful authentication with', user.get('username'), user.get('account_type'));
+            res.status(201).json({username: user.get('username'), account_type: user.get('account_type')});
+          } else {
+            console.log('incorrect login details for ', req.body.username);
+            res.sendStatus(400);
+          }
+        });
       })
       .catch((err) => {
         console.log('Bad request with error:', err);
