@@ -9,6 +9,7 @@ import AdminView from './components/admin/adminView.jsx';
 import UserResponses from './components/user/formView/userResponses.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 
 class App extends React.Component {
@@ -231,18 +232,18 @@ class App extends React.Component {
   render() {
     if (this.state.showBugButton === true) {
       return <div>
+        <h1 className="main-title">Tic Tac Toe</h1>
         <Game/>
         <div className="report-bug-message">
           <p>It looks like you've found a bug.  Would you like to report it?</p>
-          <ButtonToolbar className="report-bug-buttons">
-            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
-            <Button className="button" bsSize="xsmall" bsStyle="primary" onClick={this.hideBugButton}>no</Button>
-          </ButtonToolbar>
+          <Button className="bug-button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
+          <Button className="bug-button" bsSize="xsmall" bsStyle="primary" onClick={this.hideBugButton}>no</Button>
         </div>
       </div>;
 
     } else if (this.state.view === 'login') {
       return (<div>
+        <h1 className="main-title">Tic Tac Toe</h1>
         <Game/>
         <div>
           <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
@@ -251,6 +252,7 @@ class App extends React.Component {
       </div>);
     } else if (this.state.view === 'signup') {
       return (<div>
+        <h1 className="main-title">Tic Tac Toe</h1>
         <Game/>
         <div>
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
@@ -266,6 +268,7 @@ class App extends React.Component {
     } else if(this.state.view === 'submission') {
       return (
         <div>
+          <h1 className="main-title">Tic Tac Toe</h1>
           <Game/>
           <div>
             <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)} showAdminResponses={this.showAdminResponses}/>
@@ -284,6 +287,7 @@ class App extends React.Component {
     } else if(this.state.view === 'restricted') {
       return (
         <div>
+          <h1 className="main-title">Tic Tac Toe</h1>
           <Game unlockForms={this.unlockForms}/>
           <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
         </div>);
