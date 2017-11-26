@@ -18,7 +18,13 @@ module.exports = {
           res.sendStatus(400);
         }
         db.User.findOrCreate({
-          where: {username: req.body.username, hash: hash, account_type: req.body.account_type}
+          where: {
+            username: req.body.username, 
+            hash: req.body.hash, 
+            account_type: req.body.account_type,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name
+          }
         })
         .spread((user, created) => {
           console.log('User created with', user.get({plain: true}));
@@ -113,29 +119,22 @@ module.exports = {
           }
         })
         .then((user) => {
-          //amend user object with first and last name
-          user.update({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name
+          //create a submission record tied to that particular user
+          db.Submission.create({
+            userId: user.get('id'),
+            user_message: req.body.user_message,
+            user_contact: req.body.user_contact,
+            user_urgency: req.body.user_urgency,
+            first_name: user.get('first_name'),
+            last_name: user.get('last_name')
           })
-          .then((updatedUser) => {
-            //create a submission record tied to that particular user
-            db.Submission.create({
-              userId: updatedUser.get('id'),
-              user_message: req.body.user_message,
-              user_contact: req.body.user_contact,
-              user_urgency: req.body.user_urgency,
-              first_name: req.body.first_name,
-              last_name: req.body.last_name
-            })
-            .then((createdMessage) => {
-              console.log('Successful user message creation with', createdMessage);
-              res.sendStatus(201);
-            })
-            .catch((err) => {
-              console.log('Error creating user message with', err);
-              res.sendStatus(400);
-            })
+          .then((createdMessage) => {
+            console.log('Successful user message creation with', createdMessage);
+            res.sendStatus(201);
+          })
+          .catch((err) => {
+            console.log('Error creating user message with', err);
+            res.sendStatus(400);
           })
         })
       } else {

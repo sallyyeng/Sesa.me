@@ -47,7 +47,7 @@ class Message extends React.Component {
       return (
         <div className="user-message-container group">
           <div className="message-contents group">
-            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm a')}</p>
             <br></br>
             <span className="message-name">Name: </span><p>{this.props.message.first_name} {this.props.message.last_name}</p>
             <br></br>
@@ -74,7 +74,7 @@ class Message extends React.Component {
       return (
         <div className="user-message-container group">
           <div className="message-contents group">
-            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+            <span className="message-created-at">Created: </span><p>{moment(this.props.message.createdAt).format('MMMM Do YYYY, h:mm a')}</p>
             <br></br>
             <span className="message-name">Name: <p>{this.props.message.first_name} {this.props.message.last_name}</p></span>
             <br></br>
