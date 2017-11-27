@@ -1,7 +1,7 @@
 import React from 'react';
 import Game from '../client/src/components/user/tictactoeView/game.jsx';
-import Board from '../client/src/components/user/tictacToeView/game.jsx';
-import HotSquare from '../client/src/components/user/tictacToeView/game.jsx';
+import Board from '../client/src/components/user/tictactoeView/game.jsx';
+import HotSquare from '../client/src/components/user/tictactoeView/game.jsx';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
