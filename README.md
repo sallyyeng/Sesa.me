@@ -100,11 +100,11 @@ View the project roadmap [here](http://bit.ly/2zLjWhM)
 
 ### Preview
 
-![Main Page](https://imgur.com/jyyspMW)
-![Sign Up](https://imgur.com/LkY9R0B)
-![User Submit Message](https://imgur.com/kArSy6o)
-![User View Correspondence](https://imgur.com/wMOVNHE)
-![Admin Inbox](https://imgur.com/Hyt263z)
+![Main View](https://i.imgur.com/jyyspMW.png)
+![Sign Up](https://i.imgur.com/LkY9R0B.png)
+![User Submit Message](https://i.imgur.com/kArSy6o.png)
+![User View Correspondence](https://i.imgur.com/wMOVNHE.png?1)
+![Admin Inbox](https://i.imgur.com/Hyt263z.png)
 
 
 ## Contributing
