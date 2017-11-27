@@ -45,7 +45,7 @@ class App extends React.Component {
 
   //MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
 
-  createUser(username, hash, admin) {
+  createUser(username, hash, admin, first_name, last_name) {
     console.log(` ${username}, ${hash}, ${admin} posted to server`);
     $.ajax({
       method: 'POST',
@@ -53,7 +53,10 @@ class App extends React.Component {
       data: {
         username: username,
         hash: hash,
-        account_type: admin
+        salt: '',
+        account_type: admin,
+        first_name: first_name,
+        last_name: last_name
       },
       success: (data) => {
         alert('You have successfully created an account');
@@ -96,15 +99,13 @@ class App extends React.Component {
     });
   }
 
-  sendMessage(username, first, last, contact, urgency, message) {
-    console.log(`${username}, ${first}, ${last}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
+  sendMessage(username, contact, urgency, message) {
+    console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
     $.ajax({
       method: 'POST',
       url: '/submissions',
       data: {
         username: username,
-        first_name: first,
-        last_name: last,
         user_contact: contact,
         user_urgency: urgency,
         user_message: message

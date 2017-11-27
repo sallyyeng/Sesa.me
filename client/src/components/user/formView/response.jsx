@@ -13,7 +13,7 @@ class Response extends React.Component {
     return (
       <div className="admin-response-container group">
         <div className="response-contents group">
-          <span className="message-created-at">Created: </span><p>{moment(this.props.response.updatedAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+          <span className="message-created-at">Created: </span><p>{moment(this.props.response.updatedAt).format('MMMM Do YYYY, h:mm a')}</p>
           <br></br>
           <span className="message-body">Your original message: </span><p>{this.props.response.user_message}</p>
           <br></br>

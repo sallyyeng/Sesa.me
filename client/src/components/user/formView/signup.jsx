@@ -14,13 +14,27 @@ class Signup extends React.Component {
       username: '',
       password: '',
       checkPassword: '',
-      admin: ''
+      admin: '',
+      firstName: '',
+      lastName: ''
     }
   }
 
   onUsernameChange(e) {
     this.setState({
       username: e.target.value
+    });
+  }
+
+  onFirstNameChange(e) {
+    this.setState({
+      firstName: e.target.value
+    });
+  }
+
+  onLastNameChange(e) {
+    this.setState({
+      lastName: e.target.value
     });
   }
 
@@ -46,13 +60,18 @@ class Signup extends React.Component {
     if (this.state.username === '') {
       return alert('Oops! Username cannot be empty. Let\'s try that again.');
     }
+
+    if (this.state.firstName === '') {
+      return alert('Oops! First name cannot be empty. Let\'s try that again.');
+    }
+
     if (this.state.password.length < 8) {
       return alert('Oops! Password must be at least 8 characters long. Let\'s try that again.');
     }
     if (this.state.password !== this.state.checkPassword) {
       return alert('Oops! Make sure both password fields match.');
     }
-    this.props.createUser(this.state.username, this.state.password, this.state.admin);
+    this.props.createUser(this.state.username, this.state.password, this.state.admin, this.state.firstName, this.state.lastName);
   }
 
 
@@ -63,6 +82,14 @@ class Signup extends React.Component {
         <PageHeader><small>Signup</small></PageHeader>
         <ControlLabel className="signup-username">
           Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
+        </ControlLabel>
+        <br></br>
+        <ControlLabel className="signup-username">
+          First Name<FormControl type="text" placeholder="first name..." onChange={this.onFirstNameChange.bind(this)}></FormControl>
+        </ControlLabel>
+        <br></br>
+        <ControlLabel className="signup-username">
+          Last Name<FormControl type="text" placeholder="last name..." onChange={this.onLastNameChange.bind(this)}></FormControl>
         </ControlLabel>
         <br></br>
         <ControlLabel className="signup-password">
