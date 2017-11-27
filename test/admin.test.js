@@ -7,23 +7,23 @@ import { shallow } from 'enzyme';
 
 /*TEST ADMIN COMPONENTS*/
 
-describe('Component: Message', () => {
-  const message = {
-    createdAt: '2017-11-25T15:13:29.000Z',
-    first_name: 'Brad',
-    last_name: 'Pitt',
-    user_contact: 'the quick brown fox',
-    user_message: 'jumped over the lazy dog',
-    user_urgency: '2'
-  };
+// describe('Component: Message', () => {
+//   const message = {
+//     createdAt: '2017-11-25T15:13:29.000Z',
+//     first_name: 'Brad',
+//     last_name: 'Pitt',
+//     user_contact: 'the quick brown fox',
+//     user_message: 'jumped over the lazy dog',
+//     user_urgency: '2'
+//   };
 
-  it('should match its empty snapshot', () => {
-    const component = shallow( <Message message={message}/>);
+//   it('should match its empty snapshot', () => {
+//     const component = shallow( <Message message={message}/>);
 
-    expect(component).toMatchSnapshot();
-  });
+//     expect(component).toMatchSnapshot();
+//   });
 
-});
+// });
 
 describe('Component: AdminView', () => {
   const showLogIn = () => {
