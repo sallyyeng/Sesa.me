@@ -25,6 +25,10 @@ class Board extends React.Component {
     }
   }
 
+  resetHotSquareClickCount(){
+    this.state.hotSquareClickCount = 0;
+  }
+
   incrementHotSquareClickCount(){
     this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
     if(this.state.hotSquareClickCount === 10) {
@@ -115,21 +119,21 @@ class Game extends React.Component {
     });
   }
 
+  onReset(){
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null)
+        }
+      ],
+      stepNumber: 0,
+      xIsNext: true});
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-
-    const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
 
     let status;
     if (winner) {
@@ -150,7 +154,9 @@ class Game extends React.Component {
             onClick={i => this.handleClick(i)}
             unlockForms={this.props.unlockForms}
           />
+          <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
+        
         
       </div>
     );
