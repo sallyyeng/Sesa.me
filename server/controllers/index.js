@@ -20,7 +20,8 @@ module.exports = {
         db.User.findOrCreate({
           where: {
             username: req.body.username, 
-            hash: req.body.hash, 
+            hash: hash, 
+            salt: req.body.salt,
             account_type: req.body.account_type,
             first_name: req.body.first_name,
             last_name: req.body.last_name
@@ -32,7 +33,7 @@ module.exports = {
           res.sendStatus(created ? 201 : 200);
         })
         .catch((err) => {
-          console.log('Error. User ', req.body.username, ' already exists');
+          console.log('ERROR creating record with', err)
           res.sendStatus(400);
         })
       });

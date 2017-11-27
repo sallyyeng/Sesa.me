@@ -53,6 +53,7 @@ class App extends React.Component {
       data: {
         username: username,
         hash: hash,
+        salt: '',
         account_type: admin,
         first_name: first_name,
         last_name: last_name
