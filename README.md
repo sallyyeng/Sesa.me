@@ -1,6 +1,6 @@
-# Tic Tac Toe with a Twist
+# sesa.me
 
-> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  The target audience is human trafficking and domestic violence victims, and the administrators who will interface with victims to get them help.
+> sesa.me is a tic tac toe board that is more than meets the eye. Click a pattern on the board to unlock a secret authenticated messaging interface. The target audience is human trafficking and domestic violence victims, and the administrators who will interface with victims to get them help.
 
 ## Team
 
@@ -99,6 +99,7 @@ Open [http://localhost:3000/](http://localhost:3000/) to see your app, refresh f
 View the project roadmap [here](http://bit.ly/2zLjWhM)
 
 ### Preview
+
 
 ![Main View](https://i.imgur.com/jyyspMW.png)
 ![Sign Up](https://i.imgur.com/LkY9R0B.png)
