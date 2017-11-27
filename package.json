@@ -12,7 +12,8 @@
     "server-dev": "nodemon server/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "postinstall": "webpack -d"
   },
   "dependencies": {
     "babel": "^6.23.0",
