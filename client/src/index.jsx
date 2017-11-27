@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Game from './components/user/tictactoeView/game.jsx';
 import Login from './components/user/formView/login.jsx';
+import AdminLogin from './components/user/formView/adminLogin.jsx';
 import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
@@ -201,6 +202,12 @@ class App extends React.Component {
     });
   }
 
+  showAdminLogIn(){
+    this.setState({
+      view: 'adminLogin'
+    });
+  }
+
   showSignUp() {
     this.setState({
       view: 'signup'
@@ -251,6 +258,11 @@ class App extends React.Component {
         </div>
 
       </div>);
+    } else if(this.state.view === 'adminLogin') {
+      return (<div>
+        <AdminLogin logInUser={this.logInUser.bind(this)}/>
+      </div>);
+      
     } else if (this.state.view === 'signup') {
       return (<div>
         <h1 className="main-title">Tic Tac Toe</h1>
@@ -263,7 +275,7 @@ class App extends React.Component {
     } else if(this.state.view === 'submission' && this.state.type === 'admin') {
       return (
         <div>
-          <AdminView showLogIn={this.showLogIn.bind(this)}markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+          <AdminView showLogIn={this.showLogIn.bind(this)} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
         </div>);
 
     } else if(this.state.view === 'submission') {
@@ -290,7 +302,7 @@ class App extends React.Component {
         <div>
           <h1 className="main-title">Tic Tac Toe</h1>
           <Game unlockForms={this.unlockForms}/>
-          <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
+          <Button onClick={this.showAdminLogIn.bind(this)}>Admin Login</Button>
         </div>);
     }
     // return (
