@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: AdminView should match its empty snapshot 1`] = `
+<div>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsSize="small"
+    bsStyle="primary"
+    className="admin-change-user-button"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Sign In as a Different User
+  </Button>
+  <div
+    className="admin-header group"
+  >
+    <h3
+      className="welcome-header"
+    >
+      Welcome to Your Inbox!
+    </h3>
+    <h4>
+      You can view and respond to user messages here.
+    </h4>
+  </div>
+  <ul
+    className="user-message-ul"
+  >
+    <Message
+      key="0"
+      message={
+        Object {
+          "createdAt": "10/20/2017",
+          "first_name": "Jane",
+          "id": 1,
+          "last_name": "Smith",
+          "user_contact": "Test contact info",
+          "user_message": "Test message",
+          "user_urgency": "3",
+        }
+      }
+      setResponseId={[Function]}
+      setStatus={[Function]}
+      submitAdminResponse={[Function]}
+    />
+    <Message
+      key="1"
+      message={
+        Object {
+          "createdAt": "10/19/2017",
+          "first_name": "Lady",
+          "id": 2,
+          "last_name": "Person",
+          "user_contact": "Test contact info 2",
+          "user_message": "Test message 2",
+          "user_urgency": "1",
+        }
+      }
+      setResponseId={[Function]}
+      setStatus={[Function]}
+      submitAdminResponse={[Function]}
+    />
+  </ul>
+</div>
+`;
+
+exports[`Component: Message should match its empty snapshot 1`] = `
+<div
+  className="user-message-container group"
+>
+  <div
+    className="message-contents group"
+  >
+    <span
+      className="message-created-at"
+    >
+      Created: 
+    </span>
+    <p>
+      November 25th 2017, 3:13 pm
+    </p>
+    <br />
+    <span
+      className="message-name"
+    >
+      Name: 
+      <p>
+        Brad
+         
+        Pitt
+      </p>
+    </span>
+    <br />
+    <span
+      className="message-urgency"
+    >
+      Urgency: 
+      <p>
+        2
+      </p>
+    </span>
+    <br />
+    <span
+      className="message-contact"
+    >
+      Contact Information: 
+      <p>
+        the quick brown fox
+      </p>
+    </span>
+    <br />
+    <span
+      className="message-body"
+    >
+      Message: 
+      <p>
+        jumped over the lazy dog
+      </p>
+    </span>
+    <br />
+    <span
+      className="message-body"
+    >
+      Your Response: 
+      <p />
+    </span>
+  </div>
+  <div
+    className="message-actions group"
+  >
+    <Checkbox
+      bsClass="checkbox"
+      disabled={false}
+      inline={false}
+      onClick={[Function]}
+      title=""
+      type="checkbox"
+    >
+      Case Complete
+    </Checkbox>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="primary"
+      className="admin-response-button"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Show Response Form
+    </Button>
+  </div>
+</div>
+`;
+
+exports[`Component: Response should match its empty snapshot 1`] = `
+<FormGroup
+  bsClass="form-group"
+>
+  <div>
+    Respond to 
+    Brad Pitt
+    's message:
+  </div>
+  <FormControl
+    bsClass="form-control"
+    componentClass="textarea"
+    onChange={[Function]}
+    placeholder="Response..."
+    type="text"
+  />
+  <br />
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="primary"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Submit Response
+  </Button>
+</FormGroup>
+`;
