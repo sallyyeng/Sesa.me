@@ -141,16 +141,17 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
+          <div className="game-info">
+            <div>{status}</div>
+          </div>
+          
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
             unlockForms={this.props.unlockForms}
           />
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
+        
       </div>
     );
   }
