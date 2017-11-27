@@ -1,6 +1,6 @@
 # Tic Tac Toe with a Twist
 
-> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  Target audience is human trafficking and domestic violence victims.
+> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  The target audience is human trafficking and domestic violence victims, and the administrators who will interface with victims to get them help.
 
 ## Team
 
@@ -19,9 +19,15 @@
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
-## Usage
+## Developer Instructions
+> Follow instructions for starting the server, installing dependencies, and webpack bundling below.
 
-> Victims of domestic violence can use our app to discreetly login to a secure messaging system to request help from a qualified organization. Users will click the center of the tic tac toe board 10 times in a row, log in to the secure system (or create an account) and then send and receive secure help messages.
+## Tech Stack
+- React
+- Node
+- Express
+- mysql
+- Sequelize
 
 ## Requirements
 
@@ -76,11 +82,17 @@ npm run react-dev
 
 ### Testing
 
+Please run your changes through npm test before submitting a PR. This is part of the deployment process, so PR's will fail if there are any errors.
+
 ```sh
 npm test
 ```
 
 Open [http://localhost:3000/](http://localhost:3000/) to see your app, refresh for changes.
+
+### Known Issues
+
+- If hotbutton is activated while form components are rendered, an uncaught error may be thrown. The unlocked forms function is not passed to the board component when the form component is rendered. To resolve error, need to handle case where form is already rendered and hotbutton has been activated.
 
 ### Roadmap
 
