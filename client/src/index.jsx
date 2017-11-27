@@ -265,7 +265,7 @@ class App extends React.Component {
     //     <AdminLogin logInUser={this.logInUser.bind(this)}/>
     //   </div>);
       
-    } else if (this.state.view === 'signup') {
+    else if (this.state.view === 'signup') {
       return (<div>
         <h1 className="main-title">Tic Tac Toe</h1>
         <Game/>
