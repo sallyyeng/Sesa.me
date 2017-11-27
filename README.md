@@ -1,6 +1,6 @@
 # Tic Tac Toe with a Twist
 
-> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  Target audience is human trafficking and domestic violence victims.
+> Tic tac toe game that is more than a game.  Click a pattern on the board to unlock a secret authenticated messaging interface.  The target audience is human trafficking and domestic violence victims, and the administrators who will interface with victims to get them help.
 
 ## Team
 
@@ -19,15 +19,23 @@
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
-## Usage
+## Developer Instructions
+> Follow instructions for starting the server, installing dependencies, and webpack bundling below.
 
-> Victims of domestic violence can use our app to discreetly login to a secure messaging system to request help from a qualified organization. Users will click the center of the tic tac toe board 10 times in a row, log in to the secure system (or create an account) and then send and receive secure help messages.
+## Tech Stack
+- React
+- Node
+- Express
+- mysql
+- Sequelize
 
 ## Requirements
 
 - Babel 6.23.0
 - Babel-loader 7.1.2
 - body parser 1.18.2
+- bcrypt 1.0.3
+- bcrypt-nodejs 0.0.3
 - jquery 3.2.1
 - Node 9.x.x
 - npm 5.5.1
@@ -48,7 +56,6 @@
 - Babel Jest 21.2.0
 - Jest CLI 21.2.1
 - Enzyme 3.2.0
-- Eslint 4.11.0
 - Jest 21.2.1
 - React Test Renderer 16.1.1
 - Webpack 3.8.1
@@ -75,17 +82,32 @@ npm run react-dev
 
 ### Testing
 
+Please run your changes through npm test before submitting a PR. This is part of the deployment process, so PR's will fail if there are any errors.
+
 ```sh
 npm test
 ```
 
 Open [http://localhost:3000/](http://localhost:3000/) to see your app, refresh for changes.
 
+### Known Issues
+
+- If hotbutton is activated while form components are rendered, an uncaught error may be thrown. The unlocked forms function is not passed to the board component when the form component is rendered. To resolve error, need to handle case where form is already rendered and hotbutton has been activated.
+
 ### Roadmap
 
 View the project roadmap [here](http://bit.ly/2zLjWhM)
+
+### Preview
+
+![Main Page](https://imgur.com/jyyspMW)
+![Sign Up](https://imgur.com/LkY9R0B)
+![User Submit Message](https://imgur.com/kArSy6o)
+![User View Correspondence](https://imgur.com/wMOVNHE)
+![Admin Inbox](https://imgur.com/Hyt263z)
 
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
