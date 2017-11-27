@@ -184,3 +184,126 @@ exports[`Signup component renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Submission component renders correctly 1`] = `
+<div
+  className="user-submission-main"
+>
+  <div
+    className="page-header"
+  >
+    <h1>
+      Submission Form
+    </h1>
+  </div>
+  <h5>
+    Use this form to submit a bug or to respond to an admin's request for additional information.
+  </h5>
+  <button
+    className="change-view-button btn btn-primary"
+    disabled={false}
+    onClick={undefined}
+    type="button"
+  >
+    View Correspondence
+  </button>
+  <div
+    className="user-submission-container"
+  >
+    <label
+      className="contact-info control-label"
+      htmlFor={undefined}
+    >
+      How can we contact you?
+    </label>
+    <br />
+    <textarea
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="contact information"
+      type="text"
+    />
+    <br />
+    <div>
+      <label
+        className="control-label"
+        htmlFor={undefined}
+      >
+        Please rank the urgency of this bug on a scale of 1 through 5, where 1 is the least urgent, and 5 indicates that the bug is of immediate urgency.
+      </label>
+      <br />
+      <span>
+        1
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="1"
+      />
+      <span>
+        2
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="2"
+      />
+      <span>
+        3
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="3"
+      />
+      <span>
+        4
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="4"
+      />
+      <span>
+        5
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="5"
+      />
+    </div>
+    <br />
+    <label
+      className="message control-label"
+      htmlFor={undefined}
+    >
+      Please provide any information about the bug that we may use to help you:
+    </label>
+    <br />
+    <textarea
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="Additional information..."
+      type="text"
+    />
+    <br />
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit Message
+    </button>
+  </div>
+</div>
+`;
+

@@ -22,9 +22,23 @@ test('Signup component renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
-//TODO: response.jsx
+test('Response component renders correctly', () => {
+  const tree = renderer
+  .create(<Response></Response>)
+  .toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
-//TODO: submission.jsx
+test('Submission component renders correctly', () => {
+  const tree = renderer
+  .create(<Submission></Submission>)
+  .toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
-//TODO: userResponse.jsx
-
+test('User Responses component renders correctly', () => {
+  const tree = renderer
+  .create(<UserResponses></UserResponses>)
+  .toJSON();
+  expect(tree).toMatchSnapshot();
+});
