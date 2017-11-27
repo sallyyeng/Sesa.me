@@ -17,7 +17,7 @@ class Response extends React.Component {
           <br></br>
           <span className="message-body">Your original message: </span><p>{this.props.response.user_message}</p>
           <br></br>
-          <span className="response-body">Response: </span><p>{this.props.response.admin_response}</p>
+          <span className="response-body">Response: </span><p>{this.props.response.admin_response !== null ? this.props.response.admin_response : 'No response yet; keep checking back'}</p>
         </div>
         <div className="response-actions group">
           <Button bsSize="small" bsStyle="primary" onClick={this.props.showSubmissionForm}>Respond to Message</Button>

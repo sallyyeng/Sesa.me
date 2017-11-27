@@ -94,9 +94,9 @@ module.exports = {
             where: {
               //Note: userId is the FK in the submission model that points to a particular user
               userId: user.get('id'),
-              admin_response: {
-                [Op.not]: null
-              }
+              // admin_response: {
+              //   [Op.not]: null
+              // }
             }
           })
           .then((userMessages) => {
