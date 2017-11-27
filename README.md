@@ -28,6 +28,8 @@
 - Babel 6.23.0
 - Babel-loader 7.1.2
 - body parser 1.18.2
+- bcrypt 1.0.3
+- bcrypt-nodejs 0.0.3
 - jquery 3.2.1
 - Node 9.x.x
 - npm 5.5.1
@@ -48,7 +50,6 @@
 - Babel Jest 21.2.0
 - Jest CLI 21.2.1
 - Enzyme 3.2.0
-- Eslint 4.11.0
 - Jest 21.2.1
 - React Test Renderer 16.1.1
 - Webpack 3.8.1
