@@ -10,8 +10,6 @@ describe('Component: Game', () => {
   it('should match its empty snapshot', () => {
     const component = shallow(<Game/>)
     expect(component).toMatchSnapshot();
-  });
-});
 
 describe('Component: Board', () => {
   const squares = Array(9).fill(null);
@@ -22,6 +20,7 @@ describe('Component: Board', () => {
   var unlockForms = function(i) {
   	console.log('forms have been unlocked!');
   }
+  
   it('should match its empty snapshot', () => {
     const component = shallow(<Board squares={squares} onClick={handleClick} unlockForms={unlockForms}/>)
   });
