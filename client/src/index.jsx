@@ -302,9 +302,16 @@ class App extends React.Component {
         <div>
           <h1 className="main-title">Tic Tac Toe</h1>
           <Game unlockForms={this.unlockForms}/>
-          <Button onClick={this.showAdminLogIn.bind(this)}>Admin Login</Button>
+          
         </div>);
     }
+
+    // admin login button removed from line 305...
+    // <Button onClick={this.showAdminLogIn.bind(this)}>Admin Login</Button>
+
+
+
+    
     // return (
     //   <div>
     //     <Game unlockForms={this.unlockForms}/>
