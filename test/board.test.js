@@ -1,6 +1,7 @@
 import React from 'react';
 import Game from '../client/src/components/user/tictactoeView/game.jsx';
 import Board from '../client/src/components/user/tictacToeView/game.jsx';
+import HotSquare from '../client/src/components/user/tictacToeView/game.jsx';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
@@ -37,6 +38,6 @@ describe('Component: Hot Button', () => {
     console.log('click handled: ', i);
   }
   it('should match its empty snapshot', () => {
-    const component = shallow(<HotSquare value={value} onClick={handleCLick}/>)
+    const component = shallow(<HotSquare value={value} onClick={handleClick}/>)
   })
 });
