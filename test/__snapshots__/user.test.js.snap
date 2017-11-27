@@ -102,6 +102,34 @@ exports[`Signup component renders correctly 1`] = `
   </label>
   <br />
   <label
+    className="signup-username control-label"
+    htmlFor={undefined}
+  >
+    First Name
+    <input
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="first name..."
+      type="text"
+    />
+  </label>
+  <br />
+  <label
+    className="signup-username control-label"
+    htmlFor={undefined}
+  >
+    Last Name
+    <input
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="last name..."
+      type="text"
+    />
+  </label>
+  <br />
+  <label
     className="signup-password control-label"
     htmlFor={undefined}
   >
@@ -128,22 +156,6 @@ exports[`Signup component renders correctly 1`] = `
       type="password"
     />
   </label>
-  <br />
-  <div
-    className="admin-checkbox checkbox"
-    style={undefined}
-  >
-    <label
-      title=""
-    >
-      <input
-        disabled={false}
-        onChange={[Function]}
-        type="checkbox"
-      />
-      Administrator
-    </label>
-  </div>
   <br />
   <div
     className="col-centered"
@@ -173,75 +185,123 @@ exports[`Signup component renders correctly 1`] = `
 </div>
 `;
 
-exports[`renders correctly 1`] = `
+exports[`Submission component renders correctly 1`] = `
 <div
-  className="container login-container"
+  className="user-submission-main"
 >
-  <div>
-    <div
-      className="page-header"
-    >
-      <h1>
-        <small>
-          Login to report a bug:
-        </small>
-      </h1>
-    </div>
+  <div
+    className="page-header"
+  >
+    <h1>
+      Submission Form
+    </h1>
+  </div>
+  <h5>
+    Use this form to submit a bug or to respond to an admin's request for additional information.
+  </h5>
+  <button
+    className="change-view-button btn btn-primary"
+    disabled={false}
+    onClick={undefined}
+    type="button"
+  >
+    View Correspondence
+  </button>
+  <div
+    className="user-submission-container"
+  >
     <label
-      className="login-username control-label"
+      className="contact-info control-label"
       htmlFor={undefined}
     >
-      Username
-      <input
-        className="form-control"
-        id={undefined}
-        onChange={[Function]}
-        placeholder="username..."
-        type="text"
-      />
+      How can we contact you?
     </label>
     <br />
+    <textarea
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="contact information"
+      type="text"
+    />
+    <br />
+    <div>
+      <label
+        className="control-label"
+        htmlFor={undefined}
+      >
+        Please rank the urgency of this bug on a scale of 1 through 5, where 1 is the least urgent, and 5 indicates that the bug is of immediate urgency.
+      </label>
+      <br />
+      <span>
+        1
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="1"
+      />
+      <span>
+        2
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="2"
+      />
+      <span>
+        3
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="3"
+      />
+      <span>
+        4
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="4"
+      />
+      <span>
+        5
+      </span>
+      <input
+        name="urgency"
+        onClick={[Function]}
+        type="radio"
+        value="5"
+      />
+    </div>
+    <br />
     <label
-      className="login-password control-label"
+      className="message control-label"
       htmlFor={undefined}
     >
-      Password
-      <input
-        className="form-control"
-        id={undefined}
-        onChange={[Function]}
-        placeholder="password..."
-        type="password"
-      />
+      Please provide any information about the bug that we may use to help you:
     </label>
+    <br />
+    <textarea
+      className="form-control"
+      id={undefined}
+      onChange={[Function]}
+      placeholder="Additional information..."
+      type="text"
+    />
     <br />
     <button
-      className="login-button btn btn-primary"
+      className="btn btn-primary"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
-      Log In
-    </button>
-    <br />
-  </div>
-  <div>
-    <div
-      className="page-header"
-    >
-      <h1>
-        <small>
-          Don't have an account? Sign up:
-        </small>
-      </h1>
-    </div>
-    <button
-      className="btn btn-primary"
-      disabled={false}
-      onClick={undefined}
-      type="button"
-    >
-      Signup
+      Submit Message
     </button>
   </div>
 </div>
