@@ -1,16 +1,7 @@
-require('../src/components/user/tictactoeView/dev/style.css');
-
-
-import store from '../src/components/user/tictactoeView/dev/store.jsx';
-import StatefulTicTacToe from '../src/components/user/tictactoeView/dev/containers/statefultictactoe.jsx';
-import { Provider } from 'react-redux'
-
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-//import Game from './components/user/tictactoeView/game.jsx';
+import Game from './components/user/tictactoeView/game.jsx';
 import Login from './components/user/formView/login.jsx';
 import Signup from './components/user/formView/signup.jsx';
 import Submission from './components/user/formView/submission.jsx';
@@ -242,9 +233,7 @@ class App extends React.Component {
     if (this.state.showBugButton === true) {
       return <div>
         <h1 className="main-title">Tic Tac Toe</h1>
-          <Provider store={store}>
-        <StatefulTicTacToe player="X" />
-    </Provider>
+        <Game/>
         <div className="report-bug-message">
           <p>It looks like you've found a bug.  Would you like to report it?</p>
           <Button className="bug-button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
@@ -255,9 +244,7 @@ class App extends React.Component {
     } else if (this.state.view === 'login') {
       return (<div>
         <h1 className="main-title">Tic Tac Toe</h1>
-        <Provider store={store}>
-        <StatefulTicTacToe player="X" />
-        </Provider>
+        <Game/>
         <div>
           <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
         </div>
@@ -266,14 +253,11 @@ class App extends React.Component {
     } else if (this.state.view === 'signup') {
       return (<div>
         <h1 className="main-title">Tic Tac Toe</h1>
-        <Provider store={store}>
-        <StatefulTicTacToe player="X" />
-        </Provider>
+        <Game/>
         <div>
           <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)}/>
         </div>
       </div>)
-
 
     } else if(this.state.view === 'submission' && this.state.type === 'admin') {
       return (
@@ -285,9 +269,7 @@ class App extends React.Component {
       return (
         <div>
           <h1 className="main-title">Tic Tac Toe</h1>
-        <Provider store={store}>
-        <StatefulTicTacToe player="X" />
-        </Provider>
+          <Game/>
           <div>
             <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)} showAdminResponses={this.showAdminResponses}/>
           </div>
@@ -296,9 +278,7 @@ class App extends React.Component {
     } else if(this.state.view === 'responses'){
       return(
         <div>
-        <Provider store={store}>
-        <StatefulTicTacToe player="X" />
-        </Provider>
+         <Game/>
          <div>
            <UserResponses showSubmissionForm={this.showSubmissionForm} retrieveResponses={this.retrieveResponses.bind(this)} username={this.state.username}/>
          </div>
@@ -308,26 +288,25 @@ class App extends React.Component {
       return (
         <div>
           <h1 className="main-title">Tic Tac Toe</h1>
-          <Provider store={store} unlockForms={this.unlockForms}>
-          <StatefulTicTacToe player="X" />
-          </Provider>
+          <Game unlockForms={this.unlockForms}/>
           <Button onClick={this.showLogIn.bind(this)}>Admin Login</Button>
         </div>);
     }
+    // return (
+    //   <div>
+    //     <Game unlockForms={this.unlockForms}/>
+        
+    //     <button onClick={this.showLogIn.bind(this)}>Log In</button>
+    //     <button onClick={this.showSignUp.bind(this)}>Sign Up</button>
+    //     <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)}/>
+    //     <Signup createUser={this.createUser.bind(this)}/>
+    //     <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)}/>
+    //     <AdminView showLogIn={this.showLogIn.bind(this)} username={this.state.username} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)}/>
+
+    //   </div>
+    // )
   }
 
 } 
- ReactDOM.render(<App/>, document.getElementById('app'));
-// ReactDOM.render(<App/>, document.getElementById('root'));
-
-
-
-
-
-
-
-
-
-
-
-
+  
+ReactDOM.render(<App/>, document.getElementById('app'));
