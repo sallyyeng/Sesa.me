@@ -258,10 +258,12 @@ class App extends React.Component {
         </div>
 
       </div>);
-    } else if(this.state.view === 'adminLogin') {
-      return (<div>
-        <AdminLogin logInUser={this.logInUser.bind(this)}/>
-      </div>);
+    } 
+    // Admin login view
+    // else if(this.state.view === 'adminLogin') {
+    //   return (<div>
+    //     <AdminLogin logInUser={this.logInUser.bind(this)}/>
+    //   </div>);
       
     } else if (this.state.view === 'signup') {
       return (<div>
