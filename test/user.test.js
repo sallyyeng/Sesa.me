@@ -82,7 +82,7 @@ describe('Response component renders correctly', () => {
   const key = 1;
 
   const response = {
-    createdAt: '2017-11-25T23:13:29.000Z',
+    createdAt: '2017-11-25T15:13:29.000Z',
     first_name: 'Brad',
     last_name: 'Pitt',
     user_contact: 'the quick brown fox',
