@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Game should match its empty snapshot 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-board"
+  >
+    <div
+      className="game-info"
+    >
+      <div>
+        Next player: X
+      </div>
+    </div>
+    <Board
+      onClick={[Function]}
+      squares={
+        Array [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ]
+      }
+    />
+    <span>
+      <button
+        onClick={[Function]}
+      >
+        reset
+      </button>
+    </span>
+  </div>
+</div>
+`;
