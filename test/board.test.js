@@ -25,3 +25,13 @@ describe('Component: Board', () => {
     const component = shallow(<Board squares={squares} onClick={handleClick} unlockForms={unlockForms}/>)
   });
 });
+
+describe('Component: Hot Button', () => {
+  const value = 'X';
+  var handleClick = function(i){
+    console.log('click handled: ', i);
+  }
+  it('should match its empty snapshot', () => {
+    const component = shallow(<HotSquare value={value} onClick={handleCLick}/>)
+  })
+});
