@@ -65,8 +65,6 @@ db.query('SELECT table_schema,table_name FROM information_schema.tables;', (err,
 //^^^DEPLOPYMENT DB
 
 
-db.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
-
 
 const User = db.define('user', {
   //id is already created by default as PK
