@@ -8,6 +8,8 @@ const db = new Sequelize('messages', 'root', '', {
 });
 
 
+db.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
+
 
 const User = db.define('user', {
   //id is already created by default as PK
