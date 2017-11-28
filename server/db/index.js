@@ -1,18 +1,18 @@
 // This file initialize a sequelize instance
 // It contains code that defines models, their relationships, and creates the tables IF they don't already exist in mysql
 
-try {
-  const config = require('./config.js'); // need to update file path
-  var username = config.USER;
-  var port = config.DB_PORT;
-  var host = config.HOST;
-  var dbUrl = config.DATABASE_URL;
-} catch (err) {
-  var username = process.env.USER;
-  var port = process.env.DB_PORT;
-  var host = process.env.HOST;
-  var dbUrl = process.env.DATABASE_URL;
-}
+// try {
+//   const config = require('./config.js'); // need to update file path
+//   var username = config.USER;
+//   var port = config.DB_PORT;
+//   var host = config.HOST;
+//   var dbUrl = config.DATABASE_URL;
+// } catch (err) {
+//   var username = process.env.USER;
+//   var port = process.env.DB_PORT;
+//   var host = process.env.HOST;
+//   var dbUrl = process.env.DATABASE_URL;
+// }
 
 
 // if (!global.hasOwnProperty('db')) {
@@ -36,31 +36,31 @@ try {
 
 
 
-// const Sequelize = require('sequelize');
-//db is named messages
-// const db = new Sequelize('messages', 'root', '', {
-//   dialect: 'mysql'
+const Sequelize = require('sequelize');
+db is named messages
+const db = new Sequelize('messages', 'root', '', {
+  dialect: 'mysql'
+});
+
+
+// // //DEPLOYMENT DB
+
+// const { Client } = require('pg');
+
+// const db = new Client({
+//   connectionString: dbUrl,
+//   ssl: true,
 // });
 
+// db.connect();
 
-// //DEPLOYMENT DB
-
-const { Client } = require('pg');
-
-const db = new Client({
-  connectionString: dbUrl,
-  ssl: true,
-});
-
-db.connect();
-
-db.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  // db.end();
-});
+// db.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+//   // db.end();
+// });
 
 //^^^DEPLOPYMENT DB
 
