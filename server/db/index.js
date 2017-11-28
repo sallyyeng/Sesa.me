@@ -1,32 +1,32 @@
 // This file initialize a sequelize instance
 // It contains code that defines models, their relationships, and creates the tables IF they don't already exist in mysql
 
-if (!global.hasOwnProperty('db')) {
-  var Sequelize = require('sequelize')
-    , db = null
+// if (!global.hasOwnProperty('db')) {
+//   var Sequelize = require('sequelize')
+//     , db = null
 
-  if (process.env.DATABASE_URL) {
-    // the application is executed on Heroku ... use the postgres database
-    db = new Sequelize(process.env.DATABASE_URL, {
-      dialect:  'postgres',
-      protocol: 'postgres',
-      port:     match[4],
-      host:     match[3],
-      logging:  true //false
-    })
-  } else {
-    // the application is executed on the local machine ... use mysql
-    db = new Sequelize('messages', 'root', '', {dialect: 'mysql'});
-  }
-}
+//   if (process.env.DATABASE_URL) {
+//     // the application is executed on Heroku ... use the postgres database
+//     db = new Sequelize(process.env.DATABASE_URL, {
+//       dialect:  'postgres',
+//       protocol: 'postgres',
+//       port:     match[4],
+//       host:     match[3],
+//       logging:  true //false
+//     })
+//   } else {
+//     // the application is executed on the local machine ... use mysql
+//     db = new Sequelize('messages', 'root', '', {dialect: 'mysql'});
+//   }
+// }
 
 
 
-// const Sequelize = require('sequelize');
-// //db is named messages
-// // const db = new Sequelize('messages', 'root', '', {
-// //   dialect: 'mysql'
-// // });
+const Sequelize = require('sequelize');
+//db is named messages
+const db = new Sequelize('messages', 'root', '', {
+  dialect: 'mysql'
+});
 
 
 // //DEPLOYMENT DB
