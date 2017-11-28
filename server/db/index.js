@@ -1,17 +1,27 @@
 // This file initialize a sequelize instance
 // It contains code that defines models, their relationships, and creates the tables IF they don't already exist in mysql
 
+try {
+  const config = require('./config.js'); // need to update file path
+} catch (err) {
+  var username = process.env.USER;
+  var port = process.env.DB_PORT;
+  var host = process.env.HOST;
+  var dbUrl = process.env.DATABASE_URL;
+}
+
+
 if (!global.hasOwnProperty('db')) {
   var Sequelize = require('sequelize')
     , db = null
 
-  if (process.env.DATABASE_URL) {
+  if (process.env.DATABASE_URI) {
     // the application is executed on Heroku ... use the postgres database
-    db = new Sequelize(process.env.DATABASE_URL, {
+    db = new Sequelize(, {
       dialect:  'postgres',
       protocol: 'postgres',
-      port:     match[4],
-      host:     match[3],
+      port:     port,
+      host:     host,
       logging:  true //false
     })
   } else {
@@ -22,11 +32,11 @@ if (!global.hasOwnProperty('db')) {
 
 
 
-// const Sequelize = require('sequelize');
-// //db is named messages
-// // const db = new Sequelize('messages', 'root', '', {
-// //   dialect: 'mysql'
-// // });
+const Sequelize = require('sequelize');
+//db is named messages
+const db = new Sequelize('messages', 'root', '', {
+  dialect: 'mysql'
+});
 
 
 // //DEPLOYMENT DB
