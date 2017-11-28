@@ -42,6 +42,7 @@ const db = new Sequelize('messages', 'root', '', {
   dialect: 'mysql'
 });
 
+db.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
 
 // // //DEPLOYMENT DB
 
