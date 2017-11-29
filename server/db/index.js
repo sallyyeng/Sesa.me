@@ -38,7 +38,7 @@
 
 const Sequelize = require('sequelize');
 //db is named messages
-const db = new Sequelize('messages', 'root', process.env.DBPASSWORD, {
+const db = new Sequelize('messages', 'begona', process.env.DBPASSWORD, {
   dialect: 'mysql'
 });
 
