@@ -5,7 +5,7 @@ import Response from '../client/src/components/admin/response.jsx';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-/*TEST ADMIN COMPONENTS*/
+/* TEST ADMIN COMPONENTS */
 
 // describe('Component: Message', () => {
 //   const message = {
@@ -38,13 +38,12 @@ describe('Component: AdminView', () => {
   const retrieveOpenMessages = () => {
     console.log('retrieve open messages');
   };
-  
+
   it('should match its empty snapshot', () => {
-    const component = shallow( <AdminView showLogIn={showLogIn} markAsComplete={markAsComplete} submitAdminResponse={submitAdminResponse} retrieveOpenMessages={retrieveOpenMessages}/>);
+    const component = shallow(<AdminView showLogIn={showLogIn} markAsComplete={markAsComplete} submitAdminResponse={submitAdminResponse} retrieveOpenMessages={retrieveOpenMessages} />);
 
     expect(component).toMatchSnapshot();
   });
-
 });
 
 describe('Component: Response', () => {
@@ -53,11 +52,10 @@ describe('Component: Response', () => {
   const submitAdminResponse = () => {
     console.log('submit admin response');
   };
-  
+
   it('should match its empty snapshot', () => {
-    const component = shallow( <Response messageName={messageName} messageId={messageId} submitAdminResponse={submitAdminResponse}/>);
+    const component = shallow(<Response messageName={messageName} messageId={messageId} submitAdminResponse={submitAdminResponse} />);
 
     expect(component).toMatchSnapshot();
   });
-
 });

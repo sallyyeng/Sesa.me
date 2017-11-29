@@ -16,43 +16,43 @@ class Signup extends React.Component {
       checkPassword: '',
       admin: '',
       firstName: '',
-      lastName: ''
-    }
+      lastName: '',
+    };
   }
 
   onUsernameChange(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   }
 
   onFirstNameChange(e) {
     this.setState({
-      firstName: e.target.value
+      firstName: e.target.value,
     });
   }
 
   onLastNameChange(e) {
     this.setState({
-      lastName: e.target.value
+      lastName: e.target.value,
     });
   }
 
   onPasswordChange(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
 
   onCheckPasswordChange(e) {
     this.setState({
-      checkPassword: e.target.value
+      checkPassword: e.target.value,
     });
-  }  
+  }
 
   onAdminCheck(e) {
     this.setState({
-      admin: 'admin'
+      admin: 'admin',
     });
   }
 
@@ -75,32 +75,32 @@ class Signup extends React.Component {
   }
 
 
-  //On deployment: remove option to sign up as an admin. This will be done directly within the database.
+  // On deployment: remove option to sign up as an admin. This will be done directly within the database.
   render() {
     return (
       <div className="container signup-container">
         <PageHeader><small>Signup</small></PageHeader>
         <ControlLabel className="signup-username">
-          Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl>
+          Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)} />
         </ControlLabel>
-        <br></br>
+        <br />
         <ControlLabel className="signup-username">
-          First Name<FormControl type="text" placeholder="first name..." onChange={this.onFirstNameChange.bind(this)}></FormControl>
+          First Name<FormControl type="text" placeholder="first name..." onChange={this.onFirstNameChange.bind(this)} />
         </ControlLabel>
-        <br></br>
+        <br />
         <ControlLabel className="signup-username">
-          Last Name<FormControl type="text" placeholder="last name..." onChange={this.onLastNameChange.bind(this)}></FormControl>
+          Last Name<FormControl type="text" placeholder="last name..." onChange={this.onLastNameChange.bind(this)} />
         </ControlLabel>
-        <br></br>
+        <br />
         <ControlLabel className="signup-password">
-          Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl>
+          Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)} />
         </ControlLabel>
-        <br></br>
+        <br />
         <ControlLabel className="signup-password">
-          Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)}></FormControl>
+          Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)} />
         </ControlLabel>
-        <br></br>
-        
+        <br />
+
         <div className="col-centered">
           <ButtonToolbar>
             <Button className="sign-up-button" bsStyle="primary" onClick={this.onSubmit.bind(this)}>Create Account</Button>
@@ -110,7 +110,6 @@ class Signup extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Signup;
