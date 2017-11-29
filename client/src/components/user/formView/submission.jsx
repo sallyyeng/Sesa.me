@@ -15,8 +15,8 @@ class Submission extends React.Component {
     this.state = {
       contact: '',
       urgency: '',
-      message: ''
-    }
+      message: '',
+    };
   }
 
   /* ================================ */
@@ -36,23 +36,23 @@ class Submission extends React.Component {
 
   updateContact(e) {
     this.setState({
-      contact: e.target.value
+      contact: e.target.value,
     });
   }
 
   updateUrgency(e) {
     this.setState({
-      urgency: e.target.value
+      urgency: e.target.value,
     });
   }
 
   updateMessage(e) {
     this.setState({
-      message: e.target.value
+      message: e.target.value,
     });
   }
 
-/* ===========================*/
+  /* =========================== */
 
   // on submission, call method to send form data to server
   onSubmit() {
@@ -60,7 +60,7 @@ class Submission extends React.Component {
       this.props.username,
       this.state.contact,
       this.state.urgency,
-      this.state.message
+      this.state.message,
     );
   }
 
@@ -75,36 +75,36 @@ class Submission extends React.Component {
 
         <div className="user-submission-container">
           <ControlLabel className="contact-info">How can we contact you?</ControlLabel>
-          <br></br>
-          <FormControl componentClass="textarea" onChange={this.updateContact.bind(this)}type="text" placeholder="contact information"></FormControl>
-          <br></br>
+          <br />
+          <FormControl componentClass="textarea" onChange={this.updateContact.bind(this)}type="text" placeholder="contact information" />
+          <br />
 
           <div>
             <ControlLabel>Please rank the urgency of this bug on a scale of 1 through 5, where 1 is the least urgent, and 5 indicates that the bug is of immediate urgency.</ControlLabel>
-            <br></br>
+            <br />
             <span>1</span>
-            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="1"></input>
+            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="1" />
             <span>2</span>
-            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="2"></input>
+            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="2" />
             <span>3</span>
-            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="3"></input>
+            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="3" />
             <span>4</span>
-            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="4"></input>
+            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="4" />
             <span>5</span>
-            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="5"></input>
+            <input onClick={this.updateUrgency.bind(this)} name="urgency" type="radio" value="5" />
           </div>
-          <br></br>
+          <br />
 
           <ControlLabel className="message">Please provide any information about the bug that we may use to help you:</ControlLabel>
-          <br></br>
-          <FormControl componentClass="textarea" onChange={this.updateMessage.bind(this)}type="text" placeholder="Additional information..."></FormControl>
-          <br></br>
+          <br />
+          <FormControl componentClass="textarea" onChange={this.updateMessage.bind(this)}type="text" placeholder="Additional information..." />
+          <br />
           <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit Message</Button>
 
         </div>
 
       </div>
-    )
+    );
   }
 }
 

@@ -37,8 +37,8 @@
 
 
 const Sequelize = require('sequelize');
-db is named messages
-const db = new Sequelize('messages', 'root', '', {
+//db is named messages
+const db = new Sequelize('messages', 'root', process.env.DBPASSWORD, {
   dialect: 'mysql'
 });
 
@@ -75,7 +75,7 @@ const User = db.define('user', {
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING
-})
+});
 
 
 const Submission = db.define('submission', {
@@ -88,7 +88,7 @@ const Submission = db.define('submission', {
   admin_complete: Sequelize.BOOLEAN,
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING
-})
+});
 
 //define 1:many relationship of Users:Submissions
 Submission.belongsTo(User);

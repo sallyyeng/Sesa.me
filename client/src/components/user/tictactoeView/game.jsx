@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import CSS from './game.css';
+// import CSS from './game.css';
 import $ from 'jquery';
 
 
@@ -17,21 +17,21 @@ function HotSquare(props) {
 }
 
 class Board extends React.Component {
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
-      hotSquareClickCount: 0
-    }
+      hotSquareClickCount: 0,
+    };
   }
 
-  resetHotSquareClickCount(){
+  resetHotSquareClickCount() {
     this.state.hotSquareClickCount = 0;
   }
 
-  incrementHotSquareClickCount(){
+  incrementHotSquareClickCount() {
     this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
-    if(this.state.hotSquareClickCount === 10) {
+    if (this.state.hotSquareClickCount === 10) {
       this.props.unlockForms();
       this.state.hotSquareClickCount = 0;
     }
@@ -49,11 +49,12 @@ class Board extends React.Component {
   renderHotSquare(i) {
     return (
       <HotSquare
-        value={this.props.squares[i]} 
-        onClick={ () => {
+        value={this.props.squares[i]}
+        onClick={() => {
           this.incrementHotSquareClickCount();
           this.props.onClick(i);
-        }}/>);
+        }}
+      />);
   }
 
   render() {
@@ -77,7 +78,7 @@ class Board extends React.Component {
       </div>
     );
   }
-}  
+}
 
 class Game extends React.Component {
   constructor() {
@@ -85,11 +86,11 @@ class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
-        }
+          squares: Array(9).fill(null),
+        },
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
     };
   }
 
@@ -100,34 +101,35 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? "X" : "O";
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([
         {
-          squares: squares
-        }
+          squares,
+        },
       ]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
     });
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0
+      xIsNext: (step % 2) === 0,
     });
   }
 
-  onReset(){
+  onReset() {
     this.setState({
       history: [
         {
-          squares: Array(9).fill(null)
-        }
+          squares: Array(9).fill(null),
+        },
       ],
       stepNumber: 0,
-      xIsNext: true});
+      xIsNext: true,
+    });
   }
 
   render() {
@@ -137,9 +139,9 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = `Winner: ${winner}`;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
     }
 
     return (
@@ -148,7 +150,7 @@ class Game extends React.Component {
           <div className="game-info">
             <div>{status}</div>
           </div>
-          
+
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
@@ -156,15 +158,12 @@ class Game extends React.Component {
           />
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
-        
-        
+
+
       </div>
     );
   }
 }
-
-
-
 
 
 export default Game;
@@ -179,7 +178,7 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
