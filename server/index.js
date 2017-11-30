@@ -26,3 +26,5 @@ app.use(express.static(`${__dirname}/../client/dist`));
 // Init server
 app.listen(app.get('port'));
 console.log('Listening on', app.get('port'));
+
+//Socket
