@@ -4,27 +4,27 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
-const db = {};
+// const db = {};
 
 // OG codebase
-// const db = new Sequelize('messages', 'root', '38ankeny', {
-//     dialect: 'mysql'
-// });
+const db = new Sequelize('messages', 'root', '38ankeny', {
+    dialect: 'mysql'
+});
 
 fs
-    .readdirSync(__dirname)
-    .filter(function(file) {
-        return (file.indexOf('.') !== 0) && (file !== 'index.js');
-    })
-    .forEach(function(file) {
-        var model = sequelize.import(path.join(__dirname, file));
-        db[model.name] = model;
-    });
+  .readdirSync(__dirname)
+  .filter(function(file) {
+    return (file.indexOf('.') !== 0) && (file !== 'index.js');
+  })
+  .forEach(function(file) {
+    var model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
+  });
 
 Object.keys(db).forEach(function(modelName) {
-    if ('associate' in db[modelName]) {
-        db[modelName].associate(db);
-    }
+  if ('associate' in db[modelName]) {
+    db[modelName].associate(db);
+  }
 });
 
 
@@ -33,30 +33,30 @@ sequelize.Sequelize = Sequelize;
 
 module.exports = db;
 
-sequelize.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
-
+sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
+  .then(() => console.log('Database created'));
 
 const User = sequelize.define('user', {
-    //id is already created by default as PK
-    username: { type: Sequelize.STRING, unique: true },
-    hash: Sequelize.STRING,
-    salt: Sequelize.STRING,
-    account_type: Sequelize.STRING,
-    first_name: Sequelize.STRING,
-    last_name: Sequelize.STRING
+  //id is already created by default as PK
+  username: { type: Sequelize.STRING, unique: true },
+  hash: Sequelize.STRING,
+  salt: Sequelize.STRING,
+  account_type: Sequelize.STRING,
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING
 });
 
 
 const Submission = sequelize.define('submission', {
-    //id (PK), createdAt, and user id (FK) are created by default
-    user_message: Sequelize.TEXT,
-    user_contact: Sequelize.TEXT,
-    user_urgency: Sequelize.INTEGER,
-    admin_response: Sequelize.TEXT,
-    //Sequelize Boolean will be converted to TINYINT(1)
-    admin_complete: Sequelize.BOOLEAN,
-    first_name: Sequelize.STRING,
-    last_name: Sequelize.STRING
+  //id (PK), createdAt, and user id (FK) are created by default
+  user_message: Sequelize.TEXT,
+  user_contact: Sequelize.TEXT,
+  user_urgency: Sequelize.INTEGER,
+  admin_response: Sequelize.TEXT,
+  //Sequelize Boolean will be converted to TINYINT(1)
+  admin_complete: Sequelize.BOOLEAN,
+  first_name: Sequelize.STRING,
+  last_name: Sequelize.STRING
 });
 
 //define 1:many relationship of Users:Submissions
