@@ -1,10 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+<<<<<<< HEAD
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
+=======
+//db is named messages
+const db = new Sequelize('messages', 'begona', process.env.DBPASSWORD, {
+  dialect: 'mysql'
+});
+
+db.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
+
+// // //DEPLOYMENT DB
+>>>>>>> heroku changes
 
 sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
   .then(() => console.log('Database created'));
