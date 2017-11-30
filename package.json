@@ -10,7 +10,6 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "postinstall": "webpack -d"
