@@ -1,11 +1,11 @@
 // require('dotenv').config();
 const express = require('express');
 const app = express();
-const passport = require('passport')
-const session = require('express-session')
+const passport = require('passport');
+const session = require('express-session');
 const parser = require('body-parser');
 const env = require('dotenv').load();
-const exphbs = require('express-handlebars')
+const exphbs = require('express-handlebars');
 const router = require('./routes.js');
 
 // Body Parser
