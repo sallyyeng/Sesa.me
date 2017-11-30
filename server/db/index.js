@@ -57,19 +57,3 @@ var username = 'badabdf3838c5c'
 var password = '7a09b42d'
 var database = 'heroku_0e35bdd032f8e0c'
 var host = 'us-cdbr-iron-east-05.cleardb.net'
-
-// fs
-//   .readdirSync(__dirname)
-//   .filter(function (file) {
-//     return (file.indexOf('.') !== 0) && (file !== 'index.js');
-//   })
-//   .forEach(function (file) {
-//     var model = sequelize.import(path.join(__dirname, file));
-//     db[model.name] = model;
-//   });
-
-// Object.keys(db).forEach(function (modelName) {
-//   if ('associate' in db[modelName]) {
-//     db[modelName].associate(db);
-//   }
-// });
