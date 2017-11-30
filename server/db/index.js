@@ -43,8 +43,8 @@ Submission.sync();
 // exports.User = User;
 // exports.Submission = Submission;
 
-db.User = User
-db.Submission = Submission
+db.User = User;
+db.Submission = Submission;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -53,7 +53,7 @@ module.exports = db;
 
 //CREDENTIALS FOR THE STAGING DB
 //CLEARDB_DATABASE_URL: mysql://badabdf3838c5c:7a09b42d@us-cdbr-iron-east-05.cleardb.net/heroku_0e35bdd032f8e0c?reconnect=true
-var username = 'badabdf3838c5c'
-var password = '7a09b42d'
-var database = 'heroku_0e35bdd032f8e0c'
-var host = 'us-cdbr-iron-east-05.cleardb.net'
+var username = 'badabdf3838c5c';
+var password = '7a09b42d';
+var database = 'heroku_0e35bdd032f8e0c';
+var host = 'us-cdbr-iron-east-05.cleardb.net';

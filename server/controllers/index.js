@@ -14,6 +14,7 @@ module.exports = {
     //***TODO***: handle incorrect pw but pre-existing user
 
     post: (req, res) => {
+      console.log('OLD SIGNUP ROUTE');
       bcrypt.hash(req.body.hash, 10, (err, hash) => {
         if (err) {
           console.log('Error hashing password ', err);
@@ -45,6 +46,7 @@ module.exports = {
   login: {
     // authenticate user, verifying username and hashed pw match
     post: (req, res) => {
+      console.log('OLD SIGNUP ROUTE');
       sequelize.User.findOne({
         where: {
           username: req.body.username,
