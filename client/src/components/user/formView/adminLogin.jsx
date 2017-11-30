@@ -10,19 +10,19 @@ class AdminLogin extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
   onUsernameChange(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   }
 
   onPasswordChange(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
 
@@ -35,12 +35,12 @@ class AdminLogin extends React.Component {
       <div className="container login-container">
         <div>
           <PageHeader><small>Admin Login:</small></PageHeader>
-          <ControlLabel className="login-username" >Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)}></FormControl></ControlLabel>
-          <br></br>
-          <ControlLabel className="login-password">Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)}></FormControl></ControlLabel>
-          <br></br>
+          <ControlLabel className="login-username" >Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)} /></ControlLabel>
+          <br />
+          <ControlLabel className="login-password">Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)} /></ControlLabel>
+          <br />
           <Button bsStyle="primary" className="login-button" onClick={this.onSubmit.bind(this)}>Log In</Button>
-          <br></br>
+          <br />
         </div>
         <div>
           <PageHeader><small>Don't have an account? Request one:</small></PageHeader>
@@ -49,7 +49,6 @@ class AdminLogin extends React.Component {
       </div>
     );
   }
-
 }
 
 export default AdminLogin;

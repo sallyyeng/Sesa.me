@@ -106,6 +106,24 @@ exports.Submission = Submission;
 //   }
 // }
 
+const Sequelize = require('sequelize');
+
+
+//CREDENTIALS FOR THE STAGING DB
+//CLEARDB_DATABASE_URL: mysql://badabdf3838c5c:7a09b42d@us-cdbr-iron-east-05.cleardb.net/heroku_0e35bdd032f8e0c?reconnect=true
+var username = 'badabdf3838c5c'
+var password = '7a09b42d'
+var database = 'heroku_0e35bdd032f8e0c'
+var host = 'us-cdbr-iron-east-05.cleardb.net'
+
+//// db is named messages
+// const db = new Sequelize('messages', 'root', process.env.DBPASSWORD, {
+//   dialect: 'mysql'
+// });
+
+// db.query('CREATE DATABASE IF NOT EXISTS messages').then(() => console.log('Database created'));
+
+//----------------------------------------------------------------------
 // // //DEPLOYMENT DB
 
 // const { Client } = require('pg');

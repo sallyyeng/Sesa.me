@@ -1,4 +1,7 @@
+require('dotenv').config();
+
 const express = require('express');
+
 const app = express();
 const passport = require('passport')
 const session = require('express-session')
@@ -8,7 +11,7 @@ const exphbs = require('express-handlebars')
 // blog has models and syncing database in server.js fyi //
 
 // Middleware
-var parser = require('body-parser');
+const parser = require('body-parser');
 
 // For Passport
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
@@ -23,7 +26,7 @@ app.engine('hbs', exphbs({
 app.set('view engine', '.hbs');
 
 // Router
-var router = require('./routes.js');
+const router = require('./routes.js');
 
 // Set port
 app.set('port', process.env.PORT || 3000);
@@ -36,7 +39,7 @@ app.use(parser.json());
 app.use('/', router);
 
 // Static Files
-app.use(express.static(__dirname + '/../client/dist'));
+app.use(express.static(`${__dirname}/../client/dist`));
 
 // Routes
 var authRoute = require('./authroute.js')(app);
@@ -44,3 +47,6 @@ var authRoute = require('./authroute.js')(app);
 // Init server
 app.listen(app.get('port'));
 console.log('Listening on', app.get('port'));
+
+//Socket
+

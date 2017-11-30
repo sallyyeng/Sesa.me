@@ -5,13 +5,14 @@
 const db = require('../db/index.js');
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
+
 const Op = Sequelize.Op;
 
 module.exports = {
   signup: {
-
     //creates a new user or finds an already existing user
     //***TODO***: handle incorrect pw but pre-existing user
+
     post: (req, res) => {
       bcrypt.hash(req.body.hash, 10, (err, hash) => {
         if (err) {
@@ -38,16 +39,16 @@ module.exports = {
             res.sendStatus(400);
           });
       });
-    }
+    },
   },
 
   login: {
-    //authenticate user, verifying username and hashed pw match
+    // authenticate user, verifying username and hashed pw match
     post: (req, res) => {
       sequelize.User.findOne({
         where: {
-          username: req.body.username
-        }
+          username: req.body.username,
+        },
       })
         .then((user) => {
           bcrypt.compare(req.body.hash, user.get('hash'), (err, result) => {
@@ -67,7 +68,7 @@ module.exports = {
     }
   },
   submissions: {
-    //send a specific user's messages or all messages for an admin
+    // send a specific user's messages or all messages for an admin
     get: (req, res) => {
       console.log('GET with query', req.query);
       if (req.query.account_type === 'admin') {
@@ -87,8 +88,8 @@ module.exports = {
       } else {
         sequelize.User.findOne({
           where: {
-            username: req.query.username
-          }
+            username: req.query.username,
+          },
         })
           .then((user) => {
             sequelize.Submission.findAll({
@@ -111,7 +112,7 @@ module.exports = {
           });
       }
     },
-    //write a message to the db associated with a particular user
+    // write a message to the db associated with a particular user
     post: (req, res) => {
       if (req.body.account_type !== 'admin') {
         //find user by username
@@ -140,12 +141,12 @@ module.exports = {
               });
           });
       } else {
-        //disallow non-users from sending messages
+        // disallow non-users from sending messages
         console.log('Admins cannot create messages, only amend existing ones');
         res.sendStatus(400);
       }
     },
-    //allows an admin to edit most recent submission associated with a user
+    // allows an admin to edit most recent submission associated with a user
     patch: (req, res) => {
       console.log('ADMIN PATCH WITH ', req.body);
       // if (req.body.account_type === 'admin') {
