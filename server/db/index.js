@@ -4,12 +4,12 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
-// const db = {};
+const db = {};
 
 // OG codebase
-const db = new Sequelize('messages', 'root', '38ankeny', {
-  dialect: 'mysql'
-});
+// const db = new Sequelize('messages', 'root', '38ankeny', {
+//   dialect: 'mysql'
+// });
 
 fs
   .readdirSync(__dirname)
@@ -76,3 +76,4 @@ var username = 'badabdf3838c5c'
 var password = '7a09b42d'
 var database = 'heroku_0e35bdd032f8e0c'
 var host = 'us-cdbr-iron-east-05.cleardb.net'
+
