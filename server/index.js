@@ -30,11 +30,11 @@ app.set('view engine', '.hbs');
 // Import Models
 const models = require('./db/index');
 
-// Auth Routes
-const authRoute = require('./authroute.js')(app);
+// // Auth Routes
+// const authRoute = require('./controllers/authcontroller.js')();
 
 // load passport strategies
-require('../config/passport/passport.js')(passport, models.User);
+require('../config/passport/passport.js')(models.User);
 
 // Express Router
 app.use('/', router);
