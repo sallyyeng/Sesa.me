@@ -7,6 +7,12 @@ var passport = require('passport');
 // router.get('/login', controller.login.get);
 router.post('/login', controller.login.post);
 
+<<<<<<< 95b1f039481e6170fb4734ea7732a75d8ef8ec8b
+=======
+// router.get('/signup', controller.signup.get);
+// router.post('/signup', controller.signup.post);
+router.post('/signup', authController.signup.authMiddle);
+>>>>>>> Handle /signup with passport
 
 // router.get('/signup', controller.signup.get);
 router.post('/signup', controller.signup.post);

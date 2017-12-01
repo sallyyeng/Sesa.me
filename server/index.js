@@ -31,8 +31,13 @@ app.use(function(req, res, next) {
   next();
 });
 
+<<<<<<< 95b1f039481e6170fb4734ea7732a75d8ef8ec8b
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
+=======
+// // Auth Routes
+// const authRoute = require('./controllers/signup.js')();
+>>>>>>> Handle /signup with passport
 
 setupPassport(app);
 
