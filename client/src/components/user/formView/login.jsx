@@ -113,7 +113,11 @@ class Login extends React.Component {
             .catch(()=> console.log(`Invalid credentials`));
         }}>
         Login</Button>
+<<<<<<< 29393a8b2e8934093a12c27545387bf5d227036b
     ));
+=======
+    ))
+>>>>>>> fix signup button to say login instead
     return (
       <div className="container login-container">
         <div>
