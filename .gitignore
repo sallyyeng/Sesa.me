@@ -39,5 +39,6 @@ bower_components/
 npm-debug.log
 .DS_Store
 /*.env
+config/config.json
 
 package-lock.json

@@ -50,7 +50,7 @@ app.use('/', router);
 app.set('port', process.env.PORT || 3000);
 
 //Socket
-const server = require('http').createServer(app)
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 // Parsing

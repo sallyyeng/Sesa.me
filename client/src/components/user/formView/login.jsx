@@ -77,8 +77,8 @@ class Login extends React.Component {
           resolve(data);
         },
         error: (error) => {
-          alert('Incorrect password');
           console.log('Unsuccessful login with error: ', error);
+          alert(error.responseText);
           reject(error);
         },
       });
@@ -109,7 +109,7 @@ class Login extends React.Component {
         onClick={()=> {
           this.handleSubmit()
             .then(()=> history.push('/Game'))
-            .catch(()=> console.log('there was an error'))
+            .catch((err)=> console.log(err.responseText));
         }}>
         Login</Button>
     ))
