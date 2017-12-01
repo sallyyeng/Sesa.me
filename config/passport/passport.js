@@ -44,18 +44,6 @@ module.exports = function (user) {
       var generateHash = (password => {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
       });
-
-      // store user input data
-      // User.findOne({
-      //   where: {
-      //     email: email
-      //   }
-      // }).then(function (user) {
-      //   if (user) {
-      //     return done(null, false, {
-      //       message: 'That email is already taken'
-      //     });
-      //   } else {
       var userPassword = generateHash(password);
       var data =
         {
@@ -74,6 +62,7 @@ module.exports = function (user) {
 
         return done(null, false, { message: 'Incorrect credentials.' });
       });
+<<<<<<< 89a76ff30472b176a359e1d51843ae9333579f6a
 <<<<<<< 95b1f039481e6170fb4734ea7732a75d8ef8ec8b
     }
   ));
@@ -82,6 +71,8 @@ module.exports = function (user) {
       //     }
       //   });
       // }
+=======
+>>>>>>> save username /signup handler with passport
     }));
 
   //serialize
