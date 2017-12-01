@@ -86,11 +86,6 @@ app.use('/logout', logoutRoute);
 app.use('/submissions', submissionRoute);
 app.use('/location', locationRoute);
 
-<<<<<<< 0ce3ea96e0104413867ce137cbd909b094ab13be
-=======
-// // Auth Routes
-// const authRoute = require('./controllers/signup.js')();
->>>>>>> Handle /signup with passport
 
 // react router's path
 app.get('/**', (req, res) => {
@@ -131,9 +126,9 @@ io.on('connection', function(socket) {
     socket.room = userData.room;
     console.log('WHAT THE ROOM?! ', userData.room)
     socket.join(userData.room);
-    
 
-    
+
+
 
     if (socket.username === 'admin_1') {
       sequelize.User.findOne({
@@ -173,7 +168,7 @@ io.on('connection', function(socket) {
 
   console.log('Joined the room', users);
 
-  
+
   socket.on('send:message', (msg) => {
     console.log('Users: ', users)
     console.log('Message: ', msg)
@@ -195,10 +190,9 @@ io.on('connection', function(socket) {
         res.sendStatus(400);
       });
     });
-     
-    console.log('SOCKET user', socket.username)
-    console.log('SOCKET ROOM', socket.room) 
 
+    console.log('SOCKET user', socket.username)
+    console.log('SOCKET ROOM', socket.room)
     io.sockets.in(socket.room).emit('update:chat', {
       id: id,
       username: msg.username,
