@@ -1,11 +1,13 @@
 // require('dotenv').config();
 const express = require('express');
-const app = express();
+var cookieParser = require('cookie-parser');
 const passport = require('passport');
 const session = require('express-session');
 const parser = require('body-parser');
 const env = require('dotenv').load();
 const router = require('./routes.js');
+const passportLocalSequelize = require('passport-local-sequelize');
+const LocalStrategy = require('passport-local').Strategy;
 
 
 // Set port
@@ -26,32 +28,32 @@ console.log('Listening on', app.get('port'));
 app.use('/', router);
 
 
-// Static Files
+// Passport, Parser, Static Files,
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/../client/dist`));
-
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
+app.use(require('connect-multiparty')());
+app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-//For Handlebars
-app.set('views', './server/views');
-app.engine('hbs', exphbs({
-  extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
+// Express Router
+app.use('/', router);
 
 // Import Models
 const models = require('./db/index');
 
-// // Auth Routes
-// const authRoute = require('./controllers/signup.js')();
+passportLocalSequelize.attachToUser(models.User);
 
-// load passport strategies
-require('../config/passport/passport.js')(models.User);
-
-// Express Router
-app.use('/', router);
+// passport config
+passport.use(new LocalStrategy(models.User.authenticate()));
+passport.serializeUser(models.User.serializeUser());
+passport.deserializeUser(models.User.deserializeUser());
 
 // Set port
 // app.set('port', process.env.PORT || 3000);
@@ -63,7 +65,7 @@ app.use('/', router);
 //Socket
 io.on('connection', function(socket){
   console.log('a user connected');
-  
+
   socket.on('send:message', (msg) => {
     console.log('Message: ', msg)
     io.emit('send:message', {

@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const passportLocalSequelize = require('passport-local-sequelize');
 const db = {};
 
 sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
@@ -18,7 +19,6 @@ const User = sequelize.define('user', {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING
 });
-
 
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
@@ -39,9 +39,6 @@ User.hasMany(Submission);
 //create tables if they do not yet exist
 User.sync();
 Submission.sync();
-
-// exports.User = User;
-// exports.Submission = Submission;
 
 db.User = User;
 db.Submission = Submission;

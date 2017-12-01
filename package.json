@@ -26,6 +26,7 @@
     "bcrypt": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "connect-multiparty": "^2.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
@@ -36,6 +37,7 @@
     "mysql2": "^1.5.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "passport-local-sequelize": "^0.8.0",
     "pg": "7.4.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
@@ -44,13 +46,17 @@
     "react-router-dom": "^4.2.2",
     "save-dev": "^2.0.0",
     "sequelize": "^4.22.12",
+<<<<<<< 8ac95c93f84d08270bcfdf434b2db620340c9e79
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
+=======
+>>>>>>> Add salt to record and added passport-local-sequelize as dependency
     "webpack": "^3.8.1"
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",
     "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "^1.4.3",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "enzyme-to-json": "^3.2.2",
