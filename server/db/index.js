@@ -4,7 +4,6 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
-const passportLocalSequelize = require('passport-local-sequelize');
 const db = {};
 
 sequelize.query('CREATE DATABASE IF NOT EXISTS messages')

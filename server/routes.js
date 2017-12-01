@@ -1,6 +1,6 @@
 // This file sets up express router
 const controller = require('./controllers/index.js');
-const authController = require('./controllers/authcontroller.js');
+const authController = require('./controllers/authcontroller');
 const router = require('express').Router();
 
 // router.get('/login', controller.login.get);

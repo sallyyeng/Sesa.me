@@ -1,53 +1,50 @@
-const bCrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
+const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
+const models = require('../../server/db/index.js');
+const User = models.User;
 
-module.exports = function (user) {
-  const User = user;
-  const LocalStrategy = require('passport-local').Strategy;
+module.exports = function(app) {
+  app.use(passport.initialize())
+  app.use(passport.session())
 
-  passport.use('local-signup', new LocalStrategy(
-
-    {
-      usernameField: 'email',
-      passwordField: 'password',
-      passReqToCallback: true // allows us to pass back the entire request to the callback
-
-    }, (req, password, done) => {
-      // hash password
-      var generateHash = (password => {
-        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-      });
-      var userPassword = generateHash(password);
-      var data =
-        {
-          password: userPassword,
-          firstname: req.body.firstname,
-          lastname: req.body.lastname
-        };
-      User.create(data).then(function (newUser, created) {
-        if (!newUser) {
-          return done(null, false);
+  passport.use(new LocalStrategy(
+    function(username, password, done) {
+      User.findOne({
+        where: {
+          'username': username
         }
-        if (newUser) {
-          return done(null, newUser);
+      }).then(function (user) {
+        if (user == null) {
+          return done(null, false, { message: 'Incorrect credentials.' })
         }
-      });
-    }));
 
-  //serialize
+        var hashedPassword = bcrypt.hashSync(password, user.salt)
+
+        if (user.password === hashedPassword) {
+          return done(null, user)
+        }
+
+        return done(null, false, { message: 'Incorrect credentials.' })
+      })
+    }
+  ))
+
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
+    done(null, user.id)
+  })
 
-  // deserialize user
   passport.deserializeUser(function(id, done) {
-    User.findById(id).then(function(user) {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
+    User.findOne({
+      where: {
+        'id': id
       }
-    });
-  });
+    }).then(function (user) {
+      if (user == null) {
+        done(new Error('Wrong user id.'))
+      }
 
-};
+      done(null, user)
+    })
+  })
+}
