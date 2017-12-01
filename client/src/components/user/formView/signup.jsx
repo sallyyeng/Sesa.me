@@ -111,13 +111,8 @@ class Signup extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.hanldeSubmit()
-<<<<<<< HEAD
-            .then(()=> history.push('/Game'))
-            .catch((err)=> console.log(err.responseText))
-=======
             .then(()=> history.push('/Character'))
             .catch(()=> console.log('there was an error'))
->>>>>>> added make charecter component
         }}>
         Create Account</Button>
     ))
