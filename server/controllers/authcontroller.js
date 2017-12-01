@@ -6,6 +6,10 @@ const User = models.User;
 
 module.exports.signup = function(req, res) {
 
+  if (req.body.hash !== req.body.hash2) {
+    res.status(404).send('Please enter the same password twice.')
+  }
+
   var salt = bcrypt.genSaltSync(10);
   var hashedPassword = bcrypt.hashSync(req.body.hash, salt);
 
