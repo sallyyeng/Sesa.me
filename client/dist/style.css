@@ -269,3 +269,66 @@ ol, ul {
   margin-top: 10px;
   margin-right: 10px;
 }
+
+/*========CHATBOX FORM==========*/
+#messages {
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+  background: #000; 
+  position: fixed;
+  height: 100px; 
+  width: 100%;
+}
+
+/*#messages li {
+ padding: 5px 10px; 
+}
+
+#messages li:nth-child(odd) { 
+  background: #eee; 
+}*/
+      
+div > .chat-log {
+  border: thin solid black;
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px;
+  grid-gap: 0px;
+  height: 320px; 
+  width: 320px;
+  background: #ffffff;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  border-radius: 5px;
+  
+}
+
+.chat-entry-form {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.messageLog {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  margin-left: 5px;
+}
+
+.messageBubble {
+  background: aqua;
+  margin-top: 1px;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+

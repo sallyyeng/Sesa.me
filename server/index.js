@@ -8,9 +8,29 @@ const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 const router = require('./routes.js');
 
+<<<<<<< HEAD
 // Body Parser
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
+=======
+
+// Set port
+// app.set('port', process.env.PORT || 3000);
+
+//Socket
+const server = require('http').createServer(app)
+const io = require('socket.io')(server);
+
+// Parsing
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: true }));
+
+server.listen(4200)
+console.log('Listening on', app.get('port'));
+
+// Routes
+app.use('/', router);
+>>>>>>> Added a basic chat server using sockets with no rooms
 
 // Static Files
 app.use(express.static(`${__dirname}/../client/dist`));
@@ -43,8 +63,26 @@ app.use('/', router);
 app.set('port', process.env.PORT || 3000);
 
 // Init server
-app.listen(app.get('port'));
-console.log('Listening on', app.get('port'));
+// app.listen(app.get('port'));
+// console.log('Listening on', app.get('port'));
 
 //Socket
+<<<<<<< HEAD
 
+=======
+io.on('connection', function(socket){
+  console.log('a user connected');
+  
+  socket.on('send:message', (msg) => {
+    console.log('Message: ', msg)
+    io.emit('send:message', {
+      username: msg.username,
+      message: msg.message
+    });
+  })
+});
+
+// http.listen(3002, function(){
+//   console.log('listening on *:3002');
+// });
+>>>>>>> Added a basic chat server using sockets with no rooms
