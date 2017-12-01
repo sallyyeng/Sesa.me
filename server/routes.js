@@ -7,8 +7,8 @@ const router = require('express').Router();
 router.post('/login', controller.login.post);
 
 // router.get('/signup', controller.signup.get);
-// router.post('/signup', controller.signup.post);
-router.post('/signup', authController.signup.post);
+router.post('/signup', controller.signup.post);
+// router.post('/signup', authController.signup.post);
 
 router.get('/submissions', controller.submissions.get);
 router.post('/submissions', controller.submissions.post);

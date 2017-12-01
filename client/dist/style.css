@@ -321,6 +321,7 @@ div > .chat-log {
   grid-row-start: 1;
   grid-row-end: 6;
   margin-left: 5px;
+  padding: 5px;
 }
 
 .messageBubble {

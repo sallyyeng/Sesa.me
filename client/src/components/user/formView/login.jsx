@@ -50,6 +50,7 @@ class Login extends React.Component {
         },
       });
     });
+  }
 
   onSubmit(event) {
     event.preventDefault();

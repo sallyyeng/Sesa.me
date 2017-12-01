@@ -1,16 +1,16 @@
 {
   "development": {
     "username": "root",
-    "password": "38ankeny",
+    "password": "",
     "database": "messages",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
-    "username": "",
-    "password": null,
-    "database": "",
-    "host": "",
+    "username": "badabdf3838c5c",
+    "password": "7a09b42d",
+    "database": "heroku_0e35bdd032f8e0c",
+    "host": "us-cdbr-iron-east-05.cleardb.net",
     "dialect": "mysql"
   },
   "production": {

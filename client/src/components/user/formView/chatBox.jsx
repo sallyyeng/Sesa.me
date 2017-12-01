@@ -17,7 +17,8 @@ class ChatBox extends React.Component {
   }
   
   componentDidMount() {
-    this.socket = socketIoClient('http://localhost:4200');
+    var port = process.env.PORT || 3001;
+    this.socket = socketIoClient(`http://localhost:${port}`);
     this.socket.on('send:message', (msg) => {
       var newMessageArr = this.state.messageLog.slice();
       newMessageArr.push(msg);

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import ChatBox from '../formView/chatBox.jsx';
 
 
 function Square(props) {
@@ -157,7 +158,7 @@ class Game extends React.Component {
           />
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
-
+        <ChatBox/>
 
       </div>
     );
