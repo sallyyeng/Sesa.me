@@ -7,13 +7,8 @@ const router = require('express').Router();
 router.post('/login', controller.login.post);
 
 // router.get('/signup', controller.signup.get);
-<<<<<<< df64940681700291efe6736b97236e6323b3947e
 router.post('/signup', controller.signup.post);
 // router.post('/signup', authController.signup.post);
-=======
-// router.post('/signup', controller.signup.post);
-router.post('/signup', authController.signup.authMiddle);
->>>>>>> Handle /signup with passport
 
 router.get('/submissions', controller.submissions.get);
 router.post('/submissions', controller.submissions.post);
