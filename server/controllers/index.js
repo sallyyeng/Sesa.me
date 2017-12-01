@@ -2,7 +2,7 @@
 // /login, /signup, /submissions
 // These handlers will utilize instances of sequelize models to query the database directly
 
-const db = require('../db/index.js');
+const sequelize = require('../db/index.js');
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 
@@ -14,6 +14,7 @@ module.exports = {
     //***TODO***: handle incorrect pw but pre-existing user
 
     post: (req, res) => {
+      console.log('OLD SIGNUP ROUTE');
       bcrypt.hash(req.body.hash, 10, (err, hash) => {
         if (err) {
           console.log('Error hashing password ', err);
@@ -45,6 +46,7 @@ module.exports = {
   login: {
     // authenticate user, verifying username and hashed pw match
     post: (req, res) => {
+      console.log('OLD SIGNUP ROUTE');
       sequelize.User.findOne({
         where: {
           username: req.body.username,
@@ -156,7 +158,7 @@ module.exports = {
           id: req.body.id,
         }
       })
-      //update that message with admin's response
+        //update that message with admin's response
         .then((message) => {
           message.update({
             admin_response: req.body.admin_response || 'Case marked as complete',
