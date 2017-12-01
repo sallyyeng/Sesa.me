@@ -22,11 +22,20 @@ class App extends React.Component {
       type: '',
       showForms: false,
       // Possible view values:
+<<<<<<< HEAD
       // restricted: only render game
       // unrestricted: render game, login and signup buttons (after user has clicked button 10x)
       // login: render login component (if user clicks on login button)
       // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
       // submissions: render sumbissions component (if user is successfully logged in)
+=======
+        // restricted: only render game
+        // unrestricted: render game, login and signup buttons (after user has clicked button 10x)
+        // login: render login component (if user clicks on login button)
+        // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
+        // submissions: render sumbissions component (if user is successfully logged in)
+        view: 'restricted',
+>>>>>>> indentaion
       showBugButton: false,
     };
 
