@@ -48,10 +48,7 @@ User.hasMany(Message);
 //create tables if they do not yet exist
 User.sync();
 Submission.sync();
-<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
 Message.sync();
-=======
->>>>>>> Add salt to record and added passport-local-sequelize as dependency
 
 db.User = User;
 db.Submission = Submission;
