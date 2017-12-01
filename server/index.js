@@ -86,6 +86,11 @@ app.use('/logout', logoutRoute);
 app.use('/submissions', submissionRoute);
 app.use('/location', locationRoute);
 
+<<<<<<< 0ce3ea96e0104413867ce137cbd909b094ab13be
+=======
+// // Auth Routes
+// const authRoute = require('./controllers/signup.js')();
+>>>>>>> Handle /signup with passport
 
 // react router's path
 app.get('/**', (req, res) => {
