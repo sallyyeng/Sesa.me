@@ -1,16 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "38ankeny",
     "database": "messages",
-<<<<<<< 8ac95c93f84d08270bcfdf434b2db620340c9e79
     "host": "localhost",
-    "dialect": "mysql"
-=======
-    "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
->>>>>>> Add salt to record and added passport-local-sequelize as dependency
   },
   "test": {
     "username": "badabdf3838c5c",

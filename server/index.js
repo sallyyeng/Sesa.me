@@ -10,24 +10,7 @@ const router = require('./routes.js');
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 
-
-// Set port
-app.set('port', process.env.PORT || 3001);
-
-//Socket
-const server = require('http').createServer(app)
-const io = require('socket.io')(server);
-
-// Parsing
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
-
-server.listen(3001)
-console.log('Listening on', app.get('port'));
-
-// Routes
-app.use('/', router);
-
+const app = express();
 
 // Passport, Parser, Static Files,
 app.use(cookieParser());
@@ -59,6 +42,20 @@ app.use('/', router);
 // Init server
 // app.listen(app.get('port'));
 // console.log('Listening on', app.get('port'));
+
+// Set port
+app.set('port', process.env.PORT || 3001);
+
+//Socket
+const server = require('http').createServer(app)
+const io = require('socket.io')(server);
+
+// Parsing
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: true }));
+
+server.listen(3001)
+console.log('Listening on', app.get('port'));
 
 //Socket
 io.on('connection', function(socket){
