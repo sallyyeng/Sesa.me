@@ -17,13 +17,17 @@ const passport = require('passport');
 module.exports = {
 
   signup: {
-    post: (req, res) => {
-      console.log('INSIDE NEW SIGNUP POST HANDLER');
-      passport.authenticate('local-signup', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/signup'
+    authMiddle: function(req, res) {
+      // Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+      //   if (err) {
+      //     return res.render('register', { account : account });
+      //   }
+
+      passport.authenticate('local')(req, res, function () {
+        res.status(201).send();
       });
-    }
+    },
+
   }
 
 };

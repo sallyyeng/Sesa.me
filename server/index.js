@@ -46,7 +46,7 @@ app.set('view engine', '.hbs');
 const models = require('./db/index');
 
 // // Auth Routes
-// const authRoute = require('./controllers/authcontroller.js')();
+// const authRoute = require('./controllers/signup.js')();
 
 // load passport strategies
 require('../config/passport/passport.js')(models.User);

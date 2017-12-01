@@ -36,23 +36,33 @@ module.exports = function (user) {
           firstname: req.body.firstname,
           lastname: req.body.lastname
         };
-
       User.create(data).then(function (newUser, created) {
-
         if (!newUser) {
-
           return done(null, false);
-
         }
-
         if (newUser) {
-
           return done(null, newUser);
-
         }
       });
       //     }
       //   });
       // }
     }));
+
+  //serialize
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
+  // deserialize user
+  passport.deserializeUser(function(id, done) {
+    User.findById(id).then(function(user) {
+      if (user) {
+        done(null, user.get());
+      } else {
+        done(user.errors, null);
+      }
+    });
+  });
+
 };
