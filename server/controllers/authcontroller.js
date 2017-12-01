@@ -1,29 +1,31 @@
-// var exports = module.exports = {};
-
-// exports.signup = function (req, res) {
-
-//   res.render('signup');
-
-// };
-
-// exports.signin = function (req, res) {
-
-//   res.render('signin');
-
-// }
 
 const passport = require('passport');
+const bcrypt = require('bcrypt');
+const models = require('../db/index.js');
+const User = models.User;
 
-module.exports = {
+module.exports.signup = function(req, res) {
 
-  signup: {
-    post: (req, res) => {
-      console.log('INSIDE NEW SIGNUP POST HANDLER');
-      passport.authenticate('local-signup', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/signup'
-      });
-    }
+  if (req.body.hash !== req.body.hash2) {
+    res.status(404).send('Please enter the same password twice.')
   }
 
-};
+  var salt = bcrypt.genSaltSync(10);
+  var hashedPassword = bcrypt.hashSync(req.body.hash, salt);
+
+  let newUser = {
+    username: req.body.username,
+    hash: hashedPassword,
+    salt: salt,
+    account_type: req.body.account_type,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name
+  }
+
+  User.create(newUser).then(function() {
+    res.status(201).send();
+  }).catch(function(error) {
+    req.flash('error', "Please, choose a different username.")
+    res.redirect('/signup')
+  })
+}

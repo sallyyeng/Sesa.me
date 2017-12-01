@@ -1,13 +1,47 @@
 // require('dotenv').config();
 const express = require('express');
-const app = express();
+var cookieParser = require('cookie-parser');
 const passport = require('passport');
+const flash = require('connect-flash');
 const session = require('express-session');
 const parser = require('body-parser');
 const env = require('dotenv').load();
-const exphbs = require('express-handlebars');
 const router = require('./routes.js');
+const setupPassport = require('../config/passport/passport.js');
+const LocalStrategy = require('passport-local').Strategy;
 
+const app = express();
+
+// Passport, Parser, Static Files,
+app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(express.static(`${__dirname}/../client/dist`));
+
+app.use(flash());
+app.use(function(req, res, next) {
+  res.locals.errorMessage = req.flash('error');
+  next();
+});
+
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: true }));
+
+setupPassport(app);
+
+// Express Router
+app.use('/', router);
+
+// Set port
+// app.set('port', process.env.PORT || 3000);
+
+// Init server
+// app.listen(app.get('port'));
+// console.log('Listening on', app.get('port'));
 
 // Set port
 app.set('port', process.env.PORT || 3001);
@@ -23,48 +57,10 @@ app.use(parser.urlencoded({ extended: true }));
 server.listen(3001)
 console.log('Listening on', app.get('port'));
 
-// Routes
-app.use('/', router);
-
-
-// Static Files
-app.use(express.static(`${__dirname}/../client/dist`));
-
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
-//For Handlebars
-app.set('views', './server/views');
-app.engine('hbs', exphbs({
-  extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
-
-// Import Models
-const models = require('./db/index');
-
-// // Auth Routes
-// const authRoute = require('./controllers/authcontroller.js')();
-
-// load passport strategies
-require('../config/passport/passport.js')(models.User);
-
-// Express Router
-app.use('/', router);
-
-// Set port
-// app.set('port', process.env.PORT || 3000);
-
-// Init server
-// app.listen(app.get('port'));
-// console.log('Listening on', app.get('port'));
-
 //Socket
 io.on('connection', function(socket){
   console.log('a user connected');
-  
+
   socket.on('send:message', (msg) => {
     console.log('Message: ', msg)
     io.emit('send:message', {

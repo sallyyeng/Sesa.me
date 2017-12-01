@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
@@ -19,7 +18,6 @@ const User = sequelize.define('user', {
   last_name: Sequelize.STRING
 });
 
-
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
   user_message: Sequelize.TEXT,
@@ -39,9 +37,6 @@ User.hasMany(Submission);
 //create tables if they do not yet exist
 User.sync();
 Submission.sync();
-
-// exports.User = User;
-// exports.Submission = Submission;
 
 db.User = User;
 db.Submission = Submission;

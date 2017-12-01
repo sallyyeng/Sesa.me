@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "38ankeny",
     "database": "messages",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging": false
   },
   "test": {
     "username": "badabdf3838c5c",

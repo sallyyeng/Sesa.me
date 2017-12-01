@@ -77,7 +77,7 @@ class Login extends React.Component {
             .then(()=> history.push('/Game'))
             .catch(()=> console.log('there was an error'))
         }}>
-        Signup</Button>
+        Login</Button>
     ))
     return (
       <div className="container login-container">
