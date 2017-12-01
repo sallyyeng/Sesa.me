@@ -7,6 +7,7 @@ const session = require('express-session');
 const parser = require('body-parser');
 const env = require('dotenv').load();
 const router = require('./routes.js');
+<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
@@ -22,6 +23,29 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+=======
+const passportLocalSequelize = require('passport-local-sequelize');
+const LocalStrategy = require('passport-local').Strategy;
+
+const app = express();
+
+// Passport, Parser, Static Files,
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
+app.use(express.static(`${__dirname}/../client/dist`));
+app.use(require('connect-multiparty')());
+app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+// Express Router
+app.use('/', router);
+>>>>>>> Add salt to record and added passport-local-sequelize as dependency
 
 app.use(express.static(`${__dirname}/../client/dist`));
 
@@ -31,6 +55,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
 <<<<<<< 95b1f039481e6170fb4734ea7732a75d8ef8ec8b
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
@@ -40,9 +65,14 @@ app.use(parser.urlencoded({ extended: true }));
 >>>>>>> Handle /signup with passport
 
 setupPassport(app);
+=======
+passportLocalSequelize.attachToUser(models.User);
+>>>>>>> Add salt to record and added passport-local-sequelize as dependency
 
-// Express Router
-app.use('/', router);
+// passport config
+passport.use(new LocalStrategy(models.User.authenticate()));
+passport.serializeUser(models.User.serializeUser());
+passport.deserializeUser(models.User.deserializeUser());
 
 // Set port
 // app.set('port', process.env.PORT || 3000);
@@ -67,6 +97,7 @@ console.log('Listening on', app.get('port'));
 
 
 //Socket
+<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
 var users = {};
 var rooms = {};
 var id = -1;
@@ -198,3 +229,5 @@ app.get('/**', (req, res) => {
 
 //admin when opening a component will have the credentials to connect to appropriate chat
 
+=======
+>>>>>>> Add salt to record and added passport-local-sequelize as dependency

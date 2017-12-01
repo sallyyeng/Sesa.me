@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const passportLocalSequelize = require('passport-local-sequelize');
 const db = {};
 
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
@@ -47,7 +48,10 @@ User.hasMany(Message);
 //create tables if they do not yet exist
 User.sync();
 Submission.sync();
+<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
 Message.sync();
+=======
+>>>>>>> Add salt to record and added passport-local-sequelize as dependency
 
 db.User = User;
 db.Submission = Submission;
