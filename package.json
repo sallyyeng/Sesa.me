@@ -33,6 +33,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "jquery": "^3.2.1",
+    "map-icons": "^3.0.3",
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
@@ -45,14 +46,22 @@
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-chat": "0.0.1",
     "react-dom": "^16.1.1",
+<<<<<<< 01be4dcd4dcadf946f791cc188f96f145bed1e78
     "react-p5-wrapper": "0.0.4",
     "react-router-dom": "^4.2.2",
     "react-scrollable-list": "^1.2.0",
     "save-dev": "^2.0.0",
     "sequelize": "^4.24.0",
+=======
+    "react-github-fork-ribbon": "^0.5.1",
+    "react-google-maps": "^9.4.1",
+    "react-icons": "^2.2.7",
+    "recompose": "^0.26.0",
+    "save-dev": "^2.0.0",
+    "sequelize": "^4.23.4",
+>>>>>>> rendering map with customized markers
     "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4",
-    "webpack": "^3.8.1"
+    "socket.io-client": "^2.0.4"
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",
@@ -61,7 +70,7 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "enzyme-to-json": "^3.2.2",
-    "eslint": "^4.12.0",
+    "eslint": "^4.12.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-hackreactor": "github:reactorcore/eslint-config-hackreactor",
     "eslint-plugin-import": "^2.8.0",
@@ -71,7 +80,7 @@
     "jest-cli": "^21.2.1",
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.1.1",
-    "webpack": "^3.8.1"
+    "webpack": "^3.9.1"
   },
   "jest": {
     "setupFiles": [
