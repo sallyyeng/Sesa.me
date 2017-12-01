@@ -5,7 +5,6 @@ const passport = require('passport');
 const session = require('express-session');
 const parser = require('body-parser');
 const env = require('dotenv').load();
-const exphbs = require('express-handlebars');
 const router = require('./routes.js');
 
 

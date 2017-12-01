@@ -1,0 +1,24 @@
+const sequelize = require('./index.js');
+const bcrypt = require('bcrypt');
+
+module.exports = {
+
+  createUser: (req) => {
+    bcrypt.hash(req.body.hash, 10, (err, hash) => {
+      if (err) {
+        console.log('Error hashing password ', err);
+        res.sendStatus(400);
+      }
+      sequelize.User.findOrCreate({
+        where: {
+          username: req.body.username,
+          hash: hash,
+          salt: req.body.salt,
+          account_type: req.body.account_type,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name
+        }
+      });
+    });
+  }
+};
