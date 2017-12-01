@@ -1,20 +1,27 @@
 
-// const passport = require('passport');
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const models = require('../db/index.js');
+const User = models.User;
 
-// module.exports = {
+module.exports.signup = function(req, res) {
 
-//   signup: {
-//     authMiddle: function(req, res) {
-//       // Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-//       //   if (err) {
-//       //     return res.render('register', { account : account });
-//       //   }
+  var salt = bcrypt.genSaltSync(10);
+  var hashedPassword = bcrypt.hashSync(req.body.hash, salt);
 
-//       passport.authenticate('local')(req, res, function () {
-//         res.status(201).send();
-//       });
-//     },
+  let newUser = {
+    username: req.body.username,
+    hash: hashedPassword,
+    salt: salt,
+    account_type: req.body.account_type,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name
+  }
 
-//   }
-
-// };
+  User.create(newUser).then(function() {
+    res.status(201).send();
+  }).catch(function(error) {
+    req.flash('error', "Please, choose a different username.")
+    res.redirect('/signup')
+  })
+}

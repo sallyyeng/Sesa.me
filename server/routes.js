@@ -1,6 +1,6 @@
 // This file sets up express router
 const controller = require('./controllers/index.js');
-const authController = require('./controllers/authcontroller.js');
+const authController = require('./controllers/authcontroller');
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
@@ -14,17 +14,7 @@ router.patch('/submissions', controller.submissions.patch);
 
 // router.get('/signup', controller.signup.get);
 // router.post('/signup', controller.signup.post);
-// router.post('/signup', authController.signup.authMiddle);
-
-const passport = require('passport');
-
-router.post('/signup', function(req, res) {
-  dbHelper.createUser(req);
-
-  passport.authenticate('local')(req, res, function () {
-    res.status(201).send();
-  });
-});
+router.post('/signup', authController.signup)
 
 // router.get('/login', controller.login.get);
 router.post('/login', controller.login.post);

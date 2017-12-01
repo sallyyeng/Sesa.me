@@ -27,11 +27,15 @@
     "bcrypt": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+<<<<<<< 56a082ebb00a57c978437e493dcb32ad6f80d16c
 <<<<<<< 86db83a4e71cd7fe9c1e904a28011595c0f5bdc9
     "cookie-parser": "^1.4.3",
     "connect-flash": "^0.1.1",
 =======
 >>>>>>> Add salt to record and added passport-local-sequelize as dependency
+=======
+    "connect-flash": "^0.1.1",
+>>>>>>> /signup creating new record with passportJS; need to work on /login
     "connect-multiparty": "^2.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
