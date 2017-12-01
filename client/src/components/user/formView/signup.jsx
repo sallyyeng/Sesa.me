@@ -80,6 +80,7 @@ class Signup extends React.Component {
         data: {
           username: this.state.username,
           hash: this.state.password,
+          hash2: this.state.checkPassword,
           salt: '',
           account_type: 'admin',
           first_name: this.state.firstName,
@@ -93,7 +94,7 @@ class Signup extends React.Component {
         },
         error: (error) => {
           console.log(error);
-          alert('Woops, looks like that username is already taken!');
+          alert(error.responseText);
           reject(error);
         },
       });
@@ -110,7 +111,7 @@ class Signup extends React.Component {
         onClick={()=> {
           this.hanldeSubmit()
             .then(()=> history.push('/Game'))
-            .catch(()=> console.log('there was an error'))
+            .catch((err)=> console.log(err.responseText))
         }}>
         Create Account</Button>
     ))

@@ -30,10 +30,6 @@ app.use('/', router);
 
 
 // Passport, Parser, Static Files,
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: false }));
-app.use(express.static(`${__dirname}/../client/dist`));
-app.use(require('connect-multiparty')());
 app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat',
@@ -41,7 +37,18 @@ app.use(session({
   saveUninitialized: false
 }));
 
-setupPassport(app)
+app.use(express.static(`${__dirname}/../client/dist`));
+
+app.use(flash());
+app.use(function(req, res, next) {
+  res.locals.errorMessage = req.flash('error');
+  next();
+});
+
+app.use(parser.json());
+app.use(parser.urlencoded({ extended: true }));
+
+setupPassport(app);
 
 // Express Router
 app.use('/', router);
