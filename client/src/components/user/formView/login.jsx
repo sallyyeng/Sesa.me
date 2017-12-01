@@ -52,6 +52,11 @@ class Login extends React.Component {
     });
   }
 
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.logInUser(this.state.username, this.state.password);
+  }
+
   render() {
     //This button redirrects the user to the Signup page
     const ButtonSignUp = withRouter(({ history }) => (

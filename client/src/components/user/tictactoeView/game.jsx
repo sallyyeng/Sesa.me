@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import ChatBox from '../formView/chatBox.jsx';
 
 
 function Square(props) {
@@ -30,7 +31,7 @@ class Board extends React.Component {
 
   incrementHotSquareClickCount() {
     this.state.hotSquareClickCount = ++this.state.hotSquareClickCount;
-    if (this.state.hotSquareClickCount === 10) {
+    if (this.state.hotSquareClickCount === 1) {
       this.props.unlockForms();
       this.state.hotSquareClickCount = 0;
     }
@@ -157,7 +158,7 @@ class Game extends React.Component {
           />
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
-
+        <ChatBox/>
 
       </div>
     );
