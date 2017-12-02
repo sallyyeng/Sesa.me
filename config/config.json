@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "begona",
-    "password": "begona",
+    "username": "root",
+    "password": "",
     "database": "messages",
     "host": "localhost",
     "dialect": "mysql",

@@ -1,12 +1,12 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'test'; //BECAUSE MY DEVELOPMENT IS NOT WORKING
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
 
-sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
-  .then(() => console.log('Database created'));
+// sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
+//   .then(() => console.log('Database created'));
 
 const User = sequelize.define('user', {
   //id is already created by default as PK
