@@ -15,37 +15,24 @@ const {
 
 const Map = (props)=> {
   const MapStyles = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}];
-  // const address = new google.maps.LatLng(Number(props.geolocationInfo.lat),Number(props.geolocationInfo.long));
-  // const request = {
-  //   location: address,
-  //   radius: '500',
-  //   type: ['restaurants']
-  // };
-  //
-  // console.log('google');
-  // console.log(google);
-  // let service = new google.maps.places.PlacesService(<div/>);
-  // service.nearbySearch(request, callback);
-  // function callback(results, status) {
-  //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-  //     for (let i = 0; i < results.length; i++) {
-  //       let place = results[i];
-  //       console.log("PLACE");
-  //       console.log(place);
-  //       //createMarker(results[i]);
-  //     }
-  //   }
-  // }
+   const lat = props.geolocationInfo.lat;
+   const lng = props.geolocationInfo.long;
 
-  const lat = Number(props.geolocationInfo.lat);
-  const lng =Number(props.geolocationInfo.long);
 
-  const arr = [{lat, lng, info: 'user', icon: {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Circle-icons-heart.svg/40px-Circle-icons-heart.svg.png',
-  }}, {lat:37.7837, lng:-122.4, info: 'resource1', icon: 'http://images.mobilism.org/?dm=VS3EOQPV'},
-    {lat:37.7836, lng:-122.5, info: 'resource2', icon: 'http://images.mobilism.org/?dm=VS3EOQPV'}
-  ];
+  let resArr =  props.geolocationInfo.resArr.slice(1).map(result => {
+    return {lat:result.geometry.location.lat, lng:result.geometry.location.lng, name: result.name,
+      address: result.formatted_address, icon: {
+      url: 'http://images.mobilism.org/?dm=VS3EOQPV',
+    }}
+  });
 
+  resArr.unshift({lat,lng, info: 'User',
+    address: props.geolocationInfo.location, icon: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Circle-icons-heart.svg/40px-Circle-icons-heart.svg.png',
+    }});
+
+ console.log("resArr");
+  console.log(resArr);
 
   const MapWithAMakredInfoWindow = compose(
     withScriptjs,
@@ -53,10 +40,10 @@ const Map = (props)=> {
   )((props) =>
     <GoogleMap
       defaultZoom={15}
-      defaultCenter={{ lat, lng}}
+      defaultCenter={{lat, lng}}
       defaultOptions={{ styles: MapStyles }}
     >
-      {arr.map((location, i)=>
+      {resArr.map((location, i)=>
         <MarkerItem location={location} key={i} />
       )}
 

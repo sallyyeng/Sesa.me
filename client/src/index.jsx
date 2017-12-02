@@ -16,9 +16,6 @@ import PageHeader from 'react-bootstrap/lib/PageHeader';
 
 
 
-import SocialServicesMap from './components/admin/socialServicesMap.jsx';
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +30,9 @@ class App extends React.Component {
       // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
       // submissions: render sumbissions component (if user is successfully logged in)
       showBugButton: false,
+      lat: '',
+      long: '',
+      location:''
     };
 
     this.unlockForms = this.unlockForms.bind(this);
@@ -43,6 +43,35 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.onEsc, false);
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
+    const success = (pos)=> {
+      const crd = pos.coords;
+      //console.log(crd);
+      const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
+      $.ajax({
+        url: url,
+        type: "GET",
+        success: response=>{
+          // console.log(response, "RESPONSE");
+          const lat = crd.latitude;
+          const long = crd.longitude;
+          const location = response.results[0]['formatted_address'];
+          this.setState({lat, long,location});
+        }
+      });
+    };
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc, false);
@@ -55,7 +84,7 @@ class App extends React.Component {
   }
 
   // sendMessage(username, contact, urgency, message) {
-    
+
   //   //UGH WHO MADE THIS GARBAGE
 
   //   console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
@@ -80,7 +109,7 @@ class App extends React.Component {
 
 
   sendMessage(userInfo) {
-    
+
     //UGH WHO MADE THIS GARBAGE
 
     console.log(`${JSON.stringify(userInfo)} requested post to server as new message`);
@@ -202,9 +231,10 @@ class App extends React.Component {
           <Route exact path='/AdminLogin'
             render={() => <AdminLogin addUser={this.addUser}/>}/>
           <Route exact path='/AdminView'
-            render={() => <AdminView username="admin" roomname={this.state.username}/>}/>
-          <Route exact path='/Character'
+          render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+        <Route exact path='/Character'
             render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
+
           <Route exact path='/Game'
             render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
           <Route exact path='/PacManGame'
@@ -215,4 +245,4 @@ class App extends React.Component {
   )}
 }
 
-ReactDOM.render(<SocialServicesMap/>, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));

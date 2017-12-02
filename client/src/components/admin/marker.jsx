@@ -11,17 +11,19 @@ class MarkerItem extends Component{
     this.state={isOpen: false}
   }
   render() {
+   const name = this.props.location.name ? this.props.location.name : 'user';
+   console.log(name);
     return (
       <Marker
-        icon={this.props.location.icon}
+        icon={this.props.location.icon.url}
         position={{lat: this.props.location.lat, lng: this.props.location.lng}}
         onClick={()=> this.setState({isOpen: !this.state.isOpen})}>
         {this.state.isOpen && <InfoWindow onCloseClick={()=> this.setState({isOpen: !this.state.isOpen})}>
-          <h1>{this.props.location.info}</h1>
+          <p><b>{name}</b> : {this.props.location.address}</p>
         </InfoWindow>}
       </Marker>
     )
   }
-};
+}
 
 export default MarkerItem;
