@@ -72,7 +72,12 @@ class Login extends React.Component {
         url: '/login',
         data: this.state,
         success: (data) => {
+<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
           console.log('back from logging');
+=======
+          console.log('back from loggin')
+          console.log(data);
+>>>>>>> Reconfigure passport middleware to utilize express-mysql-session
           this.props.addUser(this.state.username);
           resolve(data);
         },
@@ -108,7 +113,7 @@ class Login extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.handleSubmit()
-            .then(()=> history.push('/Game'))
+            .then((data)=> history.push(data))
             .catch((err)=> console.log(err.responseText));
         }}>
         Login</Button>

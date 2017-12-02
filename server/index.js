@@ -1,44 +1,104 @@
+// const router = require('./routes.js');
+// const setupPassport = require('../config/passport/passport.js');
+// const LocalStrategy = require('passport-local').Strategy;
 // require('dotenv').config();
 const express = require('express');
-var cookieParser = require('cookie-parser');
-const passport = require('passport');
-const flash = require('connect-flash');
-const session = require('express-session');
+const app = express();
 const parser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const morgan = require('morgan');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session)
+const flash = require('connect-flash');
+const passport = require('passport');
 const env = require('dotenv').load();
+<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
 const router = require('./routes.js');
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
 const sequelize = require('./db/index.js');
 
+=======
+const db = require('./db/index.js');
+>>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
-const app = express();
+// Set port
+const PORT = process.env.PORT || 3001;
 
-// Passport, Parser, Static Files,
+// USE CREDENTIALS FOR LOCAL MACHINE -- Make sure to create .env file in root directory and add in vars below //
+// ex: my .env contains:  DBSERVER=localhost DBUSER=root DBPASSWORD="38ankeny"
+
+const options = {
+  host: process.env.DBSERVER ||'us-cdbr-iron-east-05.cleardb.net',
+  port: process.env.PORT,
+  user: process.env.DBUSER  ||'ba3f260f7ba4c4',
+  password: process.env.DBPASSWORD || '0e12068a',
+  database: 'messages' ||'heroku_e67b3a46e336139',
+  checkExpirationInterval: 60000,
+  expiration: 3600000,
+};
+
+//USE CREDENTIALS FOR HEROKU STAGING
+// const options = {
+//   host: 'us-cdbr-iron-east-05.cleardb.net',
+//   port: 3306,
+//   user: 'ba3f260f7ba4c4',
+//   password: '0e12068a',
+//   database: 'heroku_e67b3a46e336139',
+//   checkExpirationInterval: 60000,
+//   expiration: 3600000,
+// };
+
+//stores sessions created by passportjs, set your db password above
+const sessionStore = new MySQLStore(options);
+
+// express router routes
+const signupRoute = require('./routes/signup');
+const loginRoute = require('./routes/login');
+
+// middleware
+app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
-
+app.use(parser.json());
 app.use(express.static(`${__dirname}/../client/dist`));
+app.use(parser.urlencoded({ extended: false }));
 
+//creates session
+app.use(session({
+  secret: 'secret',
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  // cookie: { maxAge: 3600000}
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
-app.use(function(req, res, next) {
-  res.locals.errorMessage = req.flash('error');
-  next();
+
+// express router middleware
+app.use('/signup', signupRoute);
+app.use('/login', loginRoute);
+
+app.use(checkAuthentication);
+
+// app.use('/logout', logoutRoute);
+
+//react router's path
+app.get('/**', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) { //check if it's an authenticated route
+    console.log('user is authenticated', req.user);
+    next();
+  } else {
+    next();
+    //res.status(401).json({});
 
-setupPassport(app);
-
-// Express Router
-app.use('/', router);
-
+<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
 // Set port
 // app.set('port', process.env.PORT || 3000);
 
@@ -48,17 +108,28 @@ app.use('/', router);
 
 // Set port
 app.set('port', process.env.PORT || 3000);
+=======
+  }
+}
+
+//************************ SOCKET CODE BELOW ************************//
+>>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
 //Socket
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
 // Parsing
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
 server.listen(process.env.PORT || 3000);
 console.log('Listening on', app.get('port'));
+=======
+server.listen(PORT);
+console.log('Listening on', PORT);
+>>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
 
 //Socket
