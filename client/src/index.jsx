@@ -7,9 +7,8 @@ import Main from './components/user/Main.jsx';
 import Login from './components/user/formView/login.jsx';
 import AdminLogin from './components/user/formView/adminLogin.jsx';
 import Signup from './components/user/formView/signup.jsx';
-import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
-import UserResponses from './components/user/formView/userResponses.jsx';
+import Character from './components/user/makeCharacter/makeCharacter.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -33,8 +32,6 @@ class App extends React.Component {
     this.unlockForms = this.unlockForms.bind(this);
     this.onEsc = this.onEsc.bind(this);
     this.hideBugButton = this.hideBugButton.bind(this);
-    this.showAdminResponses = this.showAdminResponses.bind(this);
-    this.showSubmissionForm = this.showSubmissionForm.bind(this);
     this.addUser = this.addUser.bind(this);
   }
 
@@ -146,18 +143,6 @@ class App extends React.Component {
     });
   }
 
-  showAdminResponses() {
-    this.setState({
-      view: 'responses',
-    });
-  }
-
-  showSubmissionForm() {
-    this.setState({
-      view: 'submission',
-    });
-  }
-
   unlockForms() {
     this.setState({ showBugButton: true });
   }
@@ -183,8 +168,8 @@ class App extends React.Component {
             render={() => <AdminLogin addUser={this.addUser}/>}/>
           <Route exact path='/AdminView'
             render={() => <AdminView/>}/>
-          {/* <Route exact path='/CreateChar'
-            render={() => }/> */}
+          <Route exact path='/Character'
+            render={() => <Character/>}/>
           <Route exact path='/Game'
             render={() => <Game/>}/>
         </div>
