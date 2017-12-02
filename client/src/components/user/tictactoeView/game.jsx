@@ -81,8 +81,8 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       history: [
         {
@@ -150,7 +150,6 @@ class Game extends React.Component {
           <div className="game-info">
             <div>{status}</div>
           </div>
-
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
@@ -158,8 +157,7 @@ class Game extends React.Component {
           />
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
-        <ChatBox/>
-
+        <ChatBox username={this.props.username} roomname={this.props.roomname}/>
       </div>
     );
   }

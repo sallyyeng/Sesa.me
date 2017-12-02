@@ -45,7 +45,7 @@ app.use('/', router);
 // console.log('Listening on', app.get('port'));
 
 // Set port
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3000);
 
 //Socket
 const server = require('http').createServer(app)
@@ -55,25 +55,87 @@ const io = require('socket.io')(server);
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
-server.listen(3001)
+server.listen(3000)
 console.log('Listening on', app.get('port'));
 
+
 //Socket
+var users = {};
+var rooms = {};
+var id = -1;
+
 io.on('connection', function(socket){
   console.log('a user connected');
 
+  // var hs = socket.handshake;
+  // users[hs.session.username] = socket.id;
+  // clients[socket.id] = socket;
+  socket.on('join:room', (userData) => {
+    socket.username = userData.username;
+    socket.roomname = userData.roomname
+    socket.join(userData.roomname);
+    users[userData.username] =  userData.username;
+    rooms[userData.roomname] = userData.roomname;
+    var welcomeMessage = {
+      id: id++,
+      username: '',
+      message: `You have connected to room ${userData.roomname}`,
+      content: `You have connected to room ${userData.roomname}`,
+    }
+    socket.emit('update:chat', welcomeMessage);
+    var connectionMessage = {
+      id: id++,
+      username: '',
+      message: userData.username + ' has connected to the room',
+      content: `${userData.username} has connected to the room`,
+    }
+    socket.broadcast.to(socket.roomname).emit('update:chat', connectionMessage);
+  })
+
+
   socket.on('send:message', (msg) => {
     console.log('Message: ', msg)
-    io.emit('send:message', {
+    io.sockets.in(socket.roomname).emit('update:chat', {
+      id: id++,
       username: msg.username,
-      message: msg.message
+      message: msg.message,
+      content: `${msg.username}: ${msg.message}`
     });
+  })
+
+  socket.on('disconnect', () => {
+    delete users[socket.username];
+    delete rooms[socket.roomname];
   })
 });
 
-// http.listen(3002, function(){
-//   console.log('listening on *:3002');
-// });
+//STEP 1: Just get rooms to work between anyone
+  //get messages in box to scroll within item
+//STEP 2: Store messages to each user
+  //messages will require some order to show up
+//messages will have ids
+// messages {
+//   id:
+//   client_id:
+//   username:
+//   message:
+// }
+
+
+//STEP 2: Have an admin receive the list of rooms with connections to all of them - any received messages will cause a light up
+
+//Client when signing up will establish a new room to connect to
+//this info needs to be sent to the admin for them to be able to find the room
+//does the server need to emit messages for everyroom built?
+//or can two clients just send messages to each other?
+
+//Will need the message object passed to contain info on which room messages should be sent to
+//Will call the roomname for now the username
+//
+//need an object to show all people who are connected and what they're chatroom ids are?
+//all of this information gets sent to the admin
+//admin when opening a component will have the credentials to connect to appropriate chat
+
 
 
 

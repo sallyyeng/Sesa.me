@@ -168,11 +168,11 @@ class App extends React.Component {
           <Route exact path='/AdminLogin'
             render={() => <AdminLogin addUser={this.addUser}/>}/>
           <Route exact path='/AdminView'
-            render={() => <AdminView/>}/>
+            render={() => <AdminView username="admin" roomname={this.state.username}/>}/>
           <Route exact path='/Character'
             render={() => <Character/>}/>
           <Route exact path='/Game'
-            render={() => <Game/>}/>
+            render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
           <Route exact path='/PacManGame'
             render={() => <PacManGame/>}/>
         </div>
