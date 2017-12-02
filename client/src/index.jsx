@@ -9,6 +9,7 @@ import AdminLogin from './components/user/formView/adminLogin.jsx';
 import Signup from './components/user/formView/signup.jsx';
 import AdminView from './components/admin/adminView.jsx';
 import Character from './components/user/makeCharacter/makeCharacter.jsx';
+import PacManGame from './components/user/PacManView/index.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
@@ -172,6 +173,8 @@ class App extends React.Component {
             render={() => <Character/>}/>
           <Route exact path='/Game'
             render={() => <Game/>}/>
+          <Route exact path='/PacManGame'
+            render={() => <PacManGame/>}/>
         </div>
       </Router>
     </div>

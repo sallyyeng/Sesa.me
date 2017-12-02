@@ -9,6 +9,7 @@ const env = require('dotenv').load();
 const router = require('./routes.js');
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
+const path = require('path');
 
 const app = express();
 
@@ -74,3 +75,9 @@ io.on('connection', function(socket){
 //   console.log('listening on *:3002');
 // });
 
+
+
+//react router's path
+app.get('/**', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
