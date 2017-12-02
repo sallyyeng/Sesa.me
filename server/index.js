@@ -13,23 +13,18 @@ const MySQLStore = require('express-mysql-session')(session)
 const flash = require('connect-flash');
 const passport = require('passport');
 const env = require('dotenv').load();
-<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
 const router = require('./routes.js');
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
 const sequelize = require('./db/index.js');
 
-=======
-const db = require('./db/index.js');
->>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
 // Set port
 const PORT = process.env.PORT || 3001;
 
-// USE CREDENTIALS FOR LOCAL MACHINE -- Make sure to create .env file in root directory and add in vars below //
-// ex: my .env contains:  DBSERVER=localhost DBUSER=root DBPASSWORD="38ankeny"
-
+// USE CREDENTIALS FOR LOCAL MACHINE
+// To run locally --> DBSERVER=localhost DBUSER=root DBPASSWORD=38ankeny npm run start
 const options = {
   host: process.env.DBSERVER ||'us-cdbr-iron-east-05.cleardb.net',
   port: process.env.PORT,

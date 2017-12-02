@@ -17,7 +17,7 @@ class Login extends React.Component {
       lat: '',
       long: ''
     };
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onUsernameChange(e) {
@@ -72,18 +72,13 @@ class Login extends React.Component {
         url: '/login',
         data: this.state,
         success: (data) => {
-<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
-          console.log('back from logging');
-=======
           console.log('back from loggin')
-          console.log(data);
->>>>>>> Reconfigure passport middleware to utilize express-mysql-session
           this.props.addUser(this.state.username);
           resolve(data);
         },
         error: (error) => {
-          console.log('Unsuccessful login with error: ', error);
           alert(error.responseText);
+          console.log('Unsuccessful login with error: ', error);
           reject(error);
         },
       });
@@ -103,7 +98,7 @@ class Login extends React.Component {
         className="login-button"
         bsStyle="primary"
         onClick={()=> {
-          history.push('/Signup')
+          history.push('/Signup');
         }}>
         Signup</Button>
     ));
@@ -113,11 +108,11 @@ class Login extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.handleSubmit()
-            .then((data)=> history.push(data))
+            .then(()=> history.push('/Game'))
             .catch((err)=> console.log(err.responseText));
         }}>
         Login</Button>
-    ))
+    ));
     return (
       <div className="container login-container">
         <div>
