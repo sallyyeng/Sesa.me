@@ -9,8 +9,6 @@ router.post('/login', controller.login.post);
 
 // router.get('/signup', controller.signup.get);
 router.post('/signup', controller.signup.post);
-// router.post('/signup', authController.signup);
-
 router.get('/submissions', controller.submissions.get);
 router.post('/submissions', controller.submissions.post);
 router.patch('/submissions', controller.submissions.patch);

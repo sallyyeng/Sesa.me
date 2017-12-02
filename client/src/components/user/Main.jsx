@@ -18,13 +18,16 @@ class Main extends React.Component {
               <h1 className="main-header">PacMan</h1>
               <div className="btn-group-sm" role="group" aria-label="Basic example">
                 <Link to='/Login'>
-                <Button type="button" className="btn btn-secondary">Login</Button>
+                  <Button type="button" className="btn btn-secondary">Login</Button>
+                </Link>
+                <Link to='/Signup'>
+                  <Button type="button" className="btn btn-secondary">Sign-Up</Button>
+                </Link>
+              <Link to='/Game'>
+                <Button type="button" className="btn btn-secondary">I Just Want to Play!</Button>
               </Link>
-              <Link to='/Signup'>
-              <Button type="button" className="btn btn-secondary">Sign-Up</Button>
-            </Link>
-            <Link to='/Game'>
-            <Button type="button" className="btn btn-secondary">I Just Want to Play!</Button>
+            <Link to='/PacManGame'>
+              <Button type="button" className="btn btn-secondary">PacMan</Button>
           </Link>
         </div>
       </div>

@@ -274,34 +274,33 @@ ol, ul {
   margin-top: 10px;
   margin-right: 10px;
 }
-<<<<<<< HEAD
 
 /*========CHATBOX FORM==========*/
 #messages {
-  list-style-type: none; 
-  margin: 0; 
-  padding: 0; 
-  background: #000; 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: #000;
   position: fixed;
-  height: 100px; 
+  height: 100px;
   width: 100%;
 }
 
 /*#messages li {
- padding: 5px 10px; 
+ padding: 5px 10px;
 }
 
-#messages li:nth-child(odd) { 
-  background: #eee; 
+#messages li:nth-child(odd) {
+  background: #eee;
 }*/
-      
+
 div > .chat-log {
   border: thin solid black;
   display: grid;
   grid-template-columns: 50px 50px 50px 50px 50px 50px;
   grid-template-rows: 50px 50px 50px 50px 50px 50px;
   grid-gap: 0px;
-  height: 320px; 
+  height: 320px;
   width: 320px;
   background: #ffffff;
   padding: 10px;
@@ -309,7 +308,7 @@ div > .chat-log {
   margin-right: auto;
   margin-top: 20px;
   border-radius: 5px;
-  
+
 }
 
 .chat-entry-form {
@@ -339,7 +338,6 @@ div > .chat-log {
 }
 
 
-=======
 ///////////////Make Character///////////
 
 
@@ -386,4 +384,3 @@ A
 .footerChar {
   background-color: #999;
 }
->>>>>>> added make charecter component
