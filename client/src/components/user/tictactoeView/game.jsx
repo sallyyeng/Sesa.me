@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ChatBox from '../formView/chatBox.jsx';
+import Logout from '../formView/logout.jsx';
 
 
 function Square(props) {
@@ -158,6 +159,7 @@ class Game extends React.Component {
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
         <ChatBox username={this.props.username} roomname={this.props.roomname}/>
+        <Logout />
       </div>
     );
   }

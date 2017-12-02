@@ -52,6 +52,7 @@ const sessionStore = new MySQLStore(options);
 // express router routes
 const signupRoute = require('./routes/signup');
 const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
 
 // middleware
 app.use(morgan('dev'));
@@ -78,7 +79,7 @@ app.use('/login', loginRoute);
 
 app.use(checkAuthentication);
 
-// app.use('/logout', logoutRoute);
+app.use('/logout', logoutRoute);
 
 //react router's path
 app.get('/**', (req, res) => {
@@ -93,7 +94,6 @@ function checkAuthentication(req, res, next) {
     next();
     //res.status(401).json({});
 
-<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
 // Set port
 // app.set('port', process.env.PORT || 3000);
 
@@ -103,28 +103,13 @@ function checkAuthentication(req, res, next) {
 
 // Set port
 app.set('port', process.env.PORT || 3000);
-=======
-  }
-}
-
-//************************ SOCKET CODE BELOW ************************//
->>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
 //Socket
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-<<<<<<< 4e4bf8bdf365ebb8add95fa852034dba78b2460f
-// Parsing
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
-
-server.listen(process.env.PORT || 3000);
-console.log('Listening on', app.get('port'));
-=======
 server.listen(PORT);
 console.log('Listening on', PORT);
->>>>>>> Reconfigure passport middleware to utilize express-mysql-session
 
 
 //Socket

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const models = require('../../server/db/index.js');
+const models = require('../db/index.js');
 const User = models.User;
 
 const passport = require('passport'),
@@ -11,46 +11,33 @@ passport.use(new LocalStrategy({
   usernameField: 'username',
   passwordField: 'hash'
 },
-function(username, password, done) {
-  console.log('INSIDE STRATEGY');
-  User.findOne({ username: username }, function (err, user) {
-    if (err) { return done(err); }
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username.' });
+function(username, hash, done) {
+  console.log(`username inside strategy: ${username}`);
+  console.log(`hash inside strategy: ${hash}`);
+  User.findOne({
+    where: {
+      username: username,
     }
-    if (!user.validPassword(password)) {
-      return done(null, false, { message: 'Incorrect password.' });
-    }
-    return done(null, user);
-  });
+  })
+    .then((user) => {
+      console.log(`this is user: ${user}`);
+      if (user) {
+        console.log(`hash inside user found: ${user.get('hash')}`);
+        bcrypt.compare(hash, user.get('hash'), (err, validPassword) => {
+          if (err) { throw new Error('error'); }
+          if (validPassword) {
+            return done(null, user, {message: 'user found, password matched'});
+          } else {
+            return done(null, false, {message: 'invalid password'});
+          }
+        });
+      } else {
+        console.log('cannot find user dummy!');
+      }
+    })
+    .catch(err => done(err, false, {message: 'user not found'}));
 }
 ));
-
-// passport.use(new LocalStrategy({passReqToCallback: true},
-//   (req, done) => {
-//     const { username, password } = req;
-//     console.log(`username becomes ${username}`)
-//     console.log(`password becomes ${password}`)
-
-//     User.findOne({
-//       where: {
-//         'username': req.body.username
-//       }
-//     }).then(function (user) {
-//       if (user == null) {
-//         return done(null, false, { message: 'Incorrect credentials.' });
-//       }
-
-//       var hashedPassword = bcrypt.hashSync(req.body.hash, user.salt);
-
-//       if (user.password === hashedPassword) {
-//         return done(null, user);
-//       }
-
-//       return done(null, false, { message: 'Incorrect credentials.' });
-//     });
-//   }
-// ));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -69,12 +56,6 @@ router.post('/',
     console.log('authenticated user:', req.user);
     res.json(req.user);
   });
-
-// router.post('/login',
-//   passport.authenticate('local', { successRedirect: '/game',
-//     failureRedirect: '/login',
-//     failureFlash: true })
-// );
 
 module.exports = router;
 
