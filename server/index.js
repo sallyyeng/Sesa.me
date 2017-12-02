@@ -79,21 +79,24 @@ io.on('connection', function(socket) {
     users[userData.username] =  userData.username;
     rooms[userData.roomname] = userData.roomname;
     console.log('Joined the room');
-    sequelize.User.findOne({
-      where: {
-        username: socket.username,
-      }
-    }).then(user => {
-      sequelize.Message.findAll({
-        userId: user.get('id'),
-      }).then(chatHistory => {
-        console.log('Successful user message creation with', chatHistory);
-        socket.emit('reload:chat', chatHistory);
-      }).catch((err) => {
-        console.log('Error creating user message with', err);
-        res.sendStatus(400);
+    
+    if (socket.username === "admin") {
+      sequelize.User.findOne({
+        where: {
+          username: socket.username,
+        }
+      }).then(user => {
+        sequelize.Message.findAll({
+          userId: user.get('id'),
+        }).then(chatHistory => {
+          console.log('Successful user message creation with', chatHistory);
+          socket.emit('reload:chat', chatHistory);
+        }).catch((err) => {
+          console.log('Error creating user message with', err);
+          res.sendStatus(400);
+        });
       });
-    });
+    }
 
 
     var welcomeMessage = {
@@ -109,14 +112,13 @@ io.on('connection', function(socket) {
       message: userData.username + ' has connected to the room',
       // content: `${userData.username} has connected to the room`,
     }
-
-    
-
     socket.broadcast.to(socket.roomname).emit('update:chat', connectionMessage);
   })
 
 
   socket.on('send:message', (msg) => {
+    console.log('Users: ', users)
+    console.log('Rooms: ', rooms)
     console.log('Message: ', msg)
     id = id++;
     sequelize.User.findOne({

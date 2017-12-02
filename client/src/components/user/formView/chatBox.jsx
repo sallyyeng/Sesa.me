@@ -35,14 +35,15 @@ class ChatBox extends React.Component {
     });
     this.socket.on('reload:chat', (chatHistory) => {
       chatHistory.map(msg => {
+        console.log(msg)
         var logCopy = this.state.messageLog.slice();
         var msgObj = {
-          id: msg.dataValues.id,
-          username: msg.dataValues.message_sender,
-          message: msg.dataValues.message_text,
+          id: msg.id,
+          username: msg.message_sender,
+          message: msg.message_text,
         }
-        logCopy.push()
-        this.setState
+        logCopy.push(msgObj)
+        this.setState({messageLog: logCopy})
       })
     })
   }
