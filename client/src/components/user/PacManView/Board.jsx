@@ -52,10 +52,12 @@ export default function PacManBoard (p) {
     p.f = [];
 
     for (var i = 0; i < p.fieldMap.length; i++) {
-      p.row = p.fieldMap[i].split(" ")
+
+      p.row = p.fieldMap[i].split(" ");
       for (var j = 0; j < p.row.length; j++) {
+
         p.type = p.parseType(p.row[i]);
-        p.feildMap.push(i % 20, Math.floor(i/20), p.type)
+        p.feildMap.push(i % 20, Math.floor(i/20), p.type);
       }
     }
     // for (var i = 0; i < 400; i++){
@@ -75,7 +77,7 @@ export default function PacManBoard (p) {
       case "3":
         return "CHERRY";
     }
-  }
+  };
 
 
 ////////////////MAKING THE SQUARES WITH DIFFERNT FEATURES/////////////////////
