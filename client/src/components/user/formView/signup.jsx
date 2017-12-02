@@ -111,8 +111,16 @@ class Signup extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.hanldeSubmit()
+<<<<<<< a06f793bcd8f9b11ab47a3867f0051e6b22061d6
             .then(()=> history.push('/Character'))
             .catch(()=> console.log('there was an error'))
+=======
+            .then(()=> history.push('/Game'))
+            .catch((err)=> console.log(err.responseText))
+            .then(()=> history.push('/Character'))
+            .catch(()=> console.log('there was an error'))
+
+>>>>>>> updated db: removed location property. It's breaking things right now but will add later when fully implemented
         }}>
         Create Account</Button>
     ))
