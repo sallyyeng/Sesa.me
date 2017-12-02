@@ -8,6 +8,11 @@
 .main-header {
   font-size: 100px;
 }
+.create-character-header {
+  font-size: 70px;
+  top: 40%;
+  left: 50%;
+}
 .admin-loggin-button-real{
   position: fixed;
   margin: 0;
@@ -269,6 +274,7 @@ ol, ul {
   margin-top: 10px;
   margin-right: 10px;
 }
+<<<<<<< HEAD
 
 /*========CHATBOX FORM==========*/
 #messages {
@@ -333,3 +339,51 @@ div > .chat-log {
 }
 
 
+=======
+///////////////Make Character///////////
+
+
+.sidebarChar {
+		grid-area: sidebar;
+	}
+
+	.contentChar {
+		grid-area: content;
+	}
+
+	.headerChar {
+		grid-area: header;
+    text-align: center;
+    font-size: 70px;
+	}
+
+	.footerChar {
+		grid-area: footer;
+	}
+
+
+	.wrapperChar {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-columns: 33% 33% 33% ;
+		grid-template-areas:
+    "header header header"
+		"sidebar content content"
+		"footer  footer  footer";
+		color: #444;
+	}
+A
+
+.boxChar {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.headerChar,
+.footerChar {
+  background-color: #999;
+}
+>>>>>>> added make charecter component
