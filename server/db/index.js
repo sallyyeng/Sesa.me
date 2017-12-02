@@ -15,7 +15,8 @@ const User = sequelize.define('user', {
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  last_name: Sequelize.STRING,
+  location: Sequelize.STRING
 });
 
 const Submission = sequelize.define('submission', {
