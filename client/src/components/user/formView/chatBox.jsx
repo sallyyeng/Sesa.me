@@ -33,6 +33,18 @@ class ChatBox extends React.Component {
       this.setState({messageLog: newMessageArr});
       console.log('Into the messages');
     });
+    this.socket.on('reload:chat', (chatHistory) => {
+      chatHistory.map(msg => {
+        var logCopy = this.state.messageLog.slice();
+        var msgObj = {
+          id: msg.dataValues.id,
+          username: msg.dataValues.message_sender,
+          message: msg.dataValues.message_text,
+        }
+        logCopy.push()
+        this.setState
+      })
+    })
   }
   
   componentWillUnmount() {
@@ -57,7 +69,11 @@ class ChatBox extends React.Component {
   render() {
     return ( 
       <div className="chat-log" >
-        <ScrollList listItems={this.state.messageLog} heightOfItems={5} />
+         <ul className="react-scrollable-list">
+          {this.state.messageLog.map((msg, index) => {
+            return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
+          })}
+        </ul>
           <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>
             <input id="message" name="clientMessage" type="text" value={this.state.clientMessage} onChange={this.handleChange} placeholder="Enter Message Here"/>
             <input type="submit" value="Send"/>
@@ -70,9 +86,10 @@ class ChatBox extends React.Component {
 module.exports = ChatBox;
 
 //autocomplete="off"
+// <ScrollList listItems={this.state.messageLog} heightOfItems={5} />
 
-  // <ul className="messageLog">
-  //         {this.state.messageLog.map((msg, index) => {
-  //           return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
-  //         })}
-  //       </ul>
+//   <ul className="messageLog">
+//           {this.state.messageLog.map((msg, index) => {
+//             return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
+//           })}
+//         </ul>

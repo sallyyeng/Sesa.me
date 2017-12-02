@@ -10,6 +10,8 @@ const router = require('./routes.js');
 const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
+const sequelize = require('./db/index.js');
+
 
 const app = express();
 
@@ -64,7 +66,7 @@ var users = {};
 var rooms = {};
 var id = -1;
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
   console.log('a user connected');
 
   // var hs = socket.handshake;
@@ -76,27 +78,67 @@ io.on('connection', function(socket){
     socket.join(userData.roomname);
     users[userData.username] =  userData.username;
     rooms[userData.roomname] = userData.roomname;
+    console.log('Joined the room');
+    sequelize.User.findOne({
+      where: {
+        username: socket.username,
+      }
+    }).then(user => {
+      sequelize.Message.findAll({
+        userId: user.get('id'),
+      }).then(chatHistory => {
+        console.log('Successful user message creation with', chatHistory);
+        socket.emit('reload:chat', chatHistory);
+      }).catch((err) => {
+        console.log('Error creating user message with', err);
+        res.sendStatus(400);
+      });
+    });
+
+
     var welcomeMessage = {
       id: id++,
       username: '',
       message: `You have connected to room ${userData.roomname}`,
-      content: `You have connected to room ${userData.roomname}`,
+      // content: `You have connected to room ${userData.roomname}`,
     }
     socket.emit('update:chat', welcomeMessage);
     var connectionMessage = {
       id: id++,
       username: '',
       message: userData.username + ' has connected to the room',
-      content: `${userData.username} has connected to the room`,
+      // content: `${userData.username} has connected to the room`,
     }
+
+    
+
     socket.broadcast.to(socket.roomname).emit('update:chat', connectionMessage);
   })
 
 
   socket.on('send:message', (msg) => {
     console.log('Message: ', msg)
+    id = id++;
+    sequelize.User.findOne({
+      where: {
+        username: socket.username,
+      }
+    }).then(user => {
+      sequelize.Message.create({
+        userId: user.get('id'),
+        message_sender: msg.username,
+        message_order: id,
+        message_text: msg.message,
+      }).then(createdMessage => {
+        console.log('Successful user message creation with', createdMessage);
+      }).catch((err) => {
+        console.log('Error creating user message with', err);
+        res.sendStatus(400);
+      });
+    });
+    
     io.sockets.in(socket.roomname).emit('update:chat', {
-      id: id++,
+      id: id,
       username: msg.username,
       message: msg.message,
       content: `${msg.username}: ${msg.message}`
@@ -121,6 +163,9 @@ io.on('connection', function(socket){
 //   message:
 // }
 
+// change the id to match the right number
+// be able to retrieve all recorded messages
+
 
 //STEP 2: Have an admin receive the list of rooms with connections to all of them - any received messages will cause a light up
 
@@ -134,6 +179,7 @@ io.on('connection', function(socket){
 //
 //need an object to show all people who are connected and what they're chatroom ids are?
 //all of this information gets sent to the admin
+<<<<<<< HEAD
 //admin when opening a component will have the credentials to connect to appropriate chat
 
 
@@ -143,3 +189,6 @@ io.on('connection', function(socket){
 app.get('/**', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
+=======
+//admin when opening a component will have the credentials to connect to appropriate chat
+>>>>>>> Chatbox now saves messages into db

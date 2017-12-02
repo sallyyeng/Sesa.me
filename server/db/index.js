@@ -32,10 +32,10 @@ const Submission = sequelize.define('submission', {
 
 const Message = sequelize.define('message', {
   //id (PK), createdAt, and user id (FK) are created by default
-  message_order: Sequelize.TEXT,
+  message_order: Sequelize.INTEGER,
   message_text: Sequelize.TEXT,
-  message_sender: Sequelize.TEXT,
-})
+  message_sender: Sequelize.TEXT
+});
 
 //define 1:many relationship of Users:Submissions
 Submission.belongsTo(User);
@@ -52,7 +52,7 @@ Message.sync();
 
 db.User = User;
 db.Submission = Submission;
-db.Messages = Message;
+db.Message = Message;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
