@@ -31,8 +31,8 @@ const options = {
   user: process.env.DBUSER  ||'ba3f260f7ba4c4',
   password: process.env.DBPASSWORD || '0e12068a',
   database: 'messages' ||'heroku_e67b3a46e336139',
-  checkExpirationInterval: 60000,
-  expiration: 3600000,
+  checkExpirationInterval: 1,
+  expiration: 1,
 };
 
 //USE CREDENTIALS FOR HEROKU STAGING

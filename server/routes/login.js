@@ -12,17 +12,13 @@ passport.use(new LocalStrategy({
   passwordField: 'hash'
 },
 function(username, hash, done) {
-  console.log(`username inside strategy: ${username}`);
-  console.log(`hash inside strategy: ${hash}`);
   User.findOne({
     where: {
       username: username,
     }
   })
     .then((user) => {
-      console.log(`this is user: ${user}`);
       if (user) {
-        console.log(`hash inside user found: ${user.get('hash')}`);
         bcrypt.compare(hash, user.get('hash'), (err, validPassword) => {
           if (err) { throw new Error('error'); }
           if (validPassword) {
@@ -53,7 +49,7 @@ passport.deserializeUser(function(id, done) {
 router.post('/',
   passport.authenticate('local', {failureFlash: true, successFlash: true}),
   function(req, res) {
-    console.log('authenticated user:', req.user);
+    console.log('authenticated user:', req.user.username);
     res.json(req.user);
   });
 

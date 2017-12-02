@@ -12,23 +12,24 @@ class Logout extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: 'ho'
     };
   }
 
   handleLogout() {
-    this.setState({username: 'Login'});
-    $.ajax({
-      url: '/logout',
-      method: 'GET',
-      contentType: 'application/json',
-      success: response => {
-        console.log('success inside handleLogout: ');
-        console.log(response);
-      },
-      error: (err)=> {
-        console.log(`failure inside handleLogout: ${err}`);
-      }
+    return new Promise((resolve, reject) => {
+      this.setState({username: 'Login'});
+      $.ajax({
+        url: '/logout',
+        method: 'GET',
+        contentType: 'application/json',
+        success: response => {
+          console.log('success inside handleLogout: ');
+          console.log(response);
+        },
+        error: (err)=> {
+          console.log(`failure inside handleLogout: ${err}`);
+        }
+      });
     });
   }
 
@@ -39,8 +40,8 @@ class Logout extends React.Component {
         className="logout-button"
         bsStyle="primary"
         onClick={()=> {
-          history.push('/');
           this.handleLogout()
+            .then(() => history.push('/Login'))
             .catch((err)=> console.log(err.responseText));
         }}>
         Logout</Button>
