@@ -13,18 +13,15 @@ const MySQLStore = require('express-mysql-session')(session)
 const flash = require('connect-flash');
 const passport = require('passport');
 const env = require('dotenv').load();
-const router = require('./routes.js');
-const setupPassport = require('../config/passport/passport.js');
 const LocalStrategy = require('passport-local').Strategy;
-const path = require('path');
 const sequelize = require('./db/index.js');
 
 
 // Set port
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // USE CREDENTIALS FOR LOCAL MACHINE
-// To run locally --> DBSERVER=localhost DBUSER=root DBPASSWORD=38ankeny npm run start
+// To run locally --> DBSERVER=localhost DBUSER=root DBPASSWORD=38ankeny npm run server-dev
 const options = {
   host: process.env.DBSERVER ||'us-cdbr-iron-east-05.cleardb.net',
   port: process.env.PORT,
@@ -77,7 +74,7 @@ app.use(flash());
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 
-app.use(checkAuthentication);
+// app.use(checkAuthentication);
 
 app.use('/logout', logoutRoute);
 
@@ -95,14 +92,8 @@ function checkAuthentication(req, res, next) {
     console.log('SERVER INDEX: user is not authenticated');
     next();
     //res.status(401).json({});
-<<<<<<< e53479b880ee85d2f6a749a3ed644a76be7842b3
-
-// Set port
-// app.set('port', process.env.PORT || 3000);
-=======
   }
 }
->>>>>>> Refactor to include an a tag for logout instead of a component
 
 // Init server
 // app.listen(app.get('port'));

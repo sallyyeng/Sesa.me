@@ -27,10 +27,7 @@
     "bcrypt": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
-<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
     "connect-flash": "^0.1.1",
-=======
->>>>>>> Add salt to record and added passport-local-sequelize as dependency
     "connect-multiparty": "^2.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
@@ -47,10 +44,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-sequelize": "^0.8.0",
-<<<<<<< 7211abc848d41c83039372b86ff1f16afa06405b
     "path": "^0.12.7",
-=======
->>>>>>> Add salt to record and added passport-local-sequelize as dependency
     "pg": "7.4.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",

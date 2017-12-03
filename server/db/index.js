@@ -41,9 +41,9 @@ const Message = sequelize.define('message', {
 Submission.belongsTo(User);
 User.hasMany(Submission);
 
-//define 1:many relationship of Users:Messages
-Message.belongsTo(User);
-User.hasMany(Message);
+// //define 1:many relationship of Users:Messages
+// Message.belongsTo(User);
+// User.hasMany(Message);
 
 //create tables if they do not yet exist
 User.sync();
