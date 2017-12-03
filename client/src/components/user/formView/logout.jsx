@@ -16,27 +16,6 @@ class Logout extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout() {
-    console.log('inside handleLogout before ajax')
-    // return new Promise((resolve, reject) => {
-    $.ajax({
-      method: 'GET',
-      url: '/logout',
-      contentType: 'application/json',
-      success: (response) => {
-        alert('You have successfully logged out');
-        console.log('what does this return inside success ', response);
-        history.push('/tommyandy');
-        // resolve(response);
-      },
-      error: (err) => {
-        console.log('failure inside handleLogout:', err);
-        // reject(err);
-      }
-    });
-    // });
-  }
-
   render() {
     return (
       <a href="/">Logout</a>
@@ -45,3 +24,24 @@ class Logout extends React.Component {
 }
 
 export default Logout;
+
+// handleLogout() {
+//   console.log('inside handleLogout before ajax')
+//   // return new Promise((resolve, reject) => {
+//   $.ajax({
+//     method: 'GET',
+//     url: '/logout',
+//     contentType: 'application/json',
+//     success: (response) => {
+//       alert('You have successfully logged out');
+//       console.log('what does this return inside success ', response);
+//       history.push('/tommyandy');
+//       // resolve(response);
+//     },
+//     error: (err) => {
+//       console.log('failure inside handleLogout:', err);
+//       // reject(err);
+//     }
+//   });
+//   // });
+// }

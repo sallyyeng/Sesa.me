@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
     res.status(201).send();
   }).catch(function(error) {
     console.log('error in signup handler');
-    res.redirect('/signup');
+    res.status(400).send('Username is already taken');
   });
 });
 

@@ -81,9 +81,9 @@ app.use('/login', loginRoute);
 
 app.use('/logout', logoutRoute);
 
-//react router's path
-app.get('/tommyandy', (req, res) => {
-  console.log('HEY THERE INSIDE GET HANDLER');
+// react router's path
+app.get('/**', (req, res) => {
+  console.log('This happens when you load a path directly');
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
@@ -95,9 +95,14 @@ function checkAuthentication(req, res, next) {
     console.log('SERVER INDEX: user is not authenticated');
     next();
     //res.status(401).json({});
+<<<<<<< e53479b880ee85d2f6a749a3ed644a76be7842b3
 
 // Set port
 // app.set('port', process.env.PORT || 3000);
+=======
+  }
+}
+>>>>>>> Refactor to include an a tag for logout instead of a component
 
 // Init server
 // app.listen(app.get('port'));
