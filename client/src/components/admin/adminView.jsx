@@ -6,6 +6,7 @@ import SocialServicesMap from './socialServicesMap.jsx';
 
 
 
+
 class AdminView extends React.Component {
   constructor(props) {
     super(props);
@@ -81,8 +82,8 @@ class AdminView extends React.Component {
           <h3 className="welcome-header">Welcome to Your Inbox!</h3>
           <h4>You can view and respond to user messages here.</h4>
         </div>
-        <ChatBox username={this.props.username} roomname={this.props.roomname}/>
-        <SocialServicesMap userData={this.state.messages} location={this.props.location} lat={this.props.lat} long={this.props.long}/>
+        {/*<ChatBox />*/}
+        <SocialServicesMap username={this.props.username} roomname={this.props.roomname} userData={this.state.messages} location={this.props.location} lat={this.props.lat} long={this.props.long}/>
         {/* <ul className="user-message-ul">
           {this.state.messages.map((message, index) => <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message} />)}
         </ul> */}

@@ -60,7 +60,7 @@ class SocialServicesMap extends Component{
         <div className="boxAdmin footerAdmin">
           <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
             <Tab eventKey={1} title="Chat">
-              <ChatBox/>
+              <ChatBox username={this.props.username} roomname={this.props.roomname} />
             </Tab>
             <Tab eventKey={2} title="Info">
               {/*<Info*/}
