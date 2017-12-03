@@ -124,7 +124,7 @@ io.on('connection', function(socket) {
     rooms[userData.roomname] = userData.roomname;
     console.log('Joined the room');
 
-    if (socket.username === "admin") {
+    if (socket.username === "admin_1") {
       sequelize.User.findOne({
         where: {
           username: socket.username,

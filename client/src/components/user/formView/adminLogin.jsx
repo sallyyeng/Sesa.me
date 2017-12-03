@@ -12,7 +12,8 @@ class AdminLogin extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      hash: '',
+      source: 'admin',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -25,7 +26,7 @@ class AdminLogin extends React.Component {
 
   onPasswordChange(e) {
     this.setState({
-      password: e.target.value,
+      hash: e.target.value,
     });
   }
 
@@ -34,10 +35,7 @@ class AdminLogin extends React.Component {
       $.ajax({
         method: 'POST',
         url: '/login',
-        data: {
-          username: this.state.username,
-          hash: this.state.password,
-        },
+        data: this.state,
         success: (data) => {
           console.log('back from loggin');
           this.props.addUser(this.state.username);

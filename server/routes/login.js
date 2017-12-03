@@ -11,29 +11,36 @@ const passport = require('passport'),
 passport.use('local-signin', new LocalStrategy({
   usernameField: 'username',
   passwordField: 'hash',
+  passReqToCallback: true,
 },
-function(username, hash, done) {
+function(req, username, hash, done) {
   User.findOne({
     where: {
       username: username,
     }
   })
     .then((user) => {
-      console.log('does admin user show up?:', user)
       if (user) {
+        // source of login should match the user record's account_type access
+        if (user.get('account_type') !== req.body.source) {
+          console.log(`user record account_type: ${user.get('account_type')} vs. req body acct_type: ${req.body.source}`)
+          return done(null, false, {message: 'Please navigate to correct login page'});
+        }
+
+        console.log(`user: ${user.get('username')} account type: ${user.get('account_type')}`);
         bcrypt.compare(hash, user.get('hash'), (err, validPassword) => {
           if (err) { throw new Error('error'); }
           if (validPassword) {
-            return done(null, user, {message: 'user found, password matched'});
+            return done(null, user, {message: 'Success: valid password/credentials'});
           } else {
-            return done(null, false, {message: 'invalid password'});
+            return done(null, false, {message: 'Fail: invalid password'});
           }
         });
       } else {
-        return done(null, false, {message: 'Please enter a valid username'});
+        return done(null, false, {message: 'Fail: username does not exist'});
       }
     })
-    .catch(err => done(err, false, {message: 'user not found'}));
+    .catch(err => done(err, false, {message: 'Fail: username does not exist'}));
 }
 ));
 
@@ -51,7 +58,7 @@ passport.deserializeUser(function(id, done) {
 router.post('/',
   passport.authenticate('local-signin'),
   (req, res) => {
-    console.log(`${req.user.username} is authenticated: ${req.isAuthenticated()}`)
+    console.log(`${req.user.username} is authenticated: ${req.isAuthenticated()}`);
     // if you have time, try and find the session id on the front end either in req or res;
     res.json(req.user);
   });

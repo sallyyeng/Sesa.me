@@ -12,15 +12,19 @@ const db = {};
 
 const User = sequelize.define('user', {
   //id is already created by default as PK
-  username: { type: Sequelize.STRING, unique: true },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    ignoreDuplicates: true,
+  },
   hash: Sequelize.STRING,
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,
   location: Sequelize.STRING,
-  lat:Sequelize.INTEGER,
-  long:Sequelize.INTEGER,
+  lat: Sequelize.INTEGER,
+  long: Sequelize.INTEGER,
 });
 
 const Submission = sequelize.define('submission', {
@@ -65,7 +69,7 @@ User.sync()
     });
   })
   .catch((err) => {
-    console.error(`unable to autofill table with admin record w/error msg: ${err}`)
+    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
   });
 
 Submission.sync();

@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('this is the request body: ', req.body)
+  console.log('POST /submission: this is the request body- ', req.body)
   if (req.body.account_type !== 'admin') {
     //find user by username
     models.User.findOne({
@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
     })
       .then((user) => {
         //create a submission record tied to that particular user
-        console.log('user found in database: ', user)
+        console.log('POST /submission: user found in database- ', user.username)
         models.Submission.create({
           userId: user.get('id'),
           user_message: req.body.user_message,
