@@ -50,6 +50,8 @@ const sessionStore = new MySQLStore(options);
 const signupRoute = require('./routes/signup');
 const loginRoute = require('./routes/login');
 const logoutRoute = require('./routes/logout');
+const submissionRoute = require('./routes/submissions');
+const locationRoute = require('./routes/location');
 
 // middleware
 app.use(morgan('dev'));
@@ -73,10 +75,10 @@ app.use(flash());
 // express router middleware
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-
 // app.use(checkAuthentication);
-
 app.use('/logout', logoutRoute);
+app.use('/submissions', submissionRoute);
+app.use('/location', locationRoute);
 
 // react router's path
 app.get('/**', (req, res) => {

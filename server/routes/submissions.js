@@ -1,5 +1,6 @@
 
 const models = require('../db/index.js');
+const router = require('express').Router();
 
 router.get('/', (req, res) => {
   console.log('GET with query', req.query);
@@ -46,16 +47,18 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  console.log('this is the request body: ', req.body)
   if (req.body.account_type !== 'admin') {
     //find user by username
-    sequelize.User.findOne({
+    models.User.findOne({
       where: {
-        username: req.body.username
+        username: req.body.username,
       }
     })
       .then((user) => {
         //create a submission record tied to that particular user
-        sequelize.Submission.create({
+        console.log('user found in database: ', user)
+        models.Submission.create({
           userId: user.get('id'),
           user_message: req.body.user_message,
           user_contact: req.body.user_contact,
@@ -71,7 +74,10 @@ router.post('/', (req, res) => {
             console.log('Error creating user message with', err);
             res.sendStatus(400);
           });
-      });
+      })
+      .catch(err => {
+        console.log(`you unsuccessfully found the user in db: ${err}`);
+      })
   } else {
     // disallow non-users from sending messages
     console.log('Admins cannot create messages, only amend existing ones');
@@ -83,7 +89,7 @@ router.patch('/', (req, res) => {
   console.log('ADMIN PATCH WITH ', req.body);
   // if (req.body.account_type === 'admin') {
   //find message by message id
-  sequelize.Submission.findOne({
+  models.Submission.findOne({
     where: {
       id: req.body.id,
     }

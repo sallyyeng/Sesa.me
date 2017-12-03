@@ -14,7 +14,7 @@ import PacManGame from './components/user/PacManView/index.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
-
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -33,7 +33,7 @@ class App extends React.Component {
       showBugButton: false,
       lat: '',
       long: '',
-      location:''
+      location: ''
     };
 
     this.unlockForms = this.unlockForms.bind(this);
@@ -42,11 +42,11 @@ class App extends React.Component {
     this.addUser = this.addUser.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.handleLoc();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.handleLoc();
   }
 
@@ -65,13 +65,13 @@ class App extends React.Component {
       const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
       $.ajax({
         url: url,
-        type: "GET",
+        type: 'GET',
         success: response=>{
           //console.log(response, "RESPONSE");
           const lat = crd.latitude;
           const long = crd.longitude;
           const location = response.results[0]['formatted_address'];
-          this.setState({lat, long,location});
+          this.setState({lat, long, location});
           //console.log(this.state, "MY STATE");
         }
       });
@@ -120,28 +120,40 @@ class App extends React.Component {
 
 
   sendMessage(userInfo) {
-
-    //UGH WHO MADE THIS GARBAGE
-
     console.log(`${JSON.stringify(userInfo)} requested post to server as new message`);
-    $.ajax({
-      method: 'POST',
-      url: '/submissions',
-      data: {
-        username: userInfo.username,
-        name: userInfo.name,
-        email: userInfo.email,
-        location: userInfo.location,
-        phoneNumber: userInfo.phoneNumber,
-      },
-      success: (data) => {
-        //console.log(data);
-        alert('Your message was sent succesfully. Check back often for status updates.');
-      },
-      error: (error) => {
-        console.log('Error sending message with', error);
-      },
-    });
+    axios.post('/submissions', {
+      username: userInfo.username,
+      name: userInfo.name,
+      email: userInfo.email,
+      location: userInfo.location,
+      phoneNumber: userInfo.phoneNumber,
+    })
+      .then(function (response) {
+        alert('Your information has been received safely and successfully');
+        console.log(`/submissions POST - back from server with msg: ${response}`);
+      })
+      .catch(function (error) {
+        console.log('/submissions POST - ERROR DUMMY!');
+      });
+
+    // $.ajax({
+    //   method: 'POST',
+    //   url: '/submissions',
+    //   data: {
+    //     username: userInfo.username,
+    //     name: userInfo.name,
+    //     email: userInfo.email,
+    //     location: userInfo.location,
+    //     phoneNumber: userInfo.phoneNumber,
+    //   },
+    //   success: (data) => {
+    //     //console.log(data);
+    //     alert('Your message was sent succesfully. Check back often for status updates.');
+    //   },
+    //   error: (error) => {
+    //     console.log('Error sending message with', error);
+    //   },
+    // });
   }
 
   retrieveResponses(username, callback) {
@@ -230,32 +242,33 @@ class App extends React.Component {
 
   render() {
     return (
-    <div>
-      <Router>
-        <div>
-          <Route exact path='/'
-            render={() => <Main/>}/>
-          <Route exact path='/homepage'
-            render={() => <Main/>}/>
-          <Route exact path='/Login'
-            render={() => <Login addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
-          <Route exact path='/Signup'
-            render={() => <Signup addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/> }/>
-          <Route exact path='/AdminLogin'
-            render={() => <AdminLogin addUser={this.addUser}/>}/>
-          <Route exact path='/AdminView'
-          render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
-        <Route exact path='/Character'
-            render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
+      <div>
+        <Router>
+          <div>
+            <Route exact path='/'
+              render={() => <Main/>}/>
+            <Route exact path='/homepage'
+              render={() => <Main/>}/>
+            <Route exact path='/Login'
+              render={() => <Login addUser={this.addUser} location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
+            <Route exact path='/Signup'
+              render={() => <Signup addUser={this.addUser} location={this.state.location} long={this.state.long} lat={this.state.lat}/> }/>
+            <Route exact path='/AdminLogin'
+              render={() => <AdminLogin addUser={this.addUser}/>}/>
+            <Route exact path='/AdminView'
+              render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+            <Route exact path='/Character'
+              render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
 
-          <Route exact path='/Game'
-            render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
-          <Route exact path='/PacManGame'
-            render={() => <PacManGame/>}/>
-        </div>
-      </Router>
-    </div>
-  )}
+            <Route exact path='/Game'
+              render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
+            <Route exact path='/PacManGame'
+              render={() => <PacManGame/>}/>
+          </div>
+        </Router>
+      </div>
+    )
+ ;}
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
