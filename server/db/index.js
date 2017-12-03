@@ -1,6 +1,6 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development'; 
+const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
@@ -23,7 +23,6 @@ const User = sequelize.define('user', {
 
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
-<<<<<<< 8269a3ac02fad2bcf84b2a6f2ac73f2b63afd83c
   user_name: Sequelize.TEXT,
   user_email: Sequelize.TEXT,
   user_location: Sequelize.TEXT,
@@ -35,16 +34,6 @@ const Message = sequelize.define('message', {
   message_order: Sequelize.INTEGER,
   message_text: Sequelize.TEXT,
   message_sender: Sequelize.TEXT
-=======
-  user_message: Sequelize.TEXT,
-  user_contact: Sequelize.TEXT,
-  user_urgency: Sequelize.INTEGER,
-  admin_response: Sequelize.TEXT,
-  //Sequelize Boolean will be converted to TINYINT(1)
-  admin_complete: Sequelize.BOOLEAN,
-  first_name: Sequelize.INTEGER,
-  last_name: Sequelize.INTEGER
->>>>>>> fetching current location from signup and login
 });
 
 //define 1:many relationship of Users:Submissions
