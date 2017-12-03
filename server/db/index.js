@@ -7,6 +7,8 @@ const passportLocalSequelize = require('passport-local-sequelize');
 const bcrypt = require('bcrypt');
 const db = {};
 
+console.log('DATABASE TO CONNECT ', env, config.database);
+
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
 //   .then(() => console.log('Database created'));
 
