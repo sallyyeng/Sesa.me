@@ -135,25 +135,6 @@ class App extends React.Component {
       .catch(function (error) {
         console.log('/submissions POST - ERROR DUMMY!');
       });
-
-    // $.ajax({
-    //   method: 'POST',
-    //   url: '/submissions',
-    //   data: {
-    //     username: userInfo.username,
-    //     name: userInfo.name,
-    //     email: userInfo.email,
-    //     location: userInfo.location,
-    //     phoneNumber: userInfo.phoneNumber,
-    //   },
-    //   success: (data) => {
-    //     //console.log(data);
-    //     alert('Your message was sent succesfully. Check back often for status updates.');
-    //   },
-    //   error: (error) => {
-    //     console.log('Error sending message with', error);
-    //   },
-    // });
   }
 
   retrieveResponses(username, callback) {
