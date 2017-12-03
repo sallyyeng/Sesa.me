@@ -1,13 +1,17 @@
-
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const router = require('express').Router();
+
 const models = require('../db/index.js');
 const User = models.User;
 
-module.exports.signup = function(req, res) {
+router.post('/', (req, res) => {
+  if (!req.body.username || !req.body.hash || !req.body.hash2) {
+    res.status(404).send('Please, fill in all the fields.');
+  }
 
   if (req.body.hash !== req.body.hash2) {
-    res.status(404).send('Please enter the same password twice.')
+    res.status(404).send('Please enter the same password twice.');
   }
 
   var salt = bcrypt.genSaltSync(10);
@@ -20,12 +24,15 @@ module.exports.signup = function(req, res) {
     account_type: req.body.account_type,
     first_name: req.body.first_name,
     last_name: req.body.last_name
-  }
+  };
 
   User.create(newUser).then(function() {
+    console.log('inside signup handler');
     res.status(201).send();
   }).catch(function(error) {
-    req.flash('error', "Please, choose a different username.")
-    res.redirect('/signup')
-  })
-}
+    console.log('error in signup handler');
+    res.status(400).send('Username is already taken');
+  });
+});
+
+module.exports = router;

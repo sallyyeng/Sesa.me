@@ -1,8 +1,9 @@
 const path = require('path');
-const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
+const Sequelize = require('sequelize');
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const passportLocalSequelize = require('passport-local-sequelize');
 const db = {};
 
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
@@ -40,9 +41,9 @@ const Message = sequelize.define('message', {
 Submission.belongsTo(User);
 User.hasMany(Submission);
 
-//define 1:many relationship of Users:Messages
-Message.belongsTo(User);
-User.hasMany(Message);
+// //define 1:many relationship of Users:Messages
+// Message.belongsTo(User);
+// User.hasMany(Message);
 
 //create tables if they do not yet exist
 User.sync();

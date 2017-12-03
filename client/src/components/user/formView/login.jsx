@@ -17,7 +17,7 @@ class Login extends React.Component {
       lat: '',
       long: ''
     };
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onUsernameChange(e) {
@@ -72,13 +72,13 @@ class Login extends React.Component {
         url: '/login',
         data: this.state,
         success: (data) => {
-          console.log('back from logging');
+          alert('You are logged on');
           this.props.addUser(this.state.username);
           resolve(data);
         },
         error: (error) => {
-          alert('Incorrect password');
-          console.log('Unsuccessful login with error: ', error);
+          alert('Please enter a valid credentials');
+          console.log(`Error in logging in: ${error}`);
           reject(error);
         },
       });
@@ -98,7 +98,7 @@ class Login extends React.Component {
         className="login-button"
         bsStyle="primary"
         onClick={()=> {
-          history.push('/Signup')
+          history.push('/Signup');
         }}>
         Signup</Button>
     ));
@@ -109,10 +109,10 @@ class Login extends React.Component {
         onClick={()=> {
           this.handleSubmit()
             .then(()=> history.push('/Game'))
-            .catch(()=> console.log('there was an error'))
+            .catch(()=> console.log(`Invalid credentials`));
         }}>
         Login</Button>
-    ))
+    ));
     return (
       <div className="container login-container">
         <div>

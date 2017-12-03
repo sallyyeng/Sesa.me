@@ -61,19 +61,6 @@ class Signup extends React.Component {
   hanldeSubmit() {
     console.log('im inside')
 
-    // if (this.state.username === '') {
-    //   return alert('Oops! Username cannot be empty. Let\'s try that again.');
-    // }
-    // if (this.state.firstName === '') {
-    //   return alert('Oops! First name cannot be empty. Let\'s try that again.');
-    // }
-    // if (this.state.password.length < 8) {
-    //   return alert('Oops! Password must be at least 8 characters long. Let\'s try that again.');
-    // }
-    // if (this.state.password !== this.state.checkPassword) {
-    //   return alert('Oops! Make sure both password fields match.');
-    // }
-
     return new Promise((resolve, reject) => {
       $.ajax({
         method: 'POST',
@@ -92,12 +79,10 @@ class Signup extends React.Component {
         },
         success: (data) => {
           alert('You have successfully created an account');
-          console.log('back from server', data);
           this.props.addUser(this.state.username);
           resolve(data);
         },
         error: (error) => {
-          console.log(error);
           alert(error.responseText);
           reject(error);
         },

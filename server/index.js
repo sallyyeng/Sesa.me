@@ -1,46 +1,101 @@
+// const router = require('./routes.js');
+// const setupPassport = require('../config/passport/passport.js');
+// const LocalStrategy = require('passport-local').Strategy;
 // require('dotenv').config();
 const express = require('express');
-var cookieParser = require('cookie-parser');
-const passport = require('passport');
-const flash = require('connect-flash');
-const session = require('express-session');
+const app = express();
 const parser = require('body-parser');
-const env = require('dotenv').load();
-const router = require('./routes.js');
-const setupPassport = require('../config/passport/passport.js');
-const LocalStrategy = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
 const path = require('path');
+const morgan = require('morgan');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session)
+const flash = require('connect-flash');
+const passport = require('passport');
+const env = require('dotenv').load();
+const LocalStrategy = require('passport-local').Strategy;
 const sequelize = require('./db/index.js');
 
 
-const app = express();
+// Set port
+const PORT = process.env.PORT || 3000;
 
-// Passport, Parser, Static Files,
+// USE CREDENTIALS FOR LOCAL MACHINE
+// To run locally --> DBSERVER=localhost DBUSER=root DBPASSWORD=38ankeny npm run server-dev
+const options = {
+  host: process.env.DBSERVER ||'us-cdbr-iron-east-05.cleardb.net',
+  port: process.env.PORT,
+  user: process.env.DBUSER  ||'ba3f260f7ba4c4',
+  password: process.env.DBPASSWORD || '0e12068a',
+  database: 'messages' ||'heroku_e67b3a46e336139',
+  checkExpirationInterval: 1,
+  expiration: 1,
+};
+
+//USE CREDENTIALS FOR HEROKU STAGING
+// const options = {
+//   host: 'us-cdbr-iron-east-05.cleardb.net',
+//   port: 3306,
+//   user: 'ba3f260f7ba4c4',
+//   password: '0e12068a',
+//   database: 'heroku_e67b3a46e336139',
+//   checkExpirationInterval: 60000,
+//   expiration: 3600000,
+// };
+
+//stores sessions created by passportjs, set your db password above
+const sessionStore = new MySQLStore(options);
+
+// express router routes
+const signupRoute = require('./routes/signup');
+const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
+const submissionRoute = require('./routes/submissions');
+const locationRoute = require('./routes/location');
+
+// middleware
+app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
-
+app.use(parser.json());
 app.use(express.static(`${__dirname}/../client/dist`));
+app.use(parser.urlencoded({ extended: false }));
 
+//creates session
+app.use(session({
+  secret: 'secret',
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  // cookie: { maxAge: 3600000}
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
-app.use(function(req, res, next) {
-  res.locals.errorMessage = req.flash('error');
-  next();
+
+// express router middleware
+app.use('/signup', signupRoute);
+app.use('/login', loginRoute);
+// app.use(checkAuthentication);
+app.use('/logout', logoutRoute);
+app.use('/submissions', submissionRoute);
+app.use('/location', locationRoute);
+
+// react router's path
+app.get('/**', (req, res) => {
+  console.log('This happens when you load a path directly');
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
-
-setupPassport(app);
-
-// Express Router
-app.use('/', router);
-
-// Set port
-// app.set('port', process.env.PORT || 3000);
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) { //check if it's an authenticated route
+    console.log('SERVER INDEX: user that is authenticated', req.user);
+    next();
+  } else {
+    console.log('SERVER INDEX: user is not authenticated');
+    next();
+    //res.status(401).json({});
+  }
+}
 
 // Init server
 // app.listen(app.get('port'));
@@ -50,15 +105,11 @@ app.use('/', router);
 app.set('port', process.env.PORT || 3000);
 
 //Socket
-const server = require('http').createServer(app)
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-// Parsing
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
-
-server.listen(process.env.PORT || 3000);
-console.log('Listening on', app.get('port'));
+server.listen(PORT);
+console.log('Listening on', PORT);
 
 
 //Socket
@@ -79,7 +130,7 @@ io.on('connection', function(socket) {
     users[userData.username] =  userData.username;
     rooms[userData.roomname] = userData.roomname;
     console.log('Joined the room');
-    
+
     if (socket.username === "admin") {
       sequelize.User.findOne({
         where: {
@@ -138,7 +189,7 @@ io.on('connection', function(socket) {
         res.sendStatus(400);
       });
     });
-    
+
     io.sockets.in(socket.roomname).emit('update:chat', {
       id: id,
       username: msg.username,

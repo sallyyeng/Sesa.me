@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ChatBox from '../formView/chatBox.jsx';
 
-
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -158,6 +157,7 @@ class Game extends React.Component {
           <span><button onClick={this.onReset.bind(this)}>reset</button></span>
         </div>
         <ChatBox username={this.props.username} roomname={this.props.roomname}/>
+        <a href="/">Logout</a>
       </div>
     );
   }
