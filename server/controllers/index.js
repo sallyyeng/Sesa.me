@@ -20,11 +20,11 @@ module.exports = {
       target.splice(0,1,latd[0]);
       const lat = Number(target[0]);
       const long = Number(target[1]);
-      console.log(lat, long, "my lat and long");
+      //console.log(lat, long, "my lat and long");
 
       axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=domestic+violence+services+OR+human+trafficking+help+near+me&location="+ lat + "," + long + "&radius=1000&key=AIzaSyCSvLAVosAQuQOJHtLXnwXVqTNOxMPjSH4")
         .then(function (response) {
-          console.log(response.data.results);
+          //console.log(response.data.results);
           res.status(200).send(response.data.results);
         })
         .catch(function (error) {
@@ -51,7 +51,10 @@ module.exports = {
             salt: req.body.salt,
             account_type: req.body.account_type,
             first_name: req.body.first_name,
-            last_name: req.body.last_name
+            last_name: req.body.last_name,
+            location: req.body.location,
+            lat: req.body.lat,
+            long: req.body.long
           }
         })
           .spread((user, created) => {
@@ -70,17 +73,35 @@ module.exports = {
   login: {
     // authenticate user, verifying username and hashed pw match
     post: (req, res) => {
-      console.log('OLD SIGNUP ROUTE');
+      console.log('lOGIN ROUTE', req.body);
       sequelize.User.findOne({
         where: {
-          username: req.body.username,
+          username: req.body.username
         },
       })
         .then((user) => {
+        //console.log("user ", user);
+        //req.body.location, req.body.lat, req.body.long
           bcrypt.compare(req.body.hash, user.get('hash'), (err, result) => {
             if (result) {
               console.log('Successful authentication with', user.get('username'), user.get('account_type'));
-              res.status(201).json({ username: user.get('username'), account_type: user.get('account_type') });
+              user.update({
+                location: req.body.location,
+                lat: req.body.lat,
+                long: req.body.long
+              })
+                .then((updatedMessage) => {
+                  console.log('Successful message update with', updatedMessage);
+                  res.status(201).json({ username: user.get('username'), account_type: user.get('account_type'),
+                  location: user.get('location'), lat: user.get('lat'), long: user.get('long')
+                  });
+                  //res.sendStatus(201);
+                })
+                .catch((err) => {
+                  console.log('Error amending user message with', err);
+                  res.sendStatus(400);
+                });
+
             } else {
               console.log('incorrect login details for ', req.body.username);
               res.sendStatus(400);

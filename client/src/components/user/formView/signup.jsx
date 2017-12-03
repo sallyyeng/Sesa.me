@@ -86,6 +86,9 @@ class Signup extends React.Component {
           account_type: 'admin',
           first_name: this.state.firstName,
           last_name: this.state.lastName,
+          location: this.props.location,
+          lat: this.props.lat,
+          long: this.props.long
         },
         success: (data) => {
           alert('You have successfully created an account');
@@ -111,19 +114,11 @@ class Signup extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.hanldeSubmit()
-<<<<<<< a06f793bcd8f9b11ab47a3867f0051e6b22061d6
             .then(()=> history.push('/Character'))
             .catch(()=> console.log('there was an error'))
-=======
-            .then(()=> history.push('/Game'))
-            .catch((err)=> console.log(err.responseText))
-            .then(()=> history.push('/Character'))
-            .catch(()=> console.log('there was an error'))
-
->>>>>>> updated db: removed location property. It's breaking things right now but will add later when fully implemented
         }}>
         Create Account</Button>
-    ))
+    ));
     //This button takes the user to the sign in page
     const ButtonSignIn = withRouter(({history}) => (
       <Button

@@ -42,15 +42,24 @@ class App extends React.Component {
     this.addUser = this.addUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount(){
+    this.handleLoc();
+  }
+
+  componentDidMount(){
+    this.handleLoc();
+  }
+
+  handleLoc() {
     document.addEventListener('keydown', this.onEsc, false);
     const options = {
       enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 4000,
       maximumAge: 0
     };
 
     const success = (pos)=> {
+      //console.log("coordinates ", pos.coords);
       const crd = pos.coords;
       //console.log(crd);
       const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
@@ -58,11 +67,12 @@ class App extends React.Component {
         url: url,
         type: "GET",
         success: response=>{
-          // console.log(response, "RESPONSE");
+          //console.log(response, "RESPONSE");
           const lat = crd.latitude;
           const long = crd.longitude;
           const location = response.results[0]['formatted_address'];
           this.setState({lat, long,location});
+          //console.log(this.state, "MY STATE");
         }
       });
     };
@@ -125,7 +135,7 @@ class App extends React.Component {
         phoneNumber: userInfo.phoneNumber,
       },
       success: (data) => {
-        console.log(data);
+        //console.log(data);
         alert('Your message was sent succesfully. Check back often for status updates.');
       },
       error: (error) => {
@@ -140,7 +150,7 @@ class App extends React.Component {
       method: 'GET',
       url: `/submissions?username=${username}&account_type=null`,
       success: (data) => {
-        console.log('USER MESSAGES', data);
+        //console.log('USER MESSAGES', data);
         callback(data);
       },
       error: (error) => {
@@ -174,7 +184,7 @@ class App extends React.Component {
         admin_response: response,
       },
       success: (data) => {
-        console.log(data);
+        //console.log(data);
         alert('Your response was sent successfully');
       },
       error: (error) => {
@@ -226,9 +236,9 @@ class App extends React.Component {
           <Route exact path='/'
             render={() => <Main/>}/>
           <Route exact path='/Login'
-            render={() => <Login addUser={this.addUser}/>}/>
+            render={() => <Login addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
           <Route exact path='/Signup'
-            render={() => <Signup addUser={this.addUser}/>}/>
+            render={() => <Signup addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/> }/>
           <Route exact path='/AdminLogin'
             render={() => <AdminLogin addUser={this.addUser}/>}/>
           <Route exact path='/AdminView'
