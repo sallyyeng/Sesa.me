@@ -81,11 +81,8 @@ class AdminView extends React.Component {
           <h3 className="welcome-header">Welcome to Your Inbox!</h3>
           <h4>You can view and respond to user messages here.</h4>
         </div>
-<<<<<<< 023cebe1c45869a79f5814d1aeca376114174c60
         <ChatBox username={this.props.username} roomname={this.props.roomname}/>
-=======
         <SocialServicesMap userData={this.state.messages} location={this.props.location} lat={this.props.lat} long={this.props.long}/>
->>>>>>> refactored components to fetch lat and long at index.jsx mounting
         {/* <ul className="user-message-ul">
           {this.state.messages.map((message, index) => <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message} />)}
         </ul> */}
