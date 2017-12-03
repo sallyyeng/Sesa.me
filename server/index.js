@@ -57,7 +57,7 @@ const io = require('socket.io')(server);
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 
-server.listen(3000)
+server.listen(process.env.PORT || 3000);
 console.log('Listening on', app.get('port'));
 
 
