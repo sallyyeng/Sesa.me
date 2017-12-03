@@ -48,41 +48,36 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log('POST /submission: this is the request body- ', req.body)
-  if (req.body.account_type !== 'admin') {
-    //find user by username
-    models.User.findOne({
-      where: {
-        username: req.body.username,
-      }
-    })
-      .then((user) => {
-        //create a submission record tied to that particular user
-        console.log('POST /submission: user found in database- ', user.username)
-        models.Submission.create({
-          userId: user.get('id'),
-          user_message: req.body.user_message,
-          user_contact: req.body.user_contact,
-          user_urgency: req.body.user_urgency,
-          first_name: user.get('first_name'),
-          last_name: user.get('last_name')
+  //find user by username
+  models.User.findOne({
+    where: {
+      username: req.body.username,
+    }
+  })
+    .then((user) => {
+      //create a submission record tied to that particular user
+      console.log('POST /submission: user found in database- ', user.username)
+      models.Submission.create({
+        userId: user.get('id'),
+        user_message: req.body.user_message,
+        user_contact: req.body.user_contact,
+        user_urgency: req.body.user_urgency,
+        first_name: user.get('first_name'),
+        last_name: user.get('last_name')
+      })
+        .then((createdMessage) => {
+          console.log('Successful user message creation with', createdMessage.dataValues);
+          res.sendStatus(201);
         })
-          .then((createdMessage) => {
-            console.log('Successful user message creation with', createdMessage);
-            res.sendStatus(201);
-          })
-          .catch((err) => {
-            console.log('Error creating user message with', err);
-            res.sendStatus(400);
-          });
-      })
-      .catch(err => {
-        console.log(`you unsuccessfully found the user in db: ${err}`);
-      })
-  } else {
-    // disallow non-users from sending messages
-    console.log('Admins cannot create messages, only amend existing ones');
-    res.sendStatus(400);
-  }
+        .catch((err) => {
+          console.log('Error creating user message with', err);
+          res.sendStatus(400);
+        });
+    })
+    .catch(err => {
+      console.log(`you unsuccessfully found the user in db: ${err}`);
+      res.sendStatus(400);
+    })
 });
 
 router.patch('/', (req, res) => {

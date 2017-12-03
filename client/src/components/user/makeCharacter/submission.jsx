@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import UserResponses from './userResponses.jsx';
+import { withRouter, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -26,7 +27,7 @@ class Submission extends React.Component {
 
     this.updateInfo = this.updateInfo.bind(this);
   }
-  
+
 
   updateInfo(e) {
     this.setState({
@@ -55,7 +56,7 @@ class Submission extends React.Component {
   /* =========================== */
 
   // on submission, call method to send form data to server
-  onSubmit() {
+  onSubmit({history}) {
     var userLocation = {
       address: this.state.address,
       city: this.state.city,
@@ -72,10 +73,23 @@ class Submission extends React.Component {
     }
 
     console.log('username', this.props.username)
-    this.props.sendMessage(userInfo);
+    this.props.sendMessage(userInfo)
+      .then(() => {
+        console.log('inside then stmt after post from submission')
+        history.push('/PacManGame')
+      })
+      .catch(() => console.log('there was an error'));
   }
 
   render() {
+    const ButtonGoToGame = withRouter(({history}) => (
+      <Button
+        bsStyle="primary"
+        onClick={() => {
+          this.onSubmit({history});
+        }}>
+        Go To Game!</Button>
+    ))
     return (
       <div className="user-submission-main">
         <div className="user-submission-container">
@@ -89,7 +103,7 @@ class Submission extends React.Component {
           <br />
           <FormControl bsSize="sm" name="email" componentClass="textarea" onChange={this.updateInfo.bind(this)}type="email" placeholder="Email" />
           <br />
-          
+
           <ControlLabel className="contact-info">Address</ControlLabel>
           <br />
           <FormControl bsSize="small" name="address" componentClass="textarea" onChange={this.updateInfo.bind(this)}type="text" placeholder="Address" />
@@ -120,17 +134,17 @@ class Submission extends React.Component {
           <FormControl componentClass="textarea" name="phoneNumber" onChange={this.updateInfo.bind(this)}type="text" placeholder="Phone Number" />
           <br />
 
-          <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Go to Game!</Button>
+          <ButtonGoToGame/>
+          </div>
 
-        </div>
+          </div>
+        );
+      }
+    }
 
-      </div>
-    );
-  }
-}
+    export default Submission;
 
-export default Submission;
-
+// <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Go to Game!</Button>
 // render() {
 //     return (
 //       <div className="user-submission-main">
