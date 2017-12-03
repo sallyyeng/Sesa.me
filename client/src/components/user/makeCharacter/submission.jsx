@@ -75,10 +75,9 @@ class Submission extends React.Component {
     console.log('username', this.props.username)
     this.props.sendMessage(userInfo)
       .then(() => {
-        console.log('inside then stmt after post from submission')
         history.push('/PacManGame')
       })
-      .catch(() => console.log('there was an error'));
+      .catch(() => console.log('Catch: failure in navigating to PacManGame'));
   }
 
   render() {
