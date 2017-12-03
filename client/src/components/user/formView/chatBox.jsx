@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import socketIoClient from 'socket.io-client';
+import ScrollList from 'react-scrollable-list';
 
 
 class ChatBox extends React.Component {
@@ -9,7 +10,8 @@ class ChatBox extends React.Component {
     this.state = {
       clientMessage: '',
       messageLog: [],
-      username: "admin",
+      username: this.props.username,
+      roomname: this.props.roomname,
     }
     this.socket;
     this.handleChange = this.handleChange.bind(this);
@@ -17,17 +19,37 @@ class ChatBox extends React.Component {
   }
   
   componentDidMount() {
-    var port = process.env.PORT || 3001;
+    var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
-    this.socket.on('send:message', (msg) => {
+    var userData = {
+      username: this.props.username,
+      roomname: this.props.roomname,
+    }
+    this.socket.emit('join:room', userData);
+    this.socket.on('update:chat', (msg) => {
       var newMessageArr = this.state.messageLog.slice();
-      newMessageArr.push(msg);
+      newMessageArr.splice(0,0,msg);
+      // newMessageArr.push(msg);
       this.setState({messageLog: newMessageArr});
       console.log('Into the messages');
     });
+    this.socket.on('reload:chat', (chatHistory) => {
+      chatHistory.map(msg => {
+        console.log(msg)
+        var logCopy = this.state.messageLog.slice();
+        var msgObj = {
+          id: msg.id,
+          username: msg.message_sender,
+          message: msg.message_text,
+        }
+        logCopy.push(msgObj)
+        this.setState({messageLog: logCopy})
+      })
+    })
   }
   
   componentWillUnmount() {
+    socket.leave(`${this.state.username}`)
     socket.disconnect();
   }
   
@@ -48,7 +70,7 @@ class ChatBox extends React.Component {
   render() {
     return ( 
       <div className="chat-log" >
-        <ul className="messageLog">
+         <ul className="react-scrollable-list">
           {this.state.messageLog.map((msg, index) => {
             return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
           })}
@@ -65,5 +87,10 @@ class ChatBox extends React.Component {
 module.exports = ChatBox;
 
 //autocomplete="off"
+// <ScrollList listItems={this.state.messageLog} heightOfItems={5} />
 
-
+//   <ul className="messageLog">
+//           {this.state.messageLog.map((msg, index) => {
+//             return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
+//           })}
+//         </ul>

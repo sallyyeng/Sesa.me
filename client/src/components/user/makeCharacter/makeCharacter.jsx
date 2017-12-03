@@ -18,7 +18,7 @@ class Character extends React.Component {
           <div className="boxChar headerChar">Create a Character</div>
           <div className="boxChar sidebarChar"><CharacterCarousel/></div>
           <div className="boxChar contentChar">
-            <Submission/>
+            <Submission username={this.props.username} sendMessage={this.props.sendMessage}/>
           </div>
           <div className="boxChar footerChar">Footer</div>
         </div>

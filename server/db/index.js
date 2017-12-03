@@ -1,12 +1,12 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development'; 
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
 
-sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
-  .then(() => console.log('Database created'));
+// sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
+//   .then(() => console.log('Database created'));
 
 const User = sequelize.define('user', {
   //id is already created by default as PK
@@ -20,26 +20,35 @@ const User = sequelize.define('user', {
 
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
-  user_message: Sequelize.TEXT,
-  user_contact: Sequelize.TEXT,
-  user_urgency: Sequelize.INTEGER,
-  admin_response: Sequelize.TEXT,
-  //Sequelize Boolean will be converted to TINYINT(1)
-  admin_complete: Sequelize.BOOLEAN,
-  first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  user_name: Sequelize.TEXT,
+  user_email: Sequelize.TEXT,
+  user_location: Sequelize.TEXT,
+  user_phoneNumber: Sequelize.TEXT,
+});
+
+const Message = sequelize.define('message', {
+  //id (PK), createdAt, and user id (FK) are created by default
+  message_order: Sequelize.INTEGER,
+  message_text: Sequelize.TEXT,
+  message_sender: Sequelize.TEXT
 });
 
 //define 1:many relationship of Users:Submissions
 Submission.belongsTo(User);
 User.hasMany(Submission);
 
+//define 1:many relationship of Users:Messages
+Message.belongsTo(User);
+User.hasMany(Message);
+
 //create tables if they do not yet exist
 User.sync();
 Submission.sync();
+Message.sync();
 
 db.User = User;
 db.Submission = Submission;
+db.Message = Message;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
