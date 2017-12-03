@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './message.jsx';
 import Button from 'react-bootstrap/lib/Button';
-
+import SocialServicesMap from './socialServicesMap.jsx';
 
 class AdminView extends React.Component {
   constructor(props) {
@@ -34,15 +34,19 @@ class AdminView extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.retrieveOpenMessages((data) => {
-      console.log('ADMIN MESSAGES', data);
-      this.setState({
-        // may have to change 'data' depending on format
-        messages: data,
-      });
-    });
+  componentDidMount(){
+
   }
+////////do THIS THIS UCOMMENT WHEN YOU FIGURE OUT WHATS WRONG
+  // componentDidMount() {
+  //   this.props.retrieveOpenMessages((data) => {
+  //     console.log('ADMIN MESSAGES', data);
+  //     this.setState({
+  //       // may have to change 'data' depending on format
+  //       messages: data,
+  //     });
+  //   });
+  // }
 
   // componentWillReceiveProps() {
   //   this.props.retrieveOpenMessages( (data) => {
@@ -70,15 +74,16 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button>
+        {/* <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button> */}
         <div className="admin-header group">
           <h3 className="welcome-header">Welcome to Your Inbox!</h3>
           <h4>You can view and respond to user messages here.</h4>
         </div>
-
-        <ul className="user-message-ul">
+        {/*<ChatBox />*/}
+        <SocialServicesMap username={this.props.username} roomname={this.props.roomname} userData={this.state.messages} location={this.props.location} lat={this.props.lat} long={this.props.long}/>
+        {/* <ul className="user-message-ul">
           {this.state.messages.map((message, index) => <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message} />)}
-        </ul>
+        </ul> */}
 
       </div>
     );

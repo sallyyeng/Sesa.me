@@ -6,9 +6,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css"/>
   <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js"></script>
+  <!-- <script src="../src/components/user/PacManView/sketch.js"></script> -->
 </head>
 <body>
   <div id="app"></div>
+  <div id="map"></div>
   <script type="text/javascript" src="bundle.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbQTqbuHksvXfEUiTwtOcBvn7YUObX3MY&libraries=places&callback=initMap" async defer/>
 </body>
 </html>
+
+<!--   <script src="/socket.io/socket.io.js"></script>
+  <script> var socket = io.connect('http://localhost:4200');
+             socket.on('server message', function (data) {
+               console.log(data);
+               socket.emit('my other event', { my: 'data' });
+             });
+  </script> -->
+

@@ -7,6 +7,8 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
+import Chat from 'react-bootstrap-chat';
+import ChatBox from './chatBox.jsx';
 
 
 class Submission extends React.Component {
@@ -102,7 +104,7 @@ class Submission extends React.Component {
           <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit Message</Button>
 
         </div>
-
+          <ChatBox username={this.props.username}/>
       </div>
     );
   }

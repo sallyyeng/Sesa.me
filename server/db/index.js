@@ -1,50 +1,83 @@
-const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
+const Sequelize = require('sequelize');
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const passportLocalSequelize = require('passport-local-sequelize');
+const bcrypt = require('bcrypt');
 const db = {};
 
-sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
-  .then(() => console.log('Database created'));
+// sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
+//   .then(() => console.log('Database created'));
 
 const User = sequelize.define('user', {
   //id is already created by default as PK
-  username: { type: Sequelize.STRING, unique: true },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    ignoreDuplicates: true,
+  },
   hash: Sequelize.STRING,
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  last_name: Sequelize.STRING,
+  location: Sequelize.STRING,
+  lat: Sequelize.INTEGER,
+  long: Sequelize.INTEGER,
 });
-
 
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
-  user_message: Sequelize.TEXT,
-  user_contact: Sequelize.TEXT,
-  user_urgency: Sequelize.INTEGER,
-  admin_response: Sequelize.TEXT,
-  //Sequelize Boolean will be converted to TINYINT(1)
-  admin_complete: Sequelize.BOOLEAN,
-  first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  user_name: Sequelize.TEXT,
+  user_email: Sequelize.TEXT,
+  user_location: Sequelize.TEXT,
+  user_phoneNumber: Sequelize.TEXT,
+});
+
+const Message = sequelize.define('message', {
+  //id (PK), createdAt, and user id (FK) are created by default
+  message_order: Sequelize.INTEGER,
+  message_text: Sequelize.TEXT,
+  message_sender: Sequelize.TEXT
 });
 
 //define 1:many relationship of Users:Submissions
 Submission.belongsTo(User);
 User.hasMany(Submission);
 
-//create tables if they do not yet exist
-User.sync();
-Submission.sync();
+//define 1:many relationship of Users:Messages
+Message.belongsTo(User);
+User.hasMany(Message);
 
-// exports.User = User;
-// exports.Submission = Submission;
+//create tables if they do not yet exist
+
+// AUTOFILL: admin data into user table with account_type: 'admin';
+User.sync()
+  .then(() => {
+    // Now instantiate an object and save it:
+    let salt = bcrypt.genSaltSync(10);
+    let hashedPassword = bcrypt.hashSync('adminpassword', salt);
+
+    return User.create({
+      username: 'admin_1',
+      hash: hashedPassword,
+      salt: salt,
+      account_type: 'admin',
+      first_name: 'admin',
+      last_name: 'admin',
+    });
+  })
+  .catch((err) => {
+    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
+  });
+
+Submission.sync();
+Message.sync();
 
 db.User = User;
 db.Submission = Submission;
+db.Message = Message;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

@@ -1,3 +1,25 @@
+.main {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.main-header {
+  font-size: 100px;
+}
+.create-character-header {
+  font-size: 70px;
+  top: 40%;
+  left: 50%;
+}
+.admin-loggin-button-real{
+  position: fixed;
+  margin: 0;
+  top: 10px;
+  right: 10px;
+}
+
 body {
   background: linear-gradient(45deg, #EAFFF0, #DFE7FF);
   font: 14px "Century Gothic", Futura, sans-serif;
@@ -74,19 +96,21 @@ ol, ul {
 
 .control-label {
   text-align: left;
-  padding-top: 30px;
+  padding-top: 5px;
 }
 
 .form-control {
   min-width: 250px;
 }
 
+/*====MAIN====*/
+
 /*====CLEARFIX====*/
 .group:before,
 .group:after {
   content: "";
   display: table;
-} 
+}
 .group:after {
   clear: both;
 }
@@ -116,6 +140,12 @@ ol, ul {
 
 .login-container {
   font-size: 20px;
+}
+
+/*====LOG OUT====*/
+
+.logout-container {
+  /* font-size: 10px; */
 }
 
 /*====HOME PAGE====*/
@@ -251,7 +281,186 @@ ol, ul {
   margin-right: 10px;
 }
 
+/*========CHATBOX FORM==========*/
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  position: fixed;
+  height: 100px;
+  width: 100%;
+}
 
 
+/*#messages li {
+ padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #eee;
+}*/
+
+div > .chat-log {
+  border: thin solid black;
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px;
+  grid-gap: 0px;
+  height: 320px;
+  width: 320px;
+  background: #ffffff;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  border-radius: 5px;
+
+}
+
+.chat-entry-form {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.messageLog {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  margin-left: 5px;
+  padding: 5px;
+}
+
+.messageBubble {
+  background: aqua;
+  margin-top: 1px;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+
+.react-scrollable-list-item {
+  background: aqua;
+  margin-top: 1px;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.react-scrollable-list {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  margin-left: 5px;
+  padding: 5px;
+  overflow-y:auto;
+  flex:1;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/*====User info in Admin view====*/
+.sidebarAdmin {
+  grid-area: sidebar;
+}
+
+.contentAdmin {
+  grid-area: content;
+}
+
+.headerAdmin {
+  grid-area: header;
+}
+
+.footerAdmin {
+  grid-area: footer;
+}
+
+
+.wrapperAdmin {
+  display: grid;
+  grid-gap: 10px;
+  margin-left:20px;
+  grid-template-columns: 35% 30% 30%;
+  grid-template-areas:
+    "header header header"
+    "sidebar content content"
+    "footer  footer  footer";
+  color: #444;
+}
+
+
+.boxAdmin {
+  background-color: #fafafa;
+  color: #1b010e;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.headerAdmin,
+.footerAdmin {
+  background-color: #fafafa;
+}
+#map {
+  height: 100%;
+
+}
+
+
+
+/*Make Character*/
+
+
+.sidebarChar {
+		grid-area: sidebar;
+	}
+
+	.contentChar {
+		grid-area: content;
+	}
+
+	.headerChar {
+		grid-area: header;
+    text-align: center;
+    font-size: 70px;
+	}
+
+	.footerChar {
+		grid-area: footer;
+	}
+
+
+	.wrapperChar {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-columns: 33% 33% 33% ;
+		grid-template-areas:
+    "header header header"
+		"sidebar content content"
+		"footer  footer  footer";
+		color: #444;
+	}
+
+
+.boxChar {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.headerChar,
+.footerChar {
+  background-color: #999;
+}
 
 

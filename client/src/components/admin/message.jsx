@@ -83,7 +83,8 @@ class Message extends React.Component {
           <br />
           <span className="message-body">Message: <p>{this.props.message.user_message}</p></span>
           <br />
-          <span className="message-body">Your Response: <p>{this.props.message.admin_response !== null ? this.props.message.admin_response : 'You still need to response to this message'}</p></span>
+          <span className="message-body">Your Response: <p>{this.props.message.admin_response !== null ?
+            this.props.message.admin_response : 'You still need to response to this message'}</p></span>
         </div>
         <div className="message-actions group">
           <Checkbox onClick={this.onCompleteCheck.bind(this)} type="checkbox">Case Complete</Checkbox>

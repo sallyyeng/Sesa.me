@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Route, BrowserRouter as Router} from 'react-router-dom';
 import $ from 'jquery';
 import Game from './components/user/tictactoeView/game.jsx';
+import Main from './components/user/Main.jsx';
 import Login from './components/user/formView/login.jsx';
 import AdminLogin from './components/user/formView/adminLogin.jsx';
 import Signup from './components/user/formView/signup.jsx';
-import Submission from './components/user/formView/submission.jsx';
 import AdminView from './components/admin/adminView.jsx';
-import UserResponses from './components/user/formView/userResponses.jsx';
+import Character from './components/user/makeCharacter/makeCharacter.jsx';
+import PacManGame from './components/user/PacManView/index.jsx';
+// import Character from './components/user/makeCharacter/makeCharacter.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -26,99 +30,113 @@ class App extends React.Component {
       // login: render login component (if user clicks on login button)
       // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
       // submissions: render sumbissions component (if user is successfully logged in)
-      view: 'restricted',
       showBugButton: false,
+      lat: '',
+      long: '',
+      location: ''
     };
 
     this.unlockForms = this.unlockForms.bind(this);
     this.onEsc = this.onEsc.bind(this);
     this.hideBugButton = this.hideBugButton.bind(this);
-    this.showAdminResponses = this.showAdminResponses.bind(this);
-    this.showSubmissionForm = this.showSubmissionForm.bind(this);
+    this.addUser = this.addUser.bind(this);
+  }
+
+  componentWillMount() {
+    this.handleLoc();
   }
 
   componentDidMount() {
+    this.handleLoc();
+  }
+
+  handleLoc() {
     document.addEventListener('keydown', this.onEsc, false);
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 4000,
+      maximumAge: 0
+    };
+
+    const success = (pos)=> {
+      //console.log("coordinates ", pos.coords);
+      const crd = pos.coords;
+      //console.log(crd);
+      const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: response=>{
+          //console.log(response, "RESPONSE");
+          const lat = crd.latitude;
+          const long = crd.longitude;
+          const location = response.results[0]['formatted_address'];
+          this.setState({lat, long, location});
+          //console.log(this.state, "MY STATE");
+        }
+      });
+    };
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc, false);
   }
 
-  // MAKE SURE THIS INTERACTS CORRECTLY WITH SERVER/DB
-
-  createUser(username, hash, admin, first_name, last_name) {
-    console.log(` ${username}, ${hash}, ${admin} posted to server`);
-    $.ajax({
-      method: 'POST',
-      url: '/signup',
-      data: {
-        username,
-        hash,
-        salt: '',
-        account_type: admin,
-        first_name,
-        last_name,
-      },
-      success: (data) => {
-        alert('You have successfully created an account');
-        console.log('success');
-        this.setState({
-          view: 'login',
-        });
-      },
-      error: (error) => {
-        console.log(error);
-        alert('Woops, looks like that username is already taken!');
-        this.setState({
-          view: 'signUp',
-        });
-      },
+  addUser(username) {
+    this.setState({
+      username: username
     });
   }
 
-  logInUser(username, hash) {
-    console.log(`${username}, ${hash} posted to server`);
-    $.ajax({
-      method: 'POST',
-      url: '/login',
-      data: {
-        username,
-        hash,
-      },
-      success: (data) => {
-        this.setState({
-          view: 'submission',
-          username: data.username,
-          type: data.account_type,
-        });
-        console.log('LOGIN STATE', this.state);
-      },
-      error: (error) => {
-        alert('Incorrect password');
-        console.log('Unsuccessful login with error: ', error);
-      },
-    });
-  }
+  // sendMessage(username, contact, urgency, message) {
 
-  sendMessage(username, contact, urgency, message) {
-    console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
-    $.ajax({
-      method: 'POST',
-      url: '/submissions',
-      data: {
-        username,
-        user_contact: contact,
-        user_urgency: urgency,
-        user_message: message,
-      },
-      success: (data) => {
-        console.log(data);
-        alert('Your message was sent succesfully. Check back often for status updates.');
-      },
-      error: (error) => {
-        console.log('Error sending message with', error);
-      },
-    });
+  //   //UGH WHO MADE THIS GARBAGE
+
+  //   console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
+  //   $.ajax({
+  //     method: 'POST',
+  //     url: '/submissions',
+  //     data: {
+  //       username,
+  //       user_contact: contact,
+  //       user_urgency: urgency,
+  //       user_message: message,
+  //     },
+  //     success: (data) => {
+  //       console.log(data);
+  //       alert('Your message was sent succesfully. Check back often for status updates.');
+  //     },
+  //     error: (error) => {
+  //       console.log('Error sending message with', error);
+  //     },
+  //   });
+  // }
+
+
+  sendMessage(userInfo) {
+    console.log(`SENT: ${JSON.stringify(userInfo)}`);
+    return axios.post('/submissions', {
+      username: userInfo.username,
+      name: userInfo.name,
+      email: userInfo.email,
+      location: userInfo.location,
+      phoneNumber: userInfo.phoneNumber,
+    })
+      .then(function (response) {
+        alert('Your information has been received safely and successfully');
+        console.log(`/submissions POST - back from server with msg: ${response}`);
+        // navigate to game page
+        return;
+      })
+      .catch(function (error) {
+        console.log('/submissions POST - make sure username state is set to something!');
+      });
   }
 
   retrieveResponses(username, callback) {
@@ -127,7 +145,7 @@ class App extends React.Component {
       method: 'GET',
       url: `/submissions?username=${username}&account_type=null`,
       success: (data) => {
-        console.log('USER MESSAGES', data);
+        //console.log('USER MESSAGES', data);
         callback(data);
       },
       error: (error) => {
@@ -161,7 +179,7 @@ class App extends React.Component {
         admin_response: response,
       },
       success: (data) => {
-        console.log(data);
+        //console.log(data);
         alert('Your response was sent successfully');
       },
       error: (error) => {
@@ -195,37 +213,6 @@ class App extends React.Component {
     });
   }
 
-  showLogIn() {
-    this.setState({
-      view: 'login',
-      showBugButton: false,
-    });
-  }
-
-  showAdminLogIn() {
-    this.setState({
-      view: 'adminLogin',
-    });
-  }
-
-  showSignUp() {
-    this.setState({
-      view: 'signup',
-    });
-  }
-
-  showAdminResponses() {
-    this.setState({
-      view: 'responses',
-    });
-  }
-
-  showSubmissionForm() {
-    this.setState({
-      view: 'submission',
-    });
-  }
-
   unlockForms() {
     this.setState({ showBugButton: true });
   }
@@ -236,77 +223,35 @@ class App extends React.Component {
     }
   }
 
-
   render() {
-    if (this.state.showBugButton === true) {
-      return (<div>
-        <h1 className="main-title">Tic Tac Toe</h1>
-        <Game />
-        <div className="report-bug-message">
-          <p>It looks like you've found a bug.  Would you like to report it?</p>
-          <Button className="bug-button" bsSize="xsmall" bsStyle="primary" onClick={this.showLogIn.bind(this)}>yes</Button>
-          <Button className="bug-button" bsSize="xsmall" bsStyle="primary" onClick={this.hideBugButton}>no</Button>
-        </div>
-              </div>);
-    } else if (this.state.view === 'login') {
-      return (<div>
-        <h1 className="main-title">Tic Tac Toe</h1>
-        <Game />
-        <div>
-          <Login logInUser={this.logInUser.bind(this)} showSignUp={this.showSignUp.bind(this)} />
-        </div>
-
-      </div>);
-    }
-    // Admin login view
-    // else if(this.state.view === 'adminLogin') {
-    //   return (<div>
-    //     <AdminLogin logInUser={this.logInUser.bind(this)}/>
-    //   </div>);
-
-    else if (this.state.view === 'signup') {
-      return (<div>
-        <h1 className="main-title">Tic Tac Toe</h1>
-        <Game />
-        <div>
-          <Signup createUser={this.createUser.bind(this)} showLogIn={this.showLogIn.bind(this)} />
-        </div>
-      </div>);
-    } else if (this.state.view === 'submission' && this.state.type === 'admin') {
-      return (
-        <div>
-          <AdminView showLogIn={this.showLogIn.bind(this)} markAsComplete={this.markAsComplete.bind(this)} submitAdminResponse={this.submitAdminResponse.bind(this)} retrieveOpenMessages={this.retrieveOpenMessages.bind(this)} />
-        </div>);
-    } else if (this.state.view === 'submission') {
-      return (
-        <div>
-          <h1 className="main-title">Tic Tac Toe</h1>
-          <Game />
+    return (
+      <div>
+        <Router>
           <div>
-            <Submission username={this.state.username} sendMessage={this.sendMessage.bind(this)} retrieveResponses={this.retrieveResponses.bind(this)} showAdminResponses={this.showAdminResponses} />
-          </div>
-        </div>);
-    } else if (this.state.view === 'responses') {
-      return (
-        <div>
-          <Game />
-          <div>
-            <UserResponses showSubmissionForm={this.showSubmissionForm} retrieveResponses={this.retrieveResponses.bind(this)} username={this.state.username} />
-          </div>
-        </div>
-      );
-    } else if (this.state.view === 'restricted') {
-      return (
-        <div>
-          <h1 className="main-title">Tic Tac Toe</h1>
-          <Game unlockForms={this.unlockForms} />
+            <Route exact path='/'
+              render={() => <Main/>}/>
+            <Route exact path='/homepage'
+              render={() => <Main/>}/>
+            <Route exact path='/Login'
+              render={() => <Login addUser={this.addUser} location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
+            <Route exact path='/Signup'
+              render={() => <Signup addUser={this.addUser} location={this.state.location} long={this.state.long} lat={this.state.lat}/> }/>
+            <Route exact path='/AdminLogin'
+              render={() => <AdminLogin addUser={this.addUser}/>}/>
+            <Route exact path='/AdminView'
+              render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+            <Route exact path='/Character'
+              render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
 
-        </div>);
-    }
-
-    // admin login button removed from line 305...
-    // <Button onClick={this.showAdminLogIn.bind(this)}>Admin Login</Button>
-  }
+            <Route exact path='/Game'
+              render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
+            <Route exact path='/PacManGame'
+              render={() => <PacManGame/>}/>
+          </div>
+        </Router>
+      </div>
+    )
+ ;}
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
