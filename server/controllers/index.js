@@ -118,20 +118,20 @@ module.exports = {
     post: (req, res) => {
       if (req.body.account_type !== 'admin') {
         //find user by username
+        console.log('REQBODY!!!!', req.body)
         sequelize.User.findOne({
           where: {
-            username: req.body.username
+            username: req.body.username,
           }
         })
           .then((user) => {
             //create a submission record tied to that particular user
             sequelize.Submission.create({
               userId: user.get('id'),
-              user_message: req.body.user_message,
-              user_contact: req.body.user_contact,
-              user_urgency: req.body.user_urgency,
-              first_name: user.get('first_name'),
-              last_name: user.get('last_name')
+              user_name: req.body.name,
+              user_email: req.body.email,
+              user_location: JSON.stringify(req.body.location),
+              user_phoneNumber: req.body.phoneNumber,
             })
               .then((createdMessage) => {
                 console.log('Successful user message creation with', createdMessage);

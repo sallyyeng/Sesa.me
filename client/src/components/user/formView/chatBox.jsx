@@ -19,7 +19,7 @@ class ChatBox extends React.Component {
   }
   
   componentDidMount() {
-    var port = process.env.PORT || 3001;
+    var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
     var userData = {
       username: this.props.username,

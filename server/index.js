@@ -181,7 +181,6 @@ io.on('connection', function(socket) {
 //
 //need an object to show all people who are connected and what they're chatroom ids are?
 //all of this information gets sent to the admin
-<<<<<<< HEAD
 //admin when opening a component will have the credentials to connect to appropriate chat
 
 
@@ -191,6 +190,6 @@ io.on('connection', function(socket) {
 app.get('/**', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
-=======
+
 //admin when opening a component will have the credentials to connect to appropriate chat
->>>>>>> Chatbox now saves messages into db
+

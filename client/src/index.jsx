@@ -49,16 +49,45 @@ class App extends React.Component {
     });
   }
 
-  sendMessage(username, contact, urgency, message) {
-    console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
+  // sendMessage(username, contact, urgency, message) {
+    
+  //   //UGH WHO MADE THIS GARBAGE
+
+  //   console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
+  //   $.ajax({
+  //     method: 'POST',
+  //     url: '/submissions',
+  //     data: {
+  //       username,
+  //       user_contact: contact,
+  //       user_urgency: urgency,
+  //       user_message: message,
+  //     },
+  //     success: (data) => {
+  //       console.log(data);
+  //       alert('Your message was sent succesfully. Check back often for status updates.');
+  //     },
+  //     error: (error) => {
+  //       console.log('Error sending message with', error);
+  //     },
+  //   });
+  // }
+
+
+  sendMessage(userInfo) {
+    
+    //UGH WHO MADE THIS GARBAGE
+
+    console.log(`${JSON.stringify(userInfo)} requested post to server as new message`);
     $.ajax({
       method: 'POST',
       url: '/submissions',
       data: {
-        username,
-        user_contact: contact,
-        user_urgency: urgency,
-        user_message: message,
+        username: userInfo.username,
+        name: userInfo.name,
+        email: userInfo.email,
+        location: userInfo.location,
+        phoneNumber: userInfo.phoneNumber,
       },
       success: (data) => {
         console.log(data);
@@ -170,7 +199,7 @@ class App extends React.Component {
           <Route exact path='/AdminView'
             render={() => <AdminView username="admin" roomname={this.state.username}/>}/>
           <Route exact path='/Character'
-            render={() => <Character/>}/>
+            render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
           <Route exact path='/Game'
             render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
           <Route exact path='/PacManGame'

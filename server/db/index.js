@@ -1,6 +1,6 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'test'; //BECAUSE MY DEVELOPMENT IS NOT WORKING
+const env = process.env.NODE_ENV || 'development'; 
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
@@ -20,14 +20,10 @@ const User = sequelize.define('user', {
 
 const Submission = sequelize.define('submission', {
   //id (PK), createdAt, and user id (FK) are created by default
-  user_message: Sequelize.TEXT,
-  user_contact: Sequelize.TEXT,
-  user_urgency: Sequelize.INTEGER,
-  admin_response: Sequelize.TEXT,
-  //Sequelize Boolean will be converted to TINYINT(1)
-  admin_complete: Sequelize.BOOLEAN,
-  first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  user_name: Sequelize.TEXT,
+  user_email: Sequelize.TEXT,
+  user_location: Sequelize.TEXT,
+  user_phoneNumber: Sequelize.TEXT,
 });
 
 const Message = sequelize.define('message', {
