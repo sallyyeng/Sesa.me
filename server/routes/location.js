@@ -1,6 +1,7 @@
 
 const models = require('../db/index.js');
 const router = require('express').Router();
+const axios = require('axios');
 
 router.get('/', (req, res) => {
   const url = req.url.split('?');

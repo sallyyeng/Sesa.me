@@ -21,9 +21,9 @@ router.post('/', (req, res) => {
     username: req.body.username,
     hash: hashedPassword,
     salt: salt,
-    account_type: req.body.account_type,
+    account_type: 'user',
     first_name: req.body.first_name,
-    last_name: req.body.last_name
+    last_name: req.body.last_name,
   };
 
   User.create(newUser).then(function() {

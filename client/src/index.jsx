@@ -120,8 +120,8 @@ class App extends React.Component {
 
 
   sendMessage(userInfo) {
-    console.log(`${JSON.stringify(userInfo)} requested post to server as new message`);
-    axios.post('/submissions', {
+    console.log(`SENT: ${JSON.stringify(userInfo)}`);
+    return axios.post('/submissions', {
       username: userInfo.username,
       name: userInfo.name,
       email: userInfo.email,
@@ -131,29 +131,12 @@ class App extends React.Component {
       .then(function (response) {
         alert('Your information has been received safely and successfully');
         console.log(`/submissions POST - back from server with msg: ${response}`);
+        // navigate to game page
+        return;
       })
       .catch(function (error) {
-        console.log('/submissions POST - ERROR DUMMY!');
+        console.log('/submissions POST - make sure username state is set to something!');
       });
-
-    // $.ajax({
-    //   method: 'POST',
-    //   url: '/submissions',
-    //   data: {
-    //     username: userInfo.username,
-    //     name: userInfo.name,
-    //     email: userInfo.email,
-    //     location: userInfo.location,
-    //     phoneNumber: userInfo.phoneNumber,
-    //   },
-    //   success: (data) => {
-    //     //console.log(data);
-    //     alert('Your message was sent succesfully. Check back often for status updates.');
-    //   },
-    //   error: (error) => {
-    //     console.log('Error sending message with', error);
-    //   },
-    // });
   }
 
   retrieveResponses(username, callback) {

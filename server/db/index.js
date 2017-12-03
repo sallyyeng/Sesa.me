@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const passportLocalSequelize = require('passport-local-sequelize');
+const bcrypt = require('bcrypt');
 const db = {};
 
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
@@ -11,15 +12,19 @@ const db = {};
 
 const User = sequelize.define('user', {
   //id is already created by default as PK
-  username: { type: Sequelize.STRING, unique: true },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    ignoreDuplicates: true,
+  },
   hash: Sequelize.STRING,
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,
   location: Sequelize.STRING,
-  lat:Sequelize.INTEGER,
-  long:Sequelize.INTEGER
+  lat: Sequelize.INTEGER,
+  long: Sequelize.INTEGER,
 });
 
 const Submission = sequelize.define('submission', {
@@ -41,12 +46,32 @@ const Message = sequelize.define('message', {
 Submission.belongsTo(User);
 User.hasMany(Submission);
 
-// //define 1:many relationship of Users:Messages
-// Message.belongsTo(User);
-// User.hasMany(Message);
+//define 1:many relationship of Users:Messages
+Message.belongsTo(User);
+User.hasMany(Message);
 
 //create tables if they do not yet exist
-User.sync();
+
+// AUTOFILL: admin data into user table with account_type: 'admin';
+User.sync()
+  .then(() => {
+    // Now instantiate an object and save it:
+    let salt = bcrypt.genSaltSync(10);
+    let hashedPassword = bcrypt.hashSync('adminpassword', salt);
+
+    return User.create({
+      username: 'admin_1',
+      hash: hashedPassword,
+      salt: salt,
+      account_type: 'admin',
+      first_name: 'admin',
+      last_name: 'admin',
+    });
+  })
+  .catch((err) => {
+    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
+  });
+
 Submission.sync();
 Message.sync();
 

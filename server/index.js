@@ -16,7 +16,6 @@ const env = require('dotenv').load();
 const LocalStrategy = require('passport-local').Strategy;
 const sequelize = require('./db/index.js');
 
-
 // Set port
 const PORT = process.env.PORT || 3000;
 
@@ -97,22 +96,16 @@ function checkAuthentication(req, res, next) {
   }
 }
 
-// Init server
-// app.listen(app.get('port'));
-// console.log('Listening on', app.get('port'));
-
 // Set port
-app.set('port', process.env.PORT || 3000);
-
-//Socket
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+app.set('port', process.env.PORT || 3000);
 
 server.listen(PORT);
 console.log('Listening on', PORT);
 
-
 //Socket
+const io = require('socket.io')(server);
+
 var users = {};
 var rooms = {};
 var id = -1;
@@ -131,7 +124,7 @@ io.on('connection', function(socket) {
     rooms[userData.roomname] = userData.roomname;
     console.log('Joined the room');
 
-    if (socket.username === "admin") {
+    if (socket.username === "admin_1") {
       sequelize.User.findOne({
         where: {
           username: socket.username,

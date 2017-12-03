@@ -13,9 +13,10 @@ class Login extends React.Component {
     this.state = {
       username: '',
       hash: '',
+      source: 'user',
       location: '',
       lat: '',
-      long: ''
+      long: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
