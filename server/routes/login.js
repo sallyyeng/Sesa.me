@@ -11,9 +11,9 @@ const passport = require('passport'),
 passport.use('local-signin', new LocalStrategy({
   usernameField: 'username',
   passwordField: 'hash',
-  passReqToCallback: true
 },
-function(req, username, hash, done) {
+function(username, hash, done) {
+  console.log('inside login post request before comparing passwords')
   User.findOne({
     where: {
       username: username,
@@ -48,11 +48,11 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
 // //when login is successful
 router.post('/',
-  passport.authenticate('local-signin', {failureRedirect: '/Login'}),
+  passport.authenticate('local-signin'),
   (req, res) => {
+    console.log('INSIDE THE POST HANDLER');
     console.log('authenticated user:', req.user.username);
     res.json(req.user);
   });

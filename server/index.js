@@ -77,7 +77,7 @@ app.use(flash());
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 
-// app.use(checkAuthentication);
+app.use(checkAuthentication);
 
 app.use('/logout', logoutRoute);
 

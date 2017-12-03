@@ -16,10 +16,10 @@ const router = express.Router();
 router.get('/', (req, res) => {
   console.log('************************* IN HERE !!! IN THE LOGOUT HANDLER ***********************');
   req.logout();
-  // res.status(200).clearCookie('connect.sid').json({status: 'Successful logout'});
+  res.status(200).clearCookie('connect.sid').json({status: 'Successful logout'});
   // res.render(`${__dirname}/../../client/dist`);
   // res.redirect('/');
-  res.send();
+  // res.send();
 });
 
 module.exports = router;

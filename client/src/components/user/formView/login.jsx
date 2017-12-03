@@ -72,13 +72,17 @@ class Login extends React.Component {
         url: '/login',
         data: this.state,
         success: (data) => {
+<<<<<<< 6f9982be8f49e367060cfe128c5e6fff5177cd3d
           console.log('back from loggin')
+=======
+          alert('You are logged on');
+>>>>>>> Fix login
           this.props.addUser(this.state.username);
           resolve(data);
         },
         error: (error) => {
           alert('Please enter a valid credentials');
-          console.log(`Error in logging in: ${error.responseText}`);
+          console.log(`Error in logging in: ${error}`);
           reject(error);
         },
       });
