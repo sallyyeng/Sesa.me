@@ -14,7 +14,7 @@ class AdminLogin extends React.Component {
       username: '',
       password: '',
     };
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onUsernameChange(e) {

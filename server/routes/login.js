@@ -13,13 +13,13 @@ passport.use('local-signin', new LocalStrategy({
   passwordField: 'hash',
 },
 function(username, hash, done) {
-  console.log('inside login post request before comparing passwords')
   User.findOne({
     where: {
       username: username,
     }
   })
     .then((user) => {
+      console.log('does admin user show up?:', user)
       if (user) {
         bcrypt.compare(hash, user.get('hash'), (err, validPassword) => {
           if (err) { throw new Error('error'); }
@@ -38,7 +38,6 @@ function(username, hash, done) {
 ));
 
 passport.serializeUser(function(user, done) {
-  console.log('inside serializeUser');
   done(null, user.id);
 });
 
@@ -52,8 +51,8 @@ passport.deserializeUser(function(id, done) {
 router.post('/',
   passport.authenticate('local-signin'),
   (req, res) => {
-    console.log('INSIDE THE POST HANDLER');
-    console.log('authenticated user:', req.user.username);
+    console.log(`${req.user.username} is authenticated: ${req.isAuthenticated()}`)
+    // if you have time, try and find the session id on the front end either in req or res;
     res.json(req.user);
   });
 

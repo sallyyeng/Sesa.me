@@ -4,9 +4,6 @@ import Message from './message.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import SocialServicesMap from './socialServicesMap.jsx';
 
-
-
-
 class AdminView extends React.Component {
   constructor(props) {
     super(props);

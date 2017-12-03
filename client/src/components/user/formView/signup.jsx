@@ -70,7 +70,7 @@ class Signup extends React.Component {
           hash: this.state.password,
           hash2: this.state.checkPassword,
           salt: '',
-          account_type: 'admin',
+          account_type: 'user',
           first_name: this.state.firstName,
           last_name: this.state.lastName,
           location: this.props.location,
