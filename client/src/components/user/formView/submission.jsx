@@ -104,7 +104,7 @@ class Submission extends React.Component {
           <Button bsStyle="primary" onClick={this.onSubmit.bind(this)}>Submit Message</Button>
 
         </div>
-          <ChatBox/>
+          <ChatBox username={this.props.username}/>
       </div>
     );
   }
