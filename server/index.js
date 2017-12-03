@@ -77,20 +77,22 @@ app.use(flash());
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 
-app.use(checkAuthentication);
+// app.use(checkAuthentication);
 
 app.use('/logout', logoutRoute);
 
 //react router's path
-app.get('/**', (req, res) => {
+app.get('/tommyandy', (req, res) => {
+  console.log('HEY THERE INSIDE GET HANDLER');
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) { //check if it's an authenticated route
-    console.log('user is authenticated', req.user);
+    console.log('SERVER INDEX: user that is authenticated', req.user);
     next();
   } else {
+    console.log('SERVER INDEX: user is not authenticated');
     next();
     //res.status(401).json({});
 

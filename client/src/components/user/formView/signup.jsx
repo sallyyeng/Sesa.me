@@ -79,12 +79,10 @@ class Signup extends React.Component {
         },
         success: (data) => {
           alert('You have successfully created an account');
-          console.log('back from server', data);
           this.props.addUser(this.state.username);
           resolve(data);
         },
         error: (error) => {
-          console.log(error);
           alert(error.responseText);
           reject(error);
         },

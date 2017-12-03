@@ -235,6 +235,8 @@ class App extends React.Component {
         <div>
           <Route exact path='/'
             render={() => <Main/>}/>
+          <Route exact path='/homepage'
+            render={() => <Main/>}/>
           <Route exact path='/Login'
             render={() => <Login addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
           <Route exact path='/Signup'

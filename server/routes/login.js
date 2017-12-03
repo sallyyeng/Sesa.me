@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const models = require('../db/index.js');
@@ -7,11 +8,12 @@ const User = models.User;
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy({
+passport.use('local-signin', new LocalStrategy({
   usernameField: 'username',
-  passwordField: 'hash'
+  passwordField: 'hash',
+  passReqToCallback: true
 },
-function(username, hash, done) {
+function(req, username, hash, done) {
   User.findOne({
     where: {
       username: username,
@@ -28,7 +30,7 @@ function(username, hash, done) {
           }
         });
       } else {
-        console.log('cannot find user dummy!');
+        return done(null, false, {message: 'Please enter a valid username'});
       }
     })
     .catch(err => done(err, false, {message: 'user not found'}));
@@ -36,6 +38,7 @@ function(username, hash, done) {
 ));
 
 passport.serializeUser(function(user, done) {
+  console.log('inside serializeUser');
   done(null, user.id);
 });
 
@@ -45,10 +48,11 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+
 // //when login is successful
 router.post('/',
-  passport.authenticate('local', {failureFlash: true, successFlash: true}),
-  function(req, res) {
+  passport.authenticate('local-signin', {failureRedirect: '/Login'}),
+  (req, res) => {
     console.log('authenticated user:', req.user.username);
     res.json(req.user);
   });

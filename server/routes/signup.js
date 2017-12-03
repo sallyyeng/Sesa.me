@@ -6,7 +6,6 @@ const models = require('../db/index.js');
 const User = models.User;
 
 router.post('/', (req, res) => {
-  console.log('ayo im inside signup post')
   if (!req.body.username || !req.body.hash || !req.body.hash2) {
     res.status(404).send('Please, fill in all the fields.');
   }
@@ -28,9 +27,10 @@ router.post('/', (req, res) => {
   };
 
   User.create(newUser).then(function() {
+    console.log('inside signup handler');
     res.status(201).send();
   }).catch(function(error) {
-    req.flash('error', "Please, choose a different username.");
+    console.log('error in signup handler');
     res.redirect('/signup');
   });
 });
