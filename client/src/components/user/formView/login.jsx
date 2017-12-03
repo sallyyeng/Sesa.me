@@ -12,7 +12,10 @@ class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      hash: '',
+      location: '',
+      lat: '',
+      long: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -25,21 +28,51 @@ class Login extends React.Component {
 
   onPasswordChange(e) {
     this.setState({
-      password: e.target.value,
+      hash: e.target.value,
     });
   }
 
+  componentDidMount(){
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 4000,
+        maximumAge: 0
+      };
+
+      const success = (pos)=> {
+        //console.log("coordinates ", pos.coords);
+        const crd = pos.coords;
+        //console.log(crd);
+        const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
+        $.ajax({
+          url: url,
+          type: "GET",
+          success: response=>{
+            const lat = crd.latitude;
+            const long = crd.longitude;
+            const location = response.results[0]['formatted_address'];
+            this.setState({lat, long,location});
+          }
+        });
+      };
+
+      function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
+
+      navigator.geolocation.getCurrentPosition(success, error, options);
+
+  }
+
+  //it's not sending down thing
   handleSubmit() {
     return new Promise((resolve, reject) => {
       $.ajax({
         method: 'POST',
         url: '/login',
-        data: {
-          username: this.state.username,
-          hash: this.state.password,
-        },
+        data: this.state,
         success: (data) => {
-          console.log('back from loggin')
+          console.log('back from logging');
           this.props.addUser(this.state.username);
           resolve(data);
         },
@@ -49,12 +82,13 @@ class Login extends React.Component {
           reject(error);
         },
       });
-    });
+    })
+
   }
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.logInUser(this.state.username, this.state.password);
+    this.props.logInUser(this.state.username, this.state.hash);
   }
 
   render() {
@@ -67,7 +101,7 @@ class Login extends React.Component {
           history.push('/Signup')
         }}>
         Signup</Button>
-    ))
+    ));
     const ButtonLogin = withRouter(({ history }) => (
       <Button
         className="login-button"

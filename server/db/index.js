@@ -1,6 +1,6 @@
 const path = require('path');
 const Sequelize = require('sequelize');
-const env = process.env.NODE_ENV || 'development'; 
+const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../..', 'config', 'config.json'))[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 const db = {};
@@ -15,7 +15,10 @@ const User = sequelize.define('user', {
   salt: Sequelize.STRING,
   account_type: Sequelize.STRING,
   first_name: Sequelize.STRING,
-  last_name: Sequelize.STRING
+  last_name: Sequelize.STRING,
+  location: Sequelize.STRING,
+  lat:Sequelize.INTEGER,
+  long:Sequelize.INTEGER
 });
 
 const Submission = sequelize.define('submission', {

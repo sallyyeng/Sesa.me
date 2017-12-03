@@ -7,11 +7,14 @@ var passport = require('passport');
 // router.get('/login', controller.login.get);
 router.post('/login', controller.login.post);
 
+
 // router.get('/signup', controller.signup.get);
 router.post('/signup', controller.signup.post);
 router.get('/submissions', controller.submissions.get);
 router.post('/submissions', controller.submissions.post);
 router.patch('/submissions', controller.submissions.patch);
+
+router.get('/location', controller.location.get);
 
 // router.get('/signup', controller.signup.get);
 router.post('/signup', controller.signup.post);

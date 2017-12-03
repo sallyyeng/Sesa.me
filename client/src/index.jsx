@@ -10,9 +10,12 @@ import Signup from './components/user/formView/signup.jsx';
 import AdminView from './components/admin/adminView.jsx';
 import Character from './components/user/makeCharacter/makeCharacter.jsx';
 import PacManGame from './components/user/PacManView/index.jsx';
+// import Character from './components/user/makeCharacter/makeCharacter.jsx';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +31,9 @@ class App extends React.Component {
       // signup: render signup component (if user clicks on signup button OR creates an account, will be redirected)
       // submissions: render sumbissions component (if user is successfully logged in)
       showBugButton: false,
+      lat: '',
+      long: '',
+      location:''
     };
 
     this.unlockForms = this.unlockForms.bind(this);
@@ -36,8 +42,47 @@ class App extends React.Component {
     this.addUser = this.addUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount(){
+    this.handleLoc();
+  }
+
+  componentDidMount(){
+    this.handleLoc();
+  }
+
+  handleLoc() {
     document.addEventListener('keydown', this.onEsc, false);
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 4000,
+      maximumAge: 0
+    };
+
+    const success = (pos)=> {
+      //console.log("coordinates ", pos.coords);
+      const crd = pos.coords;
+      //console.log(crd);
+      const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${crd.latitude},${crd.longitude}&sensor=true`;
+      $.ajax({
+        url: url,
+        type: "GET",
+        success: response=>{
+          //console.log(response, "RESPONSE");
+          const lat = crd.latitude;
+          const long = crd.longitude;
+          const location = response.results[0]['formatted_address'];
+          this.setState({lat, long,location});
+          //console.log(this.state, "MY STATE");
+        }
+      });
+    };
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc, false);
@@ -50,7 +95,7 @@ class App extends React.Component {
   }
 
   // sendMessage(username, contact, urgency, message) {
-    
+
   //   //UGH WHO MADE THIS GARBAGE
 
   //   console.log(`${username}, ${contact}, ${urgency}, ${message} requested post to server as new message`);
@@ -75,7 +120,7 @@ class App extends React.Component {
 
 
   sendMessage(userInfo) {
-    
+
     //UGH WHO MADE THIS GARBAGE
 
     console.log(`${JSON.stringify(userInfo)} requested post to server as new message`);
@@ -90,7 +135,7 @@ class App extends React.Component {
         phoneNumber: userInfo.phoneNumber,
       },
       success: (data) => {
-        console.log(data);
+        //console.log(data);
         alert('Your message was sent succesfully. Check back often for status updates.');
       },
       error: (error) => {
@@ -105,7 +150,7 @@ class App extends React.Component {
       method: 'GET',
       url: `/submissions?username=${username}&account_type=null`,
       success: (data) => {
-        console.log('USER MESSAGES', data);
+        //console.log('USER MESSAGES', data);
         callback(data);
       },
       error: (error) => {
@@ -139,7 +184,7 @@ class App extends React.Component {
         admin_response: response,
       },
       success: (data) => {
-        console.log(data);
+        //console.log(data);
         alert('Your response was sent successfully');
       },
       error: (error) => {
@@ -191,15 +236,16 @@ class App extends React.Component {
           <Route exact path='/'
             render={() => <Main/>}/>
           <Route exact path='/Login'
-            render={() => <Login addUser={this.addUser}/>}/>
+            render={() => <Login addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/>}/>
           <Route exact path='/Signup'
-            render={() => <Signup addUser={this.addUser}/>}/>
+            render={() => <Signup addUser={this.addUser}  location={this.state.location} long={this.state.long} lat={this.state.lat}/> }/>
           <Route exact path='/AdminLogin'
             render={() => <AdminLogin addUser={this.addUser}/>}/>
           <Route exact path='/AdminView'
-            render={() => <AdminView username="admin" roomname={this.state.username}/>}/>
-          <Route exact path='/Character'
+          render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+        <Route exact path='/Character'
             render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
+
           <Route exact path='/Game'
             render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
           <Route exact path='/PacManGame'
@@ -210,4 +256,4 @@ class App extends React.Component {
   )}
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));

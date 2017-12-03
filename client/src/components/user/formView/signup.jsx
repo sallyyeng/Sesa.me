@@ -86,6 +86,9 @@ class Signup extends React.Component {
           account_type: 'admin',
           first_name: this.state.firstName,
           last_name: this.state.lastName,
+          location: this.props.location,
+          lat: this.props.lat,
+          long: this.props.long
         },
         success: (data) => {
           alert('You have successfully created an account');
@@ -115,7 +118,7 @@ class Signup extends React.Component {
             .catch(()=> console.log('there was an error'))
         }}>
         Create Account</Button>
-    ))
+    ));
     //This button takes the user to the sign in page
     const ButtonSignIn = withRouter(({history}) => (
       <Button

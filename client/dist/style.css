@@ -286,6 +286,7 @@ ol, ul {
   width: 100%;
 }
 
+
 /*#messages li {
  padding: 5px 10px;
 }
@@ -337,6 +338,7 @@ div > .chat-log {
   padding: 5px;
 }
 
+
 .react-scrollable-list-item {
   background: aqua;
   margin-top: 1px;
@@ -358,7 +360,57 @@ div > .chat-log {
   flex-direction: column-reverse;
 }
 
-///////////////Make Character///////////
+/*====User info in Admin view====*/
+.sidebarAdmin {
+  grid-area: sidebar;
+}
+
+.contentAdmin {
+  grid-area: content;
+}
+
+.headerAdmin {
+  grid-area: header;
+}
+
+.footerAdmin {
+  grid-area: footer;
+}
+
+
+.wrapperAdmin {
+  display: grid;
+  grid-gap: 10px;
+  margin-left:20px;
+  grid-template-columns: 35% 30% 30%;
+  grid-template-areas:
+    "header header header"
+    "sidebar content content"
+    "footer  footer  footer";
+  color: #444;
+}
+
+
+.boxAdmin {
+  background-color: #fafafa;
+  color: #1b010e;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.headerAdmin,
+.footerAdmin {
+  background-color: #fafafa;
+}
+#map {
+  height: 100%;
+
+}
+
+
+
+/*Make Character*/
 
 
 .sidebarChar {
@@ -390,7 +442,7 @@ div > .chat-log {
 		"footer  footer  footer";
 		color: #444;
 	}
-A
+
 
 .boxChar {
   background-color: #444;
@@ -403,5 +455,6 @@ A
 .headerChar,
 .footerChar {
   background-color: #999;
+}
 
 

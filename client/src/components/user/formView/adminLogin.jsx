@@ -39,7 +39,7 @@ class AdminLogin extends React.Component {
           hash: this.state.password,
         },
         success: (data) => {
-          console.log('back from loggin')
+          console.log('back from loggin');
           this.props.addUser(this.state.username);
           resolve(data);
         },
