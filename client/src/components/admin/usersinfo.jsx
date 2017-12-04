@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import socketIoClient from 'socket.io-client';
+import UserAvailability from './UserAvailability.jsx';
 
 class Userinfo extends Component {
   constructor(props){
@@ -48,12 +50,12 @@ class Userinfo extends Component {
   render(){
     return(
       <div>
-      <ul>
-        {this.state.users.map((user) => {
-          return <UserAvailability key={user.username} username={user.username} room={user.room} status={user.status} changeRoom={this.props.changeRoom}/>
-        })}
-      </ul>
-      <div>user info...</div>
+        <ul>
+          {this.state.users.map((user) => {
+            return <UserAvailability key={user.username} username={user.username} room={user.room} status={user.status} changeRoom={this.props.changeRoom}/>
+          })}
+        </ul>
+      </div>
     )
   }
 }

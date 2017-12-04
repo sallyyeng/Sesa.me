@@ -304,6 +304,28 @@ ol, ul {
 #messages li:nth-child(odd) {
   background: #eee;
 }*/
+.gamePortal {
+  display: grid;
+  grid-template-columns: 600px 500px;
+  grid-template-rows: 600px 500px ;
+  grid-gap: 0px;
+  align-items: center;
+  justify-items: center;
+}
+
+.chatbox {
+  bottom: 10px;
+  right: 0px;
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+.gameScreen {
+  position: absolute;
+  left: 0px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
 
 div > .chat-log {
   border: thin solid black;

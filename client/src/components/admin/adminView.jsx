@@ -14,7 +14,7 @@ import Users from './usersinfo.jsx';
 class AdminView extends Component {
   constructor(props) {
     super(props);
-    this.state = {resArr: [], location: null, lat: null, long: null, userArr: []};
+    this.state = {resArr: [], location: null, lat: null, long: null, userArr: [], room:''};
   }
 
   renderUserMap(location, lat, long) {
@@ -55,6 +55,10 @@ class AdminView extends Component {
     });
   }
 
+  changeRoom(newRoom) {
+    this.setState({room: newRoom}) 
+  }
+
   render() {
     const userArr = this.state.userArr.map((user, i)=>(
       <div key={i} style={{border: '1px solid black', fontSize: '15px', padding: '40px'}}
@@ -79,11 +83,11 @@ class AdminView extends Component {
           </div>
           <div className="boxAdmin sidebarAdmin">
             Users
+            <div>
+              <Users changeRoom={this.changeRoom}/>
+            </div>
             <div className="userInfo">
               {userArr}
-            </div>
-            <div>
-              <Users />
             </div>
           </div>
           <div className="boxAdmin contentAdmin">
@@ -102,7 +106,7 @@ class AdminView extends Component {
           <div className="boxAdmin footerAdmin">
             <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
               <Tab eventKey={1} title="Chat">
-                <ChatBox username={this.props.username} roomname={this.props.roomname} />
+                <ChatBox username={this.props.username} room={this.props.room} />
               </Tab>
               <Tab eventKey={2} title="Info">
                 {/*<Info*/}

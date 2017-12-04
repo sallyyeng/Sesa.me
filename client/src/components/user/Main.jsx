@@ -24,9 +24,6 @@ class Main extends React.Component {
                 <Link to='/Signup'>
                   <Button type="button" className="btn btn-secondary">Sign-Up</Button>
                 </Link>
-              <Link to='/Game'>
-                <Button type="button" className="btn btn-secondary">I Just Want to Play!</Button>
-              </Link>
             <Link to='/PacManGame'>
               <Button type="button" className="btn btn-secondary">PacMan</Button>
           </Link>

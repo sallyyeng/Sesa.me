@@ -1,7 +1,7 @@
 // const router = require('./routes.js');
 // const setupPassport = require('../config/passport/passport.js');
 // const LocalStrategy = require('passport-local').Strategy;
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const parser = require('body-parser');
@@ -30,6 +30,11 @@ const options = {
   checkExpirationInterval: 1,
   expiration: 1,
 };
+
+console.log('SERVER ', process.env.DBSERVER)
+console.log('PORT ', process.env.PORT)
+console.log('DBUSER ', process.env.DBUSER)
+console.log('DBPASSWORD', process.env.DBPASSWORD)
 
 //USE CREDENTIALS FOR HEROKU STAGING
 // const options = {
@@ -111,21 +116,18 @@ console.log('Listening on', PORT);
 const io = require('socket.io')(server);
 
 var users = {};
-var rooms = {};
 var id = -1;
 
 io.on('connection', function(socket) {
   console.log('a user connected');
 
-  // var hs = socket.handshake;
-  // users[hs.session.username] = socket.id;
-  // clients[socket.id] = socket;
   socket.on('join:room', (userData) => {
     socket.username = userData.username;
     socket.room = userData.room
     socket.join(userData.room);
+    console.log('WHAT THE ROOM?!', userData.room)
 
-    console.log('Joined the room');
+    
 
     if (socket.username === 'admin_1') {
       sequelize.User.findOne({
@@ -144,6 +146,7 @@ io.on('connection', function(socket) {
         });
       });
     } else {
+      console.log('ENTER THE ELSE SOCKET')
       users[userData.username] =  userData.room;
       var welcomeMessage = {
         id: id++,
@@ -159,6 +162,7 @@ io.on('connection', function(socket) {
       socket.broadcast.to(socket.room).emit('update:chat', connectionMessage);
     }
   })
+  console.log('Joined the room', users);
 
 
   socket.on('send:message', (msg) => {
@@ -191,6 +195,11 @@ io.on('connection', function(socket) {
       content: `${msg.username}: ${msg.message}`
     });
   });
+
+  socket.on('find:rooms', () => {
+    console.log('USERS', users);
+    socket.emit('update:rooms', users)
+  })
 
   socket.on('disconnect', () => {
     delete users[socket.username];
