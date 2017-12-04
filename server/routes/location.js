@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
   const lat = Number(target[0]);
   const long = Number(target[1]);
 
-  axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=domestic+violence+services+OR+human+trafficking+help+near+me&location="+ lat + "," + long + "&radius=1000&key=AIzaSyCSvLAVosAQuQOJHtLXnwXVqTNOxMPjSH4")
+  axios.get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=domestic+violence+services+OR+human+trafficking+help+near+me&location="+ lat + "," + long + "&radius=1000&key=AIzaSyC6huNVQicm6IEIqFQDS9Md8nYLrJMRehE")
     .then(function (response) {
       //console.log(response.data.results);
       res.status(200).send(response.data.results);
