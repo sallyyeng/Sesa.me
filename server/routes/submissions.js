@@ -45,6 +45,7 @@ router.get('/', (req, res) => {
       });
   }
 });
+
 router.post('/', (req, res) => {
   console.log('POST /submission: this is the request body- ', req.body)
   //find user by username
@@ -58,10 +59,11 @@ router.post('/', (req, res) => {
       console.log('POST /submission: user found in database- ', user.username)
       models.Submission.create({
         userId: user.get('id'),
-        user_name: req.body.name,
-        user_email: req.body.email,
-        user_location: JSON.stringify(req.body.location),
-        user_phoneNumber: req.body.phoneNumber,
+        user_message: req.body.user_message,
+        user_contact: req.body.user_contact,
+        user_urgency: req.body.user_urgency,
+        first_name: user.get('first_name'),
+        last_name: user.get('last_name')
       })
         .then((createdMessage) => {
           console.log('Successful user message creation with', createdMessage.dataValues);
