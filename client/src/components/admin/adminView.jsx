@@ -8,6 +8,7 @@ import Info from './info.jsx';
 import Map from './map.jsx';
 import DataMap from './datamap.jsx';
 import ChatBox from '../user/formView/chatBox.jsx';
+import Users from './usersinfo.jsx';
 
 
 class AdminView extends Component {
@@ -78,6 +79,9 @@ class AdminView extends Component {
           Users
           <div className="userInfo">
             {userArr}
+          </div>
+          <div>
+            <Users />
           </div>
         </div>
         <div className="boxAdmin contentAdmin">
