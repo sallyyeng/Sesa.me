@@ -27,7 +27,6 @@ class Submission extends React.Component {
     };
 
     this.updateInfo = this.updateInfo.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 

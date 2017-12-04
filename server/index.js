@@ -115,7 +115,7 @@ console.log('Listening on', PORT);
 //Socket
 const io = require('socket.io')(server);
 
-var users = {2: '2'};
+var users = {Begona: 'Begona'};
 var id = -1;
 
 io.on('connection', function(socket) {
