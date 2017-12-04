@@ -74,6 +74,7 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
+        <a href="/">Logout</a>
         {/* <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button> */}
         <div className="admin-header group">
           <h3 className="welcome-header">Welcome to Your Inbox!</h3>
@@ -84,7 +85,6 @@ class AdminView extends React.Component {
         {/* <ul className="user-message-ul">
           {this.state.messages.map((message, index) => <Message submitAdminResponse={this.props.submitAdminResponse} setStatus={this.setStatus.bind(this)} setResponseId={this.setResponseId.bind(this)} key={index} message={message} />)}
         </ul> */}
-
       </div>
     );
   }
