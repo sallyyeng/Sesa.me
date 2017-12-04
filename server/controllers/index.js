@@ -80,39 +80,39 @@
 //       }
 //     },
 //     // write a message to the db associated with a particular user
-//     post: (req, res) => {
-//       if (req.body.account_type !== 'admin') {
-//         //find user by username
-//         console.log('REQBODY!!!!', req.body)
-//         sequelize.User.findOne({
-//           where: {
-//             username: req.body.username,
-//           }
-//         })
-//           .then((user) => {
-//             //create a submission record tied to that particular user
-//             sequelize.Submission.create({
-//               userId: user.get('id'),
-//               user_name: req.body.name,
-//               user_email: req.body.email,
-//               user_location: JSON.stringify(req.body.location),
-//               user_phoneNumber: req.body.phoneNumber,
-//             })
-//               .then((createdMessage) => {
-//                 console.log('Successful user message creation with', createdMessage);
-//                 res.sendStatus(201);
-//               })
-//               .catch((err) => {
-//                 console.log('Error creating user message with', err);
-//                 res.sendStatus(400);
-//               });
-//           });
-//       } else {
-//         // disallow non-users from sending messages
-//         console.log('Admins cannot create messages, only amend existing ones');
-//         res.sendStatus(400);
-//       }
-//     },
+    // post: (req, res) => {
+    //   if (req.body.account_type !== 'admin') {
+    //     //find user by username
+    //     console.log('REQBODY!!!!', req.body)
+    //     sequelize.User.findOne({
+    //       where: {
+    //         username: req.body.username,
+    //       }
+    //     })
+    //       .then((user) => {
+    //         //create a submission record tied to that particular user
+    //         sequelize.Submission.create({
+    //           userId: user.get('id'),
+    //           user_name: req.body.name,
+    //           user_email: req.body.email,
+    //           user_location: JSON.stringify(req.body.location),
+    //           user_phoneNumber: req.body.phoneNumber,
+    //         })
+    //           .then((createdMessage) => {
+    //             console.log('Successful user message creation with', createdMessage);
+    //             res.sendStatus(201);
+    //           })
+    //           .catch((err) => {
+    //             console.log('Error creating user message with', err);
+    //             res.sendStatus(400);
+    //           });
+    //       });
+    //   } else {
+    //     // disallow non-users from sending messages
+    //     console.log('Admins cannot create messages, only amend existing ones');
+    //     res.sendStatus(400);
+    //   }
+    // },
 //     // allows an admin to edit most recent submission associated with a user
 //     patch: (req, res) => {
 //       console.log('ADMIN PATCH WITH ', req.body);
