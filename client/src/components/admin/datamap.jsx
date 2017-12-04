@@ -9,6 +9,9 @@ const {
 
 
 
+
+
+//data source: the SF police department, from data.sfgov.org
 const DataMap = (props)=> {
   const MapWithAFusionTablesLayer = compose(
     withProps({
@@ -22,14 +25,13 @@ const DataMap = (props)=> {
   )(props =>
     <GoogleMap
       defaultZoom={11}
-      defaultCenter={{ lat: 41.850033, lng: -87.6500523 }}
+      defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
     >
       <FusionTablesLayer
-        url="http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml"
         options={{
           query: {
-            select: `Geocodable address`,
-            from: `1mZ53Z70NsChnBMm-qEYmSDOvLXgrreLTkQUvvg`
+            select: 'geometry',
+            from: '11u0uCw4UtWYJUfvNlZwhgou7485_pT_RvMKaxnzV'
           }
         }}
       />

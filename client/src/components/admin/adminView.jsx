@@ -19,6 +19,9 @@ class AdminView extends Component {
   }
 
   renderUserMap(location, lat, long) {
+    lat = Number(lat);
+    long = Number(long);
+    console.log(lat, long);
     $.ajax({
       url: '/location',
       data: {lat, long},
@@ -77,10 +80,14 @@ class AdminView extends Component {
     ));
     return (
       <div>
-        <a  style={{position: "absolute", float: "right"}} href="/">Logout</a>
         <div className="wrapperAdmin">
           <div className="boxAdmin headerAdmin">
+            <div>
             Dashboard
+            </div>
+            <div>
+              <a style={{float: 'right'}} href="/">Logout</a>
+            </div>
 
           </div>
           <div className="boxAdmin sidebarAdmin">
@@ -110,11 +117,11 @@ class AdminView extends Component {
               <Tab eventKey={1} title="Chat">
                 <ChatBox username={this.props.username} room={this.state.room} />
               </Tab>
-              <Tab eventKey={2} title="Info">
-                {/*<Info*/}
-                {/*userData={this.props.userData}*/}
-                {/*/>*/}
-              </Tab>
+              {/*<Tab eventKey={2} title="Info">*/}
+              {/*/!*<Info*!/*/}
+              {/*/!*userData={this.props.userData}*!/*/}
+              {/*/!*//*/}
+              {/*</Tab>*/}
             </Tabs>
           </div>
         </div>
