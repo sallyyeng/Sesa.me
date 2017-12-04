@@ -116,7 +116,7 @@ class Signup extends React.Component {
     ))
     return (
       <div className="container signup-container">
-        <PageHeader><small>Signup</small></PageHeader>
+        <PageHeader><small>Start your journey...</small></PageHeader>
         <ControlLabel className="signup-username">
           Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)} />
         </ControlLabel>
@@ -136,6 +136,7 @@ class Signup extends React.Component {
         <ControlLabel className="signup-password">
           Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)} />
         </ControlLabel>
+        <br />
         <br />
 
         <div className="col-centered">
