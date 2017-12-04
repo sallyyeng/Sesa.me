@@ -14,7 +14,10 @@ class UserAvailability extends Component {
       room: this.props.room,
       username: this.props.username,
     }
-    this.props.changeRoom(newUser);
+    this.props.changeRoom(newUser).then(userData => {
+      this.props.renderUserMap(userData.location, userData.lat, userData.long)
+    });
+    
   }
 
     render() {
