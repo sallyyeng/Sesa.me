@@ -34,9 +34,6 @@ class AdminView extends React.Component {
     };
   }
 
-  componentDidMount(){
-
-  }
 ////////do THIS THIS UCOMMENT WHEN YOU FIGURE OUT WHATS WRONG
   // componentDidMount() {
   //   this.props.retrieveOpenMessages((data) => {

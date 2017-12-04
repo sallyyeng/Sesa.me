@@ -14,7 +14,6 @@ const User = sequelize.define('user', {
   //id is already created by default as PK
   username: {
     type: Sequelize.STRING,
-    unique: true,
     ignoreDuplicates: true,
   },
   hash: Sequelize.STRING,
