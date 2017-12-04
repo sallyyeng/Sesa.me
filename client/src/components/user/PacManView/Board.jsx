@@ -314,11 +314,29 @@ var Tile = function (x,y, type) {
 
     } else if (this.type === 'GHOST') {
       //*AI*//
+      if (this.moving) {
+        return;
+      }
+      var ghostMove1 = p.feild[this.y * p.DIMENTIONS + (this.x - 1)];
+      var ghostMove2 = p.feild[this.y * p.DIMENTIONS + (this.x + 1)];
+      var ghostMove3 = p.feild[(this.y - 1) * p.DIMENTIONS + this.x];
+      var ghostMove4 = p.feild[(this.y + 1) * p.DIMENTIONS + this.x];
+
+      var possibleMoves = [ghostMove1, ghostMove2, ghostMove3, ghostMove4];
+
+      /* Sort by distance */
+      possibleMoves.sort(function(a, b) {
+        //dist returns distance between the two points
+        var aDistance = p.dist(a.x, a.y, PACMAN.x, PACMAN.y);
+        var bDistance = p.dist(b.x, b.y, PACMAN.x, PACMAN.y);
+
+        return aDistance - bDistance;
+      });
+      console.log(possibleMoves);
+
 
     };
 
-    console.log('---------------------------------')
-    console.log('score: ', SCORE, 'endscore:, ',ENDSCORE  )
     if (SCORE === OTHERSCORE) {
       p.endGame(true);
     };
