@@ -7,7 +7,6 @@ import Info from './info.jsx';
 import Map from './map.jsx';
 import DataMap from './datamap.jsx';
 import ChatBox from '../user/formView/chatBox.jsx';
-import Users from './usersinfo.jsx';
 
 //this.props.lat, long, location
 
@@ -43,7 +42,7 @@ class SocialServicesMap extends Component{
 
         </div>
         <div className="boxAdmin sidebarAdmin">
-          <Users />
+          Users
         </div>
         <div className="boxAdmin contentAdmin">
           <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
