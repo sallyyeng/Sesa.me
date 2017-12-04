@@ -24,6 +24,9 @@ var FEILD = [
 ];
  var PACMAN;
  var SCORE;
+ var GHOST;
+ var ENDSCORE = 5;
+ var OTHERSCORE =241;
 
 export default function PacManBoard (p) {
   p.SIZE = 25;
@@ -36,6 +39,7 @@ export default function PacManBoard (p) {
   p.setup = function () {
     p.createCanvas(500,535);
     SCORE = 0;
+    GHOST = [];
     p.feild = p.generateFeild();
   };
 
@@ -45,18 +49,25 @@ export default function PacManBoard (p) {
     //setting initial background to grey
     p.background(51);
 
-    //// DRAW TILES
+    //* DRAW TILES *//
     for (var i = 0; i < p.feild.length; i++) {
       if (p.feild[i].intact) {
-        p.feild[i].update();
+        //p.feild[i].update();
         p.feild[i].draw();
       }
     }
+
+    for (var j = 0; j < GHOST.length; j++) {
+      GHOST[j].update();
+      GHOST[j].draw();
+    }
+
+    PACMAN.update();
+    PACMAN.draw();
     //////Making the score//////
     p.noStroke(0);
     p.fill(255);
     p.textSize(30);
-    //Displays the information specified in the first parameter on the screen in the position specified by the additional parameter
     p.text(SCORE, 5, 550 - 22);
     ////////////////////////////
 
@@ -75,10 +86,10 @@ export default function PacManBoard (p) {
     } else {
       p.text('You Lose!', 500/2, 500/2 )
     }
-    
+
     p.textSize(30);
     p.text('Press Refresh Page to Restart', 500/2, 500/2 + 50);
-    p.notLoop();
+    p.noLoop();
   }
 
 
@@ -91,12 +102,21 @@ export default function PacManBoard (p) {
 
       for (var j = 0; j < p.row.length; j++) {
         p.type = p.parseType(p.row[j]);
-        //p.type = TYPES[p.row[j]];
         p.tile = new Tile(j, i, p.type);
 
-        if (p.type === 'PACMAN') {
-          PACMAN = p.tile;
-          //console.log(p.packman);
+        switch (p.type) {
+          case 'PACMAN':
+            PACMAN = p.tile;
+            break;
+          case 'GHOST':
+            GHOST.push(p.tile);
+            break;
+          case 'CHERRY':
+            ENDSCORE += 10;
+            break;
+          case 'FOOD':
+            ENDSCORE++;
+            break;
         }
         p.f.push(p.tile);
       }
@@ -148,7 +168,7 @@ var Tile = function (x,y, type) {
     this.dY = -1;
     this.moving = false;
 
-    this.speed = 0.7;
+    this.speed = 0.6;
 
     //Use these belowto center balls
     this.HALF_SIZE = p.SIZE/ 2;
@@ -250,14 +270,11 @@ var Tile = function (x,y, type) {
       return;
     }
 
-    // console.log('thing: ', dY * p.DIMENTIONS + dX)
-    // console.log('field: ', p.feild)
-
     var destinationTile = p.feild[dY * p.DIMENTIONS + dX];
     var nextType = destinationTile.type;
 
-    console.log('next tile: ', nextType)
-    if (nextType === 'BARRIER' && this.type !== 'BARRIER') {
+    if ((nextType === 'BARRIER' && this.type !== 'BARRIER') ||
+        nextType === 'GHOST' && this.type === 'GHOST') {
       ///don't allow them to move
       return;
     }
@@ -265,30 +282,44 @@ var Tile = function (x,y, type) {
     this.dY = dY;
     this.moving = true;
 
-    //Calcs for the food/cherries
-    var dtileX = Math.floor(this.x);
-    var dtileY = Math.floor(this.y);
+    //*EATING*//
+    if (this.type === 'PACMAN') {
 
-    var dTile = p.feild[dtileY * p.DIMENTIONS + dtileX];
-    var newTileType = dTile.type;
+      var dtileX = Math.floor(this.x);
+      var dtileY = Math.floor(this.y);
 
-    if (dTile.intact) {
-      switch(newTileType) {
-        case "CHERRY":
+      var dTile = p.feild[dtileY * p.DIMENTIONS + dtileX];
+      var newTileType = dTile.type;
+
+      if (dTile.intact) {
+        switch(newTileType) {
+          case "CHERRY":
           dTile.intact = false;
           SCORE+= 10;
           break;
 
-        case "FOOD":
+          case "FOOD":
           SCORE++;
           dTile.intact = false;
           break;
 
-        case "GHOST":
+          case "GHOST":
           p.endGame(false);
           break;
+        };
       };
+
+    } else if (this.type === 'GHOST') {
+      //*AI*//
+
     };
+
+    console.log('---------------------------------')
+    console.log('score: ', SCORE, 'endscore:, ',ENDSCORE  )
+    if (SCORE === OTHERSCORE) {
+      p.endGame(true);
+    };
+
   };
 };
 
