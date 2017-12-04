@@ -59,9 +59,26 @@ class AdminView extends Component {
     });
   }
 
-  changeRoom(newRoom) {
+  changeRoom(newUser) {
     console.log('CHANGING THE ROOM');
-    this.setState({room: newRoom});
+    this.setState({room: newUser.room});
+
+    $.ajax({
+      url: '/userData',
+      type: 'POST',
+      data: newUser,
+      success: userData=>{
+        console.log('All user data???', userData);
+        this.setState({userArr: [userData]});
+      },
+      error: (error) => {
+        console.log(error.responseText);
+      }
+    });
+
+
+    // this.setState({userArr: [newUser.userInfo]})
+
   }
 
   render() {
