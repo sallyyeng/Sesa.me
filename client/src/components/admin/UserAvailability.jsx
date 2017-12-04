@@ -10,7 +10,14 @@ class UserAvailability extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.props.changeRoom(this.props.room);
+    var newUser = {
+      room: this.props.room,
+      username: this.props.username,
+    }
+    this.props.changeRoom(newUser).then(userData => {
+      this.props.renderUserMap(userData.location, userData.lat, userData.long)
+    });
+    
   }
 
     render() {

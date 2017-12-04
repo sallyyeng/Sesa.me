@@ -21,7 +21,7 @@ class AdminView extends Component {
   renderUserMap(location, lat, long) {
     lat = Number(lat);
     long = Number(long);
-    console.log(lat, long);
+    console.log('COORDINATES', lat, long);
     $.ajax({
       url: '/location',
       data: {lat, long},
@@ -59,9 +59,37 @@ class AdminView extends Component {
     });
   }
 
-  changeRoom(newRoom) {
+  changeRoom(newUser, ) {
     console.log('CHANGING THE ROOM');
-    this.setState({room: newRoom});
+    this.setState({room: newUser.room});
+
+    return new Promise((resolve, reject) =>{
+      $.ajax({
+        url: '/userData',
+        type: 'POST',
+        data: newUser,
+        success: userData=>{
+          console.log('All user data???', userData);
+          this.setState({
+            userArr: [userData],
+            location: userData.location,
+            lat: userData.lat,
+            long: userData.long,
+          }, () => {
+            resolve(userData);
+          });
+  
+        },
+        error: (error) => {
+          console.log(error.responseText);
+          reject();
+        }
+      });
+    });
+
+
+    // this.setState({userArr: [newUser.userInfo]})
+
   }
 
   render() {
@@ -93,11 +121,9 @@ class AdminView extends Component {
           <div className="boxAdmin sidebarAdmin">
             Users
             <div>
-              <Users changeRoom={this.changeRoom}/>
+              <Users changeRoom={this.changeRoom} location={this.state.location} lat={this.state.lat} long={this.state.long} renderUserMap={this.renderUserMap.bind(this)} />
             </div>
-            <div className="userInfo">
-              {userArr}
-            </div>
+            
           </div>
           <div className="boxAdmin contentAdmin">
             <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
@@ -118,7 +144,9 @@ class AdminView extends Component {
                 <ChatBox username={this.props.username} room={this.state.room} />
               </Tab>
               <Tab eventKey={2} title="Info">
-                Info...
+                <div className="userInfo">
+                  {userArr}
+              </div>
               </Tab>
             </Tabs>
           </div>

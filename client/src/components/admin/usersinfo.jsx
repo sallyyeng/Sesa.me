@@ -52,7 +52,16 @@ class Userinfo extends Component {
       <div>
         <ul>
           {this.state.users.map((user) => {
-            return <UserAvailability key={user.username} username={user.username} room={user.room} status={user.status} changeRoom={this.props.changeRoom}/>;
+            return <UserAvailability 
+            key={user.username} 
+            username={user.username} 
+            room={user.room} 
+            status={user.status} 
+            changeRoom={this.props.changeRoom}
+            location={this.props.location} 
+            lat={this.props.lat} 
+            long={this.props.long} 
+            renderUserMap={this.props.renderUserMap}/>;
           })}
         </ul>
       </div>
