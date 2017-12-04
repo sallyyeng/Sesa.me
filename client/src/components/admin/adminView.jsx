@@ -74,7 +74,7 @@ class AdminView extends React.Component {
   render() {
     return (
       <div>
-        <a href="/">Logout</a>
+        <a style={{position: "relative", float: "right"}} href="/">Logout</a>
         {/* <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button> */}
         <div className="admin-header group">
           <h3 className="welcome-header">Welcome to Your Inbox!</h3>

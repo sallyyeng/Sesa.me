@@ -68,9 +68,6 @@ User.sync()
       last_name: 'admin',
     });
   })
-  .catch((err) => {
-    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
-  });
 
 Submission.sync();
 Message.sync();

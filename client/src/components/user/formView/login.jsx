@@ -109,7 +109,7 @@ class Login extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.handleSubmit()
-            .then(()=> history.push('/Game'))
+            .then(()=> history.push('/PacManGame'))
             .catch(()=> console.log(`Invalid credentials`));
         }}>
         Login</Button>
