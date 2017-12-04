@@ -14,6 +14,7 @@ class PacMan extends React.Component {
   render() {
     return (
       <div>
+        <a style={{position: "relative", float: "right"}} href="/">Logout</a>
         <P5Wrapper sketch={PacManBoard} />
       </div>
     )
