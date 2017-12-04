@@ -70,6 +70,7 @@ class AdminView extends Component {
       </div>
     ));
     return (
+<<<<<<< 6ada3e4fcbe856b2ab418c6f126c378e7ab7328d
       <a style={{position: "relative", float: "right"}} href="/">Logout</a>
       <div className="wrapperAdmin">
         <div className="boxAdmin headerAdmin">
@@ -109,6 +110,14 @@ class AdminView extends Component {
               {/*/>*/}
             </Tab>
           </Tabs>
+=======
+      <div>
+        <a style={{position: "relative", float: "right"}} href="/">Logout</a>
+        {/* <Button onClick={this.props.showLogIn.bind(this)} className="admin-change-user-button" bsSize="small" bsStyle="primary">Sign In as a Different User</Button> */}
+        <div className="admin-header group">
+          <h3 className="welcome-header">Welcome to Your Inbox!</h3>
+          <h4>You can view and respond to user messages here.</h4>
+>>>>>>> Add logout buttons to adminView and PacManGame;  reroute login to pacman game
         </div>
       </div>
     );
