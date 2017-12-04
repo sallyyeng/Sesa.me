@@ -49,8 +49,8 @@ class Login extends React.Component {
         url: url,
         type: 'GET',
         success: response=>{
-          const lat = crd.latitude;
-          const long = crd.longitude;
+          const lat = crd.latitude.toString();
+          const long = crd.longitude.toString();
           const location = response.results[0]['formatted_address'];
           this.setState({lat, long, location});
         }

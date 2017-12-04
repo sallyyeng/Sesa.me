@@ -74,8 +74,8 @@ class Signup extends React.Component {
           first_name: this.state.firstName,
           last_name: this.state.lastName,
           location: this.props.location,
-          lat: this.props.lat,
-          long: this.props.long
+          lat: this.props.lat.toString(),
+          long: this.props.long.toString()
         },
         success: (data) => {
           alert('You have successfully created an account');

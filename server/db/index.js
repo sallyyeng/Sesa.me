@@ -22,8 +22,8 @@ const User = sequelize.define('user', {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,
   location: Sequelize.STRING,
-  lat: Sequelize.INTEGER,
-  long: Sequelize.INTEGER,
+  lat: Sequelize.STRING,
+  long: Sequelize.STRING,
 });
 
 const Submission = sequelize.define('submission', {

@@ -14,11 +14,14 @@ import Users from './usersinfo.jsx';
 class AdminView extends Component {
   constructor(props) {
     super(props);
-    this.state = {resArr: [], location: null, lat: null, long: null, userArr: [], room:'starter'};
+    this.state = {resArr: [], location: null, lat: null, long: null, userArr: [], room: 'starter'};
     this.changeRoom = this.changeRoom.bind(this);
   }
 
   renderUserMap(location, lat, long) {
+    lat = Number(lat);
+    long = Number(long);
+    console.log(lat, long);
     $.ajax({
       url: '/location',
       data: {lat, long},
@@ -57,8 +60,8 @@ class AdminView extends Component {
   }
 
   changeRoom(newRoom) {
-    console.log('CHANGING THE ROOM')
-    this.setState({room: newRoom}) 
+    console.log('CHANGING THE ROOM');
+    this.setState({room: newRoom});
   }
 
   render() {
@@ -77,10 +80,14 @@ class AdminView extends Component {
     ));
     return (
       <div>
-        <a  style={{position: "absolute", float: "right"}} href="/">Logout</a>
         <div className="wrapperAdmin">
           <div className="boxAdmin headerAdmin">
+            <div>
             Dashboard
+            </div>
+            <div>
+              <a style={{float: 'right'}} href="/">Logout</a>
+            </div>
 
           </div>
           <div className="boxAdmin sidebarAdmin">
@@ -111,9 +118,7 @@ class AdminView extends Component {
                 <ChatBox username={this.props.username} room={this.state.room} />
               </Tab>
               <Tab eventKey={2} title="Info">
-                {/*<Info*/}
-                {/*userData={this.props.userData}*/}
-                {/*/>*/}
+                Info...
               </Tab>
             </Tabs>
           </div>
