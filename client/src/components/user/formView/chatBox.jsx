@@ -6,7 +6,7 @@ import ScrollList from 'react-scrollable-list';
 
 class ChatBox extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       clientMessage: '',
       messageLog: [],
@@ -17,7 +17,7 @@ class ChatBox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   componentDidMount() {
     var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
@@ -47,12 +47,12 @@ class ChatBox extends React.Component {
       })
     })
   }
-  
+
   componentWillUnmount() {
     socket.leave(`${this.state.username}`)
     socket.disconnect();
   }
-  
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
@@ -66,19 +66,19 @@ class ChatBox extends React.Component {
     event.preventDefault();
     this.setState({clientMessage: ''})
   }
-  
+
   render() {
-    return ( 
+    return (
       <div className="chat-log" >
          <ul className="react-scrollable-list">
           {this.state.messageLog.map((msg, index) => {
             return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
           })}
         </ul>
-          <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>
-            <input id="message" name="clientMessage" type="text" value={this.state.clientMessage} onChange={this.handleChange} placeholder="Enter Message Here"/>
-            <input type="submit" value="Send"/>
-          </form>
+        <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>
+          <input id="message" name="clientMessage" type="text" value={this.state.clientMessage} onChange={this.handleChange} placeholder="Enter Message Here"/>
+          <input id="send" type="submit" value="Send"/>
+        </form>
       </div>
     );
   }
