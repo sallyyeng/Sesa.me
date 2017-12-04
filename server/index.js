@@ -106,8 +106,13 @@ console.log('Listening on', PORT);
 //Socket
 const io = require('socket.io')(server);
 
-var users = {};
-var rooms = {};
+var users = {
+  garrett: 'chatroom1',
+  sally: 'chatroom2',
+  begona: 'room3',
+  bri: 'room4',
+};
+// var rooms = {};
 var id = -1;
 
 io.on('connection', function(socket) {
@@ -120,8 +125,8 @@ io.on('connection', function(socket) {
     socket.username = userData.username;
     socket.roomname = userData.roomname
     socket.join(userData.roomname);
-    users[userData.username] =  userData.username;
-    rooms[userData.roomname] = userData.roomname;
+    users[userData.username] =  userData.roomname;
+    // rooms[userData.roomname] = userData.roomname;
     console.log('Joined the room');
 
     if (socket.username === "admin_1") {
@@ -191,43 +196,16 @@ io.on('connection', function(socket) {
     });
   })
 
+  socket.on('find:rooms', () => {
+    socket.emit('update:rooms', users);
+  })
+
   socket.on('disconnect', () => {
     delete users[socket.username];
-    delete rooms[socket.roomname];
+    // delete rooms[socket.roomname];
+    socket.emit('update:rooms', users);
   })
 });
-
-//STEP 1: Just get rooms to work between anyone
-  //get messages in box to scroll within item
-//STEP 2: Store messages to each user
-  //messages will require some order to show up
-//messages will have ids
-// messages {
-//   id:
-//   client_id:
-//   username:
-//   message:
-// }
-
-// change the id to match the right number
-// be able to retrieve all recorded messages
-
-
-//STEP 2: Have an admin receive the list of rooms with connections to all of them - any received messages will cause a light up
-
-//Client when signing up will establish a new room to connect to
-//this info needs to be sent to the admin for them to be able to find the room
-//does the server need to emit messages for everyroom built?
-//or can two clients just send messages to each other?
-
-//Will need the message object passed to contain info on which room messages should be sent to
-//Will call the roomname for now the username
-//
-//need an object to show all people who are connected and what they're chatroom ids are?
-//all of this information gets sent to the admin
-//admin when opening a component will have the credentials to connect to appropriate chat
-
-
 
 
 //react router's path
