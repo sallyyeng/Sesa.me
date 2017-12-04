@@ -70,6 +70,7 @@ class AdminView extends Component {
       </div>
     ));
     return (
+      <a style={{position: "relative", float: "right"}} href="/">Logout</a>
       <div className="wrapperAdmin">
         <div className="boxAdmin headerAdmin">
           Dashboard
