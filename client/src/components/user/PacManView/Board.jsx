@@ -23,18 +23,19 @@ var FEILD = [
   "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
 ];
  var PACMAN;
+ var SCORE;
 
 export default function PacManBoard (p) {
   p.SIZE = 25;
   p.DIMENTIONS = 20;
   p.feild = [];
-  //p.pacman;
   p.pacX;
   p.pacY;
 
 
   p.setup = function () {
-    p.createCanvas(500,500);
+    p.createCanvas(500,535);
+    SCORE = 0;
     p.feild = p.generateFeild();
   };
 
@@ -45,13 +46,20 @@ export default function PacManBoard (p) {
     p.background(51);
 
     //// DRAW TILES
-
     for (var i = 0; i < p.feild.length; i++) {
-      p.feild[i].update();
-      p.feild[i].draw();
+      if (p.feild[i].intact) {
+        p.feild[i].update();
+        p.feild[i].draw();
+      }
     }
-    //p.packman.update();
-    //p.packman.draw();
+    //////Making the score//////
+    p.noStroke(0);
+    p.fill(255);
+    p.textSize(30);
+    //Displays the information specified in the first parameter on the screen in the position specified by the additional parameter
+    p.text(SCORE, 5, 550 - 22);
+    ////////////////////////////
+
     p.handlePacman();
   };
 
@@ -116,6 +124,7 @@ var Tile = function (x,y, type) {
     this.x = x;
     this.y = y;
     this.type = type;
+    this.intact = true;
 
     this.dX = -1;
     this.dY = -1;
@@ -143,7 +152,6 @@ var Tile = function (x,y, type) {
       break;
 
       case 'FOOD':
-        //make the fill of ellipse to upper left hand corner
         //centers dots
         p.ellipseMode(p.CORNER);
         //disbles drawing the stroke(outline)
@@ -196,7 +204,10 @@ var Tile = function (x,y, type) {
 
   //The lerp function is convenient for creating motion along a straight path and for drawing dotted lines.
   Tile.prototype.update = function() {
-    //movement
+    if (!this.intact) {
+      return;
+    }
+    //* Movement *//
     if (this.moving) {
       //lerp(start, stop, amt)
       this.x = p.lerp(this.x, this.dX, this.speed);
@@ -221,27 +232,43 @@ var Tile = function (x,y, type) {
       return;
     }
 
-    console.log('thing: ', dY * p.DIMENTIONS + dX)
-    console.log('field: ', p.feild)
+    // console.log('thing: ', dY * p.DIMENTIONS + dX)
+    // console.log('field: ', p.feild)
 
     var destinationTile = p.feild[dY * p.DIMENTIONS + dX];
-
-
-    //console.log('destinationTile: ', destinationTile )
     var nextType = destinationTile.type;
 
     console.log('next tile: ', nextType)
     if (nextType === 'BARRIER' && this.type !== 'BARRIER') {
-      // console.log('you cant move');
       ///don't allow them to move
       return;
     }
-    this.moving = true;
     this.dX = dX;
     this.dY = dY;
-  }
+    this.moving = true;
 
-}
+    //Calcs for the food/cherries
+    var dtileX = Math.floor(this.x);
+    var dtileY = Math.floor(this.y);
+
+    var dTile = p.feild[dtileY * p.DIMENTIONS + dtileX];
+    var newTileType = dTile.type;
+
+    if (dTile.intact) {
+      switch(newTileType) {
+        case "CHERRY":
+        dTile.intact = false;
+        SCORE+= 10;
+        break;
+
+        case "FOOD":
+        SCORE++;
+        dTile.intact = false;
+        break;
+      };
+    };
+  };
+};
 
 //////extra functions //////
   function getTile(x, y) {
