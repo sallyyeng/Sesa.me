@@ -109,15 +109,15 @@ class Login extends React.Component {
         bsStyle="primary"
         onClick={()=> {
           this.handleSubmit()
-            .then(()=> history.push('/Game'))
-            .catch(()=> console.log('Invalid credentials'));
+            .then(()=> history.push('/PacManGame'))
+            .catch(()=> console.log(`Invalid credentials`));
         }}>
         Login</Button>
     ));
     return (
       <div className="container login-container">
         <div>
-          <PageHeader><small>Login:</small></PageHeader>
+          <PageHeader><small>Happy to hear from you again!</small></PageHeader>
           <ControlLabel className="login-username" >Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)} /></ControlLabel>
           <br />
           <ControlLabel className="login-password">Password<FormControl type="password" placeholder="password..." onChange={this.onPasswordChange.bind(this)} /></ControlLabel>

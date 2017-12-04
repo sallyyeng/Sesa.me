@@ -70,44 +70,47 @@ class AdminView extends Component {
       </div>
     ));
     return (
-      <div className="wrapperAdmin">
-        <div className="boxAdmin headerAdmin">
-          Dashboard
+      <div>
+        <a  style={{position: "absolute", float: "right"}} href="/">Logout</a>
+        <div className="wrapperAdmin">
+          <div className="boxAdmin headerAdmin">
+            Dashboard
 
-        </div>
-        <div className="boxAdmin sidebarAdmin">
-          Users
-          <div className="userInfo">
-            {userArr}
           </div>
-          <div>
-            <Users />
+          <div className="boxAdmin sidebarAdmin">
+            Users
+            <div className="userInfo">
+              {userArr}
+            </div>
+            <div>
+              <Users />
+            </div>
           </div>
-        </div>
-        <div className="boxAdmin contentAdmin">
-          <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
-            <Tab eventKey={1} title="User Map">
-              {this.state.resArr.length > 0 ?
-                <Map geolocationInfo={this.state}/> : <div style={{padding: '20px'}}>
-                  <h3>Please click on a user to display user location and services nearby</h3></div>
-              }
-            </Tab>
-            <Tab eventKey={2} title="Data Map">
-              <DataMap/>
-            </Tab>
-          </Tabs>
-          <br /></div>
-        <div className="boxAdmin footerAdmin">
-          <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
-            <Tab eventKey={1} title="Chat">
-              <ChatBox username={this.props.username} roomname={this.props.roomname} />
-            </Tab>
-            <Tab eventKey={2} title="Info">
-              {/*<Info*/}
-              {/*userData={this.props.userData}*/}
-              {/*/>*/}
-            </Tab>
-          </Tabs>
+          <div className="boxAdmin contentAdmin">
+            <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
+              <Tab eventKey={1} title="User Map">
+                {this.state.resArr.length > 0 ?
+                  <Map geolocationInfo={this.state}/> : <div style={{padding: '20px'}}>
+                    <h3>Please click on a user to display user location and services nearby</h3></div>
+                }
+              </Tab>
+              <Tab eventKey={2} title="Data Map">
+                <DataMap/>
+              </Tab>
+            </Tabs>
+            <br /></div>
+          <div className="boxAdmin footerAdmin">
+            <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
+              <Tab eventKey={1} title="Chat">
+                <ChatBox username={this.props.username} roomname={this.props.roomname} />
+              </Tab>
+              <Tab eventKey={2} title="Info">
+                {/*<Info*/}
+                {/*userData={this.props.userData}*/}
+                {/*/>*/}
+              </Tab>
+            </Tabs>
+          </div>
         </div>
       </div>
     );

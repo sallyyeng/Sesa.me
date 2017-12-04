@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/lib/Button';
+import Image from 'react-bootstrap/lib/Image';
 import {Link} from 'react-router-dom';
 
 class Main extends React.Component {
@@ -15,7 +16,7 @@ class Main extends React.Component {
         <div className="main">
           <div className="container">
             <div className="row-align-items-center">
-              <h1 className="main-header">PacMan</h1>
+              <img width={420} height={200} src="https://i.imgur.com/tmuMHgG.gif" />
               <div className="btn-group-sm" role="group" aria-label="Basic example">
                 <Link to='/Login'>
                   <Button type="button" className="btn btn-secondary">Login</Button>

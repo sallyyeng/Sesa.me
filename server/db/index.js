@@ -14,7 +14,6 @@ const User = sequelize.define('user', {
   //id is already created by default as PK
   username: {
     type: Sequelize.STRING,
-    unique: true,
     ignoreDuplicates: true,
   },
   hash: Sequelize.STRING,
@@ -68,9 +67,6 @@ User.sync()
       last_name: 'admin',
     });
   })
-  .catch((err) => {
-    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
-  });
 
 Submission.sync();
 Message.sync();

@@ -84,8 +84,9 @@ app.use('/location', locationRoute);
 
 // react router's path
 app.get('/**', (req, res) => {
-  console.log('This happens when you load a path directly');
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  req.logout();
+  // res.status(200).clearCookie('connect.sid').json({status: 'Successful logout'});
+  res.clearCookie('connect.sid').sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 function checkAuthentication(req, res, next) {
