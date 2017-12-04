@@ -1,7 +1,7 @@
 // const router = require('./routes.js');
 // const setupPassport = require('../config/passport/passport.js');
 // const LocalStrategy = require('passport-local').Strategy;
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const parser = require('body-parser');
@@ -30,6 +30,11 @@ const options = {
   checkExpirationInterval: 1,
   expiration: 1,
 };
+
+console.log('SERVER ', process.env.DBSERVER)
+console.log('PORT ', process.env.PORT)
+console.log('DBUSER ', process.env.DBUSER)
+console.log('DBPASSWORD', process.env.DBPASSWORD)
 
 //USE CREDENTIALS FOR HEROKU STAGING
 // const options = {
@@ -110,68 +115,67 @@ console.log('Listening on', PORT);
 //Socket
 const io = require('socket.io')(server);
 
-var users = {};
-var rooms = {};
+var users = {2: '2'};
 var id = -1;
 
 io.on('connection', function(socket) {
   console.log('a user connected');
 
-  // var hs = socket.handshake;
-  // users[hs.session.username] = socket.id;
-  // clients[socket.id] = socket;
   socket.on('join:room', (userData) => {
     socket.username = userData.username;
-    socket.roomname = userData.roomname;
-    socket.join(userData.roomname);
-    users[userData.username] = userData.username;
-    rooms[userData.roomname] = userData.roomname;
-    console.log('Joined the room');
+    socket.room = userData.room;
+    console.log('WHAT THE ROOM?! ', userData.room)
+    socket.join(userData.room);
+    
+
+    
 
     if (socket.username === 'admin_1') {
       sequelize.User.findOne({
         where: {
-          username: socket.username,
+          username: socket.room,
         }
       }).then(user => {
         sequelize.Message.findAll({
-          userId: user.get('id'),
+          where: {
+            userId: user.get('id'),
+          }
         }).then(chatHistory => {
-          console.log('Successful user message creation with', chatHistory);
+          // console.log('Successful user message creation with', chatHistory);
           socket.emit('reload:chat', chatHistory);
         }).catch((err) => {
           console.log('Error creating user message with', err);
           res.sendStatus(400);
         });
       });
+    } else {
+      console.log('ENTER THE ELSE SOCKET')
+      users[userData.username] =  userData.room;
+      var welcomeMessage = {
+        id: id++,
+        username: '',
+        message: `You have connected to room ${userData.room}`,
+      }
+      socket.emit('update:chat', welcomeMessage);
+      var connectionMessage = {
+        id: id++,
+        username: '',
+        message: userData.username + ' has connected to the room',
+      }
+      socket.broadcast.to(socket.room).emit('update:chat', connectionMessage);
     }
+  })
 
+  console.log('Joined the room', users);
 
-    var welcomeMessage = {
-      id: id++,
-      username: '',
-      message: `You have connected to room ${userData.roomname}`,
-      // content: `You have connected to room ${userData.roomname}`,
-    };
-    socket.emit('update:chat', welcomeMessage);
-    var connectionMessage = {
-      id: id++,
-      username: '',
-      message: userData.username + ' has connected to the room',
-      // content: `${userData.username} has connected to the room`,
-    };
-    socket.broadcast.to(socket.roomname).emit('update:chat', connectionMessage);
-  });
-
-
+  
   socket.on('send:message', (msg) => {
-    console.log('Users: ', users);
-    console.log('Rooms: ', rooms);
-    console.log('Message: ', msg);
+    console.log('Users: ', users)
+    console.log('Message: ', msg)
     id = id++;
     sequelize.User.findOne({
       where: {
-        username: socket.username,
+        username: socket.room,
       }
     }).then(user => {
       sequelize.Message.create({
@@ -180,14 +184,17 @@ io.on('connection', function(socket) {
         message_order: id,
         message_text: msg.message,
       }).then(createdMessage => {
-        console.log('Successful user message creation with', createdMessage);
+        // console.log('Successful user message creation with', createdMessage);
       }).catch((err) => {
         console.log('Error creating user message with', err);
         res.sendStatus(400);
       });
     });
+     
+    console.log('SOCKET user', socket.username)
+    console.log('SOCKET ROOM', socket.room) 
 
-    io.sockets.in(socket.roomname).emit('update:chat', {
+    io.sockets.in(socket.room).emit('update:chat', {
       id: id,
       username: msg.username,
       message: msg.message,
@@ -195,41 +202,17 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('find:rooms', () => {
+    console.log('USERS', users);
+    socket.emit('update:rooms', users)
+  })
+
   socket.on('disconnect', () => {
     delete users[socket.username];
-    delete rooms[socket.roomname];
-  });
+    socket.emit('update:rooms', users);
+  })
 });
 
-//STEP 1: Just get rooms to work between anyone
-//get messages in box to scroll within item
-//STEP 2: Store messages to each user
-//messages will require some order to show up
-//messages will have ids
-// messages {
-//   id:
-//   client_id:
-//   username:
-//   message:
-// }
-
-// change the id to match the right number
-// be able to retrieve all recorded messages
-
-
-//STEP 2: Have an admin receive the list of rooms with connections to all of them - any received messages will cause a light up
-
-//Client when signing up will establish a new room to connect to
-//this info needs to be sent to the admin for them to be able to find the room
-//does the server need to emit messages for everyroom built?
-//or can two clients just send messages to each other?
-
-//Will need the message object passed to contain info on which room messages should be sent to
-//Will call the roomname for now the username
-//
-//need an object to show all people who are connected and what they're chatroom ids are?
-//all of this information gets sent to the admin
-//admin when opening a component will have the credentials to connect to appropriate chat
 
 
 

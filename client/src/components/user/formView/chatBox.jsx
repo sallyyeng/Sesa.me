@@ -10,8 +10,6 @@ class ChatBox extends React.Component {
     this.state = {
       clientMessage: '',
       messageLog: [],
-      username: this.props.username,
-      roomname: this.props.roomname,
     }
     this.socket;
     this.handleChange = this.handleChange.bind(this);
@@ -19,11 +17,30 @@ class ChatBox extends React.Component {
   }
 
   componentDidMount() {
+    console.log('ROOM NOW', this.props.room)
+    this.enterRoom(this.props.room);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('ROOM NOW in received props', this.props.room)
+    if (this.props.room !== nextProps.room) {
+      console.log('lets change the room in props change', nextProps.room);
+      this.leaveRoom();
+      this.setState({messageLog: []}, () => {
+        //sits inside callback to give time for the nextProps to update to the props
+        this.enterRoom();
+      })
+    }
+  }
+
+
+  enterRoom() {
     var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
+    console.log('ROOM NOW in ENTER', this.props.room)
     var userData = {
       username: this.props.username,
-      roomname: this.props.roomname,
+      room: this.props.room,
     }
     this.socket.emit('join:room', userData);
     this.socket.on('update:chat', (msg) => {
@@ -31,7 +48,6 @@ class ChatBox extends React.Component {
       newMessageArr.splice(0,0,msg);
       // newMessageArr.push(msg);
       this.setState({messageLog: newMessageArr});
-      console.log('Into the messages');
     });
     this.socket.on('reload:chat', (chatHistory) => {
       chatHistory.map(msg => {
@@ -48,8 +64,14 @@ class ChatBox extends React.Component {
     })
   }
 
+
+  leaveRoom() {
+    this.socket.disconnect();
+  }
+  
+
   componentWillUnmount() {
-    socket.leave(`${this.state.username}`)
+    socket.leave(`${this.props.username}`)
     socket.disconnect();
   }
 
@@ -60,7 +82,7 @@ class ChatBox extends React.Component {
   handleSubmit(event) {
     //socket call
     this.socket.emit('send:message', {
-      username: this.state.username,
+      username: this.props.username,
       message: this.state[event.target.name],
     })
     event.preventDefault();

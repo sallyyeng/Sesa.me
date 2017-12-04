@@ -227,6 +227,7 @@ class App extends React.Component {
         <Router>
           <div>
             <Route exact path='/'
+
               render={() => <Main/>}/>
             <Route exact path='/homepage'
               render={() => <Main/>}/>
@@ -237,14 +238,14 @@ class App extends React.Component {
             <Route exact path='/AdminLogin'
               render={() => <AdminLogin addUser={this.addUser}/>}/>
             <Route exact path='/AdminView'
-              render={() => <AdminView username="admin" roomname={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+              render={() => <AdminView username="admin_1" room={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
             <Route exact path='/Character'
               render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
 
             <Route exact path='/Game'
-              render={() => <Game username={this.state.username} roomname={this.state.username}/>}/>
+              render={() => <Game username={this.state.username} room={this.state.username}/>}/>
             <Route exact path='/PacManGame'
-              render={() => <PacManGame/>}/>
+              render={() => <PacManGame username={this.state.username} room={this.state.username}/>}/>
           </div>
         </Router>
       </div>
