@@ -236,4 +236,3 @@ app.get('/**', (req, res) => {
 });
 
 //admin when opening a component will have the credentials to connect to appropriate chat
-

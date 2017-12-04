@@ -121,7 +121,7 @@ var Tile = function (x,y, type) {
     this.dY = -1;
     this.moving = false;
 
-    this.speed = 0.7;
+    this.speed = 0.2;
 
     //Use these belowto center balls
     this.HALF_SIZE = p.SIZE/ 2;
@@ -204,7 +204,7 @@ var Tile = function (x,y, type) {
 
       console.log(this.x, ' ', this.y, ' ', this.dY, ' ', this.dX)
 
-      if ((Math.abs(this.x - this.dX)) < 0.05 && (Math.abs(this.y - this.dY) < 0.05)) {
+      if (Math.abs(this.x - this.dX) < 0.05 && Math.abs(this.y - this.DY) < 0.05) {
         this.x = this.dX;
         this.y = this.dY;
         this.moving = false;
@@ -217,15 +217,13 @@ var Tile = function (x,y, type) {
     var dY = this.y + y;
     var dX = this.x + x;
 
-    if (this.moving) {
-      return;
-    }
-
-    console.log('thing: ', dY * p.DIMENTIONS + dX)
-    console.log('field: ', p.feild)
+    // if (this.moving) {
+    //   return;
+    // }
 
     var destinationTile = p.feild[dY * p.DIMENTIONS + dX];
-
+    //var destinationTile = p.feild[(dY) * 20 + (dX)];
+    //var destinationTile = getTile(dX, dY);
 
     //console.log('destinationTile: ', destinationTile )
     var nextType = destinationTile.type;
@@ -241,6 +239,9 @@ var Tile = function (x,y, type) {
     this.dY = dY;
   }
 
+  Tile.getTile = function(x, y) {
+    return p.field[y * 20 + x];
+  }
 }
 
 //////extra functions //////
