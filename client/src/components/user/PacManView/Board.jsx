@@ -53,7 +53,10 @@ export default function PacManBoard (p) {
     for (var i = 0; i < p.feild.length; i++) {
       if (p.feild[i].intact) {
         //p.feild[i].update();
-        p.feild[i].draw();
+        // trying to not draw pacman twice
+        if((p.feild[i].type !== 'PACMAN' )|| (p.feild[i].type !== 'GHOST' )) {
+          p.feild[i].draw();
+        }
       }
     }
 
