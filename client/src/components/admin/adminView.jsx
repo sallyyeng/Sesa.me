@@ -14,7 +14,8 @@ import Users from './usersinfo.jsx';
 class AdminView extends Component {
   constructor(props) {
     super(props);
-    this.state = {resArr: [], location: null, lat: null, long: null, userArr: [], room:''};
+    this.state = {resArr: [], location: null, lat: null, long: null, userArr: [], room:'starter'};
+    this.changeRoom = this.changeRoom.bind(this);
   }
 
   renderUserMap(location, lat, long) {
@@ -56,6 +57,7 @@ class AdminView extends Component {
   }
 
   changeRoom(newRoom) {
+    console.log('CHANGING THE ROOM')
     this.setState({room: newRoom}) 
   }
 
@@ -106,7 +108,7 @@ class AdminView extends Component {
           <div className="boxAdmin footerAdmin">
             <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
               <Tab eventKey={1} title="Chat">
-                <ChatBox username={this.props.username} room={this.props.room} />
+                <ChatBox username={this.props.username} room={this.state.room} />
               </Tab>
               <Tab eventKey={2} title="Info">
                 {/*<Info*/}

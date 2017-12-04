@@ -17,14 +17,19 @@ class ChatBox extends React.Component {
   }
 
   componentDidMount() {
-    this.enterRoom();
+    console.log('ROOM NOW', this.props.room)
+    this.enterRoom(this.props.room);
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('ROOM NOW in received props', this.props.room)
     if (this.props.room !== nextProps.room) {
+      console.log('lets change the room in props change', nextProps.room);
       this.leaveRoom();
-      this.setState({messageLog: []})
-      this.enterRoom();
+      this.setState({messageLog: []}, () => {
+        //sits inside callback to give time for the nextProps to update to the props
+        this.enterRoom();
+      })
     }
   }
 
@@ -32,6 +37,7 @@ class ChatBox extends React.Component {
   enterRoom() {
     var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
+    console.log('ROOM NOW in ENTER', this.props.room)
     var userData = {
       username: this.props.username,
       room: this.props.room,

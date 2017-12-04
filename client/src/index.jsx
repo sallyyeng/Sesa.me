@@ -227,6 +227,7 @@ class App extends React.Component {
         <Router>
           <div>
             <Route exact path='/'
+
               render={() => <Main/>}/>
             <Route exact path='/homepage'
               render={() => <Main/>}/>
@@ -237,7 +238,7 @@ class App extends React.Component {
             <Route exact path='/AdminLogin'
               render={() => <AdminLogin addUser={this.addUser}/>}/>
             <Route exact path='/AdminView'
-              render={() => <AdminView username="admin" room={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
+              render={() => <AdminView username="admin_1" room={this.state.username} location={this.state.location} long={this.state.long} lat={this.state.lat} />}/>
             <Route exact path='/Character'
               render={() => <Character sendMessage={this.sendMessage} username={this.state.username}/>}/>
 

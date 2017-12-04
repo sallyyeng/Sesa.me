@@ -115,7 +115,7 @@ console.log('Listening on', PORT);
 //Socket
 const io = require('socket.io')(server);
 
-var users = {};
+var users = {2: '2'};
 var id = -1;
 
 io.on('connection', function(socket) {
@@ -123,22 +123,25 @@ io.on('connection', function(socket) {
 
   socket.on('join:room', (userData) => {
     socket.username = userData.username;
-    socket.room = userData.room
+    socket.room = userData.room;
+    console.log('WHAT THE ROOM?! ', userData.room)
     socket.join(userData.room);
-    console.log('WHAT THE ROOM?!', userData.room)
+    
 
     
 
     if (socket.username === 'admin_1') {
       sequelize.User.findOne({
         where: {
-          username: socket.username,
+          username: socket.room,
         }
       }).then(user => {
         sequelize.Message.findAll({
-          userId: user.get('id'),
+          where: {
+            userId: user.get('id'),
+          }
         }).then(chatHistory => {
-          console.log('Successful user message creation with', chatHistory);
+          // console.log('Successful user message creation with', chatHistory);
           socket.emit('reload:chat', chatHistory);
         }).catch((err) => {
           console.log('Error creating user message with', err);
@@ -162,17 +165,17 @@ io.on('connection', function(socket) {
       socket.broadcast.to(socket.room).emit('update:chat', connectionMessage);
     }
   })
+
   console.log('Joined the room', users);
 
-
+  
   socket.on('send:message', (msg) => {
     console.log('Users: ', users)
-    // console.log('Rooms: ', rooms)
     console.log('Message: ', msg)
     id = id++;
     sequelize.User.findOne({
       where: {
-        username: socket.username,
+        username: socket.room,
       }
     }).then(user => {
       sequelize.Message.create({
@@ -181,12 +184,15 @@ io.on('connection', function(socket) {
         message_order: id,
         message_text: msg.message,
       }).then(createdMessage => {
-        console.log('Successful user message creation with', createdMessage);
+        // console.log('Successful user message creation with', createdMessage);
       }).catch((err) => {
         console.log('Error creating user message with', err);
         res.sendStatus(400);
       });
     });
+     
+    console.log('SOCKET user', socket.username)
+    console.log('SOCKET ROOM', socket.room) 
 
     io.sockets.in(socket.room).emit('update:chat', {
       id: id,

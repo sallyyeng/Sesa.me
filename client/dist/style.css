@@ -508,4 +508,61 @@ form .chat-entry-form {
   background-color: #999;
 }
 
+.statusThumbnail {
+  width: 50px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.onlineStatus {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 60px 200px ;
+  grid-template-rows: 25px 25px ;
+  margin: 5px;
+}
+
+.statusName {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  padding-left: 10px;
+}
+
+.availabilityIndicator {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 25px 200px ;
+  align-items: center;
+}
+
+#redDot {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 20px;
+  height: 20px;
+  background: red;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#greenDot {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 20px;
+  height: 20px;
+  background: green;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.availabilityStatus {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  font-size: 12px;
+}
+
 
