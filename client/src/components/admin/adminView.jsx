@@ -117,11 +117,6 @@ class AdminView extends Component {
               <Tab eventKey={1} title="Chat">
                 <ChatBox username={this.props.username} room={this.state.room} />
               </Tab>
-              {/*<Tab eventKey={2} title="Info">*/}
-              {/*/!*<Info*!/*/}
-              {/*/!*userData={this.props.userData}*!/*/}
-              {/*/!*//*/}
-              {/*</Tab>*/}
             </Tabs>
           </div>
         </div>
