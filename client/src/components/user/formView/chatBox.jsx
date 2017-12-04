@@ -94,7 +94,7 @@ class ChatBox extends React.Component {
       <div className="chat-log" >
          <ul className="react-scrollable-list">
           {this.state.messageLog.map((msg, index) => {
-            return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
+            return <li key={index} className={`messageBubble ${msg.username}`}>{`${msg.username}: ${msg.message}`}</li>
           })}
         </ul>
         <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>

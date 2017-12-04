@@ -346,20 +346,21 @@ div > .chat-log {
 
 }
 
-form .chat-entry-form {
+.chat-entry-form {
   grid-column-start: 1;
   grid-column-end: 7;
-  grid-row-start: 1;
-  grid-row-end: 7;
+  grid-row-start: 6;
   margin-right: 10px;
   margin-left: auto;
   padding-left: 0px;
   margin-bottom: 20px;
   border-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #send {
-  position: relative;
+  float: right;
 }
 
 #messages {
@@ -378,6 +379,14 @@ form .chat-entry-form {
 
 .messageBubble {
   background: lightgray;
+  font-size: 14px;
+  margin-top: 1px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.admin_1 {
+  background-color: rgb(165,219,232);
   font-size: 14px;
   margin-top: 1px;
   border-radius: 5px;
@@ -564,5 +573,7 @@ form .chat-entry-form {
   grid-row-start: 1;
   font-size: 12px;
 }
+
+
 
 
