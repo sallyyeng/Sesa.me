@@ -63,6 +63,24 @@ export default function PacManBoard (p) {
     p.handlePacman();
   };
 
+  p.endGame = function(won) {
+    p.textSize(60);
+    p.textAlign(p.CENTER);
+    p.fill(255);
+    p.stroke(0);
+    p.strokeWeight(5);
+
+    if(won) {
+      p.text('You Win!!!!!', 500/2, 500/2 )
+    } else {
+      p.text('You Lose!', 500/2, 500/2 )
+    }
+    
+    p.textSize(30);
+    p.text('Press Refresh Page to Restart', 500/2, 500/2 + 50);
+    p.notLoop();
+  }
+
 
 //Generating Feild
   p.generateFeild = function() {
@@ -257,14 +275,18 @@ var Tile = function (x,y, type) {
     if (dTile.intact) {
       switch(newTileType) {
         case "CHERRY":
-        dTile.intact = false;
-        SCORE+= 10;
-        break;
+          dTile.intact = false;
+          SCORE+= 10;
+          break;
 
         case "FOOD":
-        SCORE++;
-        dTile.intact = false;
-        break;
+          SCORE++;
+          dTile.intact = false;
+          break;
+
+        case "GHOST":
+          p.endGame(false);
+          break;
       };
     };
   };
