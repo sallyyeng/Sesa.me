@@ -23,18 +23,23 @@ var FEILD = [
   "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
 ];
  var PACMAN;
+ var SCORE;
+ var GHOST;
+ var ENDSCORE = 5;
+ var OTHERSCORE =241;
 
 export default function PacManBoard (p) {
   p.SIZE = 25;
   p.DIMENTIONS = 20;
   p.feild = [];
-  //p.pacman;
   p.pacX;
   p.pacY;
 
 
   p.setup = function () {
-    p.createCanvas(500,500);
+    p.createCanvas(500,535);
+    SCORE = 0;
+    GHOST = [];
     p.feild = p.generateFeild();
   };
 
@@ -44,16 +49,51 @@ export default function PacManBoard (p) {
     //setting initial background to grey
     p.background(51);
 
-    //// DRAW TILES
-
+    //* DRAW TILES *//
     for (var i = 0; i < p.feild.length; i++) {
-      p.feild[i].update();
-      p.feild[i].draw();
+      if (p.feild[i].intact) {
+        //p.feild[i].update();
+        // trying to not draw pacman twice
+        if((p.feild[i].type !== 'PACMAN' )|| (p.feild[i].type !== 'GHOST' )) {
+          p.feild[i].draw();
+        }
+      }
     }
-    //p.packman.update();
-    //p.packman.draw();
+
+    for (var j = 0; j < GHOST.length; j++) {
+      GHOST[j].update();
+      GHOST[j].draw();
+    }
+
+    PACMAN.update();
+    PACMAN.draw();
+    //////Making the score//////
+    p.noStroke(0);
+    p.fill(255);
+    p.textSize(30);
+    p.text(SCORE, 5, 550 - 22);
+    ////////////////////////////
+
     p.handlePacman();
   };
+
+  p.endGame = function(won) {
+    p.textSize(60);
+    p.textAlign(p.CENTER);
+    p.fill(255);
+    p.stroke(0);
+    p.strokeWeight(5);
+
+    if(won) {
+      p.text('You Win!!!!!', 500/2, 500/2 )
+    } else {
+      p.text('You Lose!', 500/2, 500/2 )
+    }
+
+    p.textSize(30);
+    p.text('Press Refresh Page to Restart', 500/2, 500/2 + 50);
+    p.noLoop();
+  }
 
 
 //Generating Feild
@@ -65,12 +105,21 @@ export default function PacManBoard (p) {
 
       for (var j = 0; j < p.row.length; j++) {
         p.type = p.parseType(p.row[j]);
-        //p.type = TYPES[p.row[j]];
         p.tile = new Tile(j, i, p.type);
 
-        if (p.type === 'PACMAN') {
-          PACMAN = p.tile;
-          //console.log(p.packman);
+        switch (p.type) {
+          case 'PACMAN':
+            PACMAN = p.tile;
+            break;
+          case 'GHOST':
+            GHOST.push(p.tile);
+            break;
+          case 'CHERRY':
+            ENDSCORE += 10;
+            break;
+          case 'FOOD':
+            ENDSCORE++;
+            break;
         }
         p.f.push(p.tile);
       }
@@ -116,12 +165,13 @@ var Tile = function (x,y, type) {
     this.x = x;
     this.y = y;
     this.type = type;
+    this.intact = true;
 
     this.dX = -1;
     this.dY = -1;
     this.moving = false;
 
-    this.speed = 0.7;
+    this.speed = 0.6;
 
     //Use these belowto center balls
     this.HALF_SIZE = p.SIZE/ 2;
@@ -143,7 +193,6 @@ var Tile = function (x,y, type) {
       break;
 
       case 'FOOD':
-        //make the fill of ellipse to upper left hand corner
         //centers dots
         p.ellipseMode(p.CORNER);
         //disbles drawing the stroke(outline)
@@ -196,7 +245,10 @@ var Tile = function (x,y, type) {
 
   //The lerp function is convenient for creating motion along a straight path and for drawing dotted lines.
   Tile.prototype.update = function() {
-    //movement
+    if (!this.intact) {
+      return;
+    }
+    //* Movement *//
     if (this.moving) {
       //lerp(start, stop, amt)
       this.x = p.lerp(this.x, this.dX, this.speed);
@@ -221,27 +273,76 @@ var Tile = function (x,y, type) {
       return;
     }
 
-    console.log('thing: ', dY * p.DIMENTIONS + dX)
-    console.log('field: ', p.feild)
-
     var destinationTile = p.feild[dY * p.DIMENTIONS + dX];
-
-
-    //console.log('destinationTile: ', destinationTile )
     var nextType = destinationTile.type;
 
-    console.log('next tile: ', nextType)
-    if (nextType === 'BARRIER' && this.type !== 'BARRIER') {
-      // console.log('you cant move');
+    if ((nextType === 'BARRIER' && this.type !== 'BARRIER') ||
+        nextType === 'GHOST' && this.type === 'GHOST') {
       ///don't allow them to move
       return;
     }
-    this.moving = true;
     this.dX = dX;
     this.dY = dY;
-  }
+    this.moving = true;
 
-}
+    //*EATING*//
+    if (this.type === 'PACMAN') {
+
+      var dtileX = Math.floor(this.x);
+      var dtileY = Math.floor(this.y);
+
+      var dTile = p.feild[dtileY * p.DIMENTIONS + dtileX];
+      var newTileType = dTile.type;
+
+      if (dTile.intact) {
+        switch(newTileType) {
+          case "CHERRY":
+          dTile.intact = false;
+          SCORE+= 10;
+          break;
+
+          case "FOOD":
+          SCORE++;
+          dTile.intact = false;
+          break;
+
+          case "GHOST":
+          p.endGame(false);
+          break;
+        };
+      };
+
+    } else if (this.type === 'GHOST') {
+      //*AI*//
+      if (this.moving) {
+        return;
+      }
+      var ghostMove1 = p.feild[this.y * p.DIMENTIONS + (this.x - 1)];
+      var ghostMove2 = p.feild[this.y * p.DIMENTIONS + (this.x + 1)];
+      var ghostMove3 = p.feild[(this.y - 1) * p.DIMENTIONS + this.x];
+      var ghostMove4 = p.feild[(this.y + 1) * p.DIMENTIONS + this.x];
+
+      var possibleMoves = [ghostMove1, ghostMove2, ghostMove3, ghostMove4];
+
+      /* Sort by distance */
+      possibleMoves.sort(function(a, b) {
+        //dist returns distance between the two points
+        var aDistance = p.dist(a.x, a.y, PACMAN.x, PACMAN.y);
+        var bDistance = p.dist(b.x, b.y, PACMAN.x, PACMAN.y);
+
+        return aDistance - bDistance;
+      });
+      console.log(possibleMoves);
+
+
+    };
+
+    if (SCORE === OTHERSCORE) {
+      p.endGame(true);
+    };
+
+  };
+};
 
 //////extra functions //////
   function getTile(x, y) {
