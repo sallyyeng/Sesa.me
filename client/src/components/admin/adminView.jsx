@@ -78,7 +78,7 @@ class AdminView extends Component {
           }, () => {
             resolve(userData);
           });
-  
+
         },
         error: (error) => {
           console.log(error.responseText);
@@ -123,7 +123,7 @@ class AdminView extends Component {
             <div>
               <Users changeRoom={this.changeRoom} location={this.state.location} lat={this.state.lat} long={this.state.long} renderUserMap={this.renderUserMap.bind(this)} />
             </div>
-            
+
           </div>
           <div className="boxAdmin contentAdmin">
             <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">

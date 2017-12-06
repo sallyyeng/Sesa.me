@@ -22,7 +22,7 @@
 }
 
 body {
-  background: linear-gradient(45deg, #EAFFF0, #DFE7FF);
+  background: linear-gradient(45deg, #EAFFF0, #DFE7FF, rgb(165, 219, 232));
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
