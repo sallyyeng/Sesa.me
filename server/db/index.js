@@ -11,7 +11,7 @@ console.log('DATABASE TO CONNECT ', env, config.database);
 
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
 //   .then(() => console.log('Database created'));
-
+// adding this comment here for the rebuild
 const User = sequelize.define('user', {
   //id is already created by default as PK
   username: {
