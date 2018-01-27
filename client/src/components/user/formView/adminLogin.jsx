@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
+import axios from 'axios';
 
 class AdminLogin extends React.Component {
   constructor(props) {
@@ -56,20 +57,22 @@ class AdminLogin extends React.Component {
         className="sign-up-button"
         bsStyle="primary"
         onClick={()=> {
-          history.push('/Login')
+          history.push('/Login');
         }}>
         Return to log in page</Button>
-    ))
+    ));
     const ButtonSignIn = withRouter(({history}) => (
       <Button
         bsStyle="primary"
         className="login-button"
         onClick={()=> {
           this.handleSubmit()
-          .then(()=> history.push('/AdminView'))
-          .catch(()=> console.log('there was an error'))
+            .then(()=> {
+              history.push('/AdminView');
+            })
+            .catch(()=> console.log('there was an error'));
         }}>Log In</Button>
-    ))
+    ));
     //Need to change the request a page to do soemthing with the sign ups
     return (
       <div className="container login-container">

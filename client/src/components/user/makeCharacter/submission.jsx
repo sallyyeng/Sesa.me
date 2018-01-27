@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import UserResponses from './userResponses.jsx';
-import { withRouter, Link } from 'react-router-dom';
+
+import { withRouter, Link} from 'react-router-dom';
 import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -89,6 +90,7 @@ class Submission extends React.Component {
         }}>
         Go To Game!</Button>
     ))
+
     return (
       <div className="user-submission-main">
         <div className="user-submission-container">
@@ -132,10 +134,8 @@ class Submission extends React.Component {
           <br />
           <FormControl componentClass="textarea" name="phoneNumber" onChange={this.updateInfo.bind(this)}type="text" placeholder="Phone Number" />
           <br />
-
           <ButtonGoToGame/>
           </div>
-
           </div>
         );
       }

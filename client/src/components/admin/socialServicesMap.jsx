@@ -15,7 +15,14 @@ import ChatBox from '../user/formView/chatBox.jsx';
 class SocialServicesMap extends Component{
   constructor(props){
     super(props);
-    this.state = {resArr: [], location:null,lat: null, long: null};
+    this.state = {
+      resArr: [], 
+      location:null,
+      lat: null, 
+      long: null,
+      room: ''
+    };
+    this.changeRoom = this.changeRoom.bind(this)
   }
   componentWillMount(){
     const lat = this.props.lat;
@@ -32,7 +39,11 @@ class SocialServicesMap extends Component{
             }
           });
   }
-
+  
+  changeRoom(newRoom) {
+    this.setState({room: newRoom})
+    
+  }
 
   render(){
     return(
@@ -42,7 +53,7 @@ class SocialServicesMap extends Component{
 
         </div>
         <div className="boxAdmin sidebarAdmin">
-          Users
+          <Users changeRoom={this.changeRoom}/>
         </div>
         <div className="boxAdmin contentAdmin">
           <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
@@ -60,7 +71,7 @@ class SocialServicesMap extends Component{
         <div className="boxAdmin footerAdmin">
           <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
             <Tab eventKey={1} title="Chat">
-              <ChatBox username={this.props.username} roomname={this.props.roomname} />
+              <ChatBox username={this.props.username} room={this.state.room} />
             </Tab>
             <Tab eventKey={2} title="Info">
               {/*<Info*/}

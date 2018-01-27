@@ -8,6 +8,7 @@
 .main-header {
   font-size: 100px;
 }
+
 .create-character-header {
   font-size: 70px;
   top: 40%;
@@ -21,7 +22,7 @@
 }
 
 body {
-  background: linear-gradient(45deg, #EAFFF0, #DFE7FF);
+  background: linear-gradient(45deg, #EAFFF0, #DFE7FF, rgb(165, 219, 232));
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
@@ -292,6 +293,9 @@ ol, ul {
   width: 100%;
 }
 
+#message, #send {
+  font-size: 16px;
+}
 
 /*#messages li {
  padding: 5px 10px;
@@ -300,6 +304,28 @@ ol, ul {
 #messages li:nth-child(odd) {
   background: #eee;
 }*/
+.gamePortal {
+  display: grid;
+  grid-template-columns: 600px 500px;
+  grid-template-rows: 600px 500px ;
+  grid-gap: 0px;
+  align-items: center;
+  justify-items: center;
+}
+
+.chatbox {
+  bottom: 10px;
+  right: 0px;
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+.gameScreen {
+  position: absolute;
+  left: 0px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
 
 div > .chat-log {
   border: thin solid black;
@@ -314,17 +340,32 @@ div > .chat-log {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
   border-radius: 5px;
 
 }
 
-.chat-entry-form {
+form .chat-entry-form {
   grid-column-start: 1;
   grid-column-end: 7;
-  grid-row-start: 6;
+  grid-row-start: 1;
   grid-row-end: 7;
-  margin-right: auto;
+  margin-right: 10px;
   margin-left: auto;
+  padding-left: 0px;
+  margin-bottom: 20px;
+  border-bottom: 20px;
+}
+
+#send {
+  position: relative;
+}
+
+#messages {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
 }
 
 .messageLog {
@@ -332,14 +373,13 @@ div > .chat-log {
   grid-column-end: 7;
   grid-row-start: 1;
   grid-row-end: 6;
-  margin-left: 5px;
   padding: 5px;
 }
 
 .messageBubble {
-  background: aqua;
+  background: lightgray;
+  font-size: 14px;
   margin-top: 1px;
-  margin-left: 5px;
   border-radius: 5px;
   padding: 5px;
 }
@@ -414,6 +454,11 @@ div > .chat-log {
 
 }
 
+.userInfo{
+  height: 400px;
+  overflow-y:auto
+}
+
 
 
 /*Make Character*/
@@ -461,6 +506,63 @@ div > .chat-log {
 .headerChar,
 .footerChar {
   background-color: #999;
+}
+
+.statusThumbnail {
+  width: 50px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.onlineStatus {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 60px 200px ;
+  grid-template-rows: 25px 25px ;
+  margin: 5px;
+}
+
+.statusName {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  padding-left: 10px;
+}
+
+.availabilityIndicator {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 25px 200px ;
+  align-items: center;
+}
+
+#redDot {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 20px;
+  height: 20px;
+  background: red;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#greenDot {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  width: 20px;
+  height: 20px;
+  background: green;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.availabilityStatus {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  font-size: 12px;
 }
 
 

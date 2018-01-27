@@ -20,7 +20,7 @@ class Character extends React.Component {
           <div className="boxChar contentChar">
             <Submission username={this.props.username} sendMessage={this.props.sendMessage}/>
           </div>
-          <div className="boxChar footerChar">Footer</div>
+          <div className="boxChar footerChar">&copy; Pluto Productions</div>
         </div>
       </div>
     );

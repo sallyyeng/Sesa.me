@@ -6,24 +6,41 @@ import ScrollList from 'react-scrollable-list';
 
 class ChatBox extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       clientMessage: '',
       messageLog: [],
-      username: this.props.username,
-      roomname: this.props.roomname,
     }
     this.socket;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   componentDidMount() {
+    console.log('ROOM NOW', this.props.room)
+    this.enterRoom(this.props.room);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('ROOM NOW in received props', this.props.room)
+    if (this.props.room !== nextProps.room) {
+      console.log('lets change the room in props change', nextProps.room);
+      this.leaveRoom();
+      this.setState({messageLog: []}, () => {
+        //sits inside callback to give time for the nextProps to update to the props
+        this.enterRoom();
+      })
+    }
+  }
+
+
+  enterRoom() {
     var port = process.env.PORT || 3000;
     this.socket = socketIoClient(`http://localhost:${port}`);
+    console.log('ROOM NOW in ENTER', this.props.room)
     var userData = {
       username: this.props.username,
-      roomname: this.props.roomname,
+      room: this.props.room,
     }
     this.socket.emit('join:room', userData);
     this.socket.on('update:chat', (msg) => {
@@ -31,11 +48,10 @@ class ChatBox extends React.Component {
       newMessageArr.splice(0,0,msg);
       // newMessageArr.push(msg);
       this.setState({messageLog: newMessageArr});
-      console.log('Into the messages');
     });
     this.socket.on('reload:chat', (chatHistory) => {
       chatHistory.map(msg => {
-        console.log(msg)
+        // console.log(msg)
         var logCopy = this.state.messageLog.slice();
         var msgObj = {
           id: msg.id,
@@ -47,12 +63,18 @@ class ChatBox extends React.Component {
       })
     })
   }
-  
-  componentWillUnmount() {
-    socket.leave(`${this.state.username}`)
-    socket.disconnect();
+
+
+  leaveRoom() {
+    this.socket.disconnect();
   }
   
+
+  componentWillUnmount() {
+    socket.leave(`${this.props.username}`)
+    socket.disconnect();
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
   }
@@ -60,25 +82,25 @@ class ChatBox extends React.Component {
   handleSubmit(event) {
     //socket call
     this.socket.emit('send:message', {
-      username: this.state.username,
+      username: this.props.username,
       message: this.state[event.target.name],
     })
     event.preventDefault();
     this.setState({clientMessage: ''})
   }
-  
+
   render() {
-    return ( 
+    return (
       <div className="chat-log" >
          <ul className="react-scrollable-list">
           {this.state.messageLog.map((msg, index) => {
             return <li key={index} className="messageBubble">{`${msg.username}: ${msg.message}`}</li>
           })}
         </ul>
-          <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>
-            <input id="message" name="clientMessage" type="text" value={this.state.clientMessage} onChange={this.handleChange} placeholder="Enter Message Here"/>
-            <input type="submit" value="Send"/>
-          </form>
+        <form className="chat-entry-form" action="" name="clientMessage" onSubmit={this.handleSubmit}>
+          <input id="message" name="clientMessage" type="text" value={this.state.clientMessage} onChange={this.handleChange} placeholder="Enter Message Here"/>
+          <input id="send" type="submit" value="Send"/>
+        </form>
       </div>
     );
   }

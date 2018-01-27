@@ -59,7 +59,7 @@ class Signup extends React.Component {
   }
 
   hanldeSubmit() {
-    console.log('im inside')
+    console.log('im inside', this.props.location, this.props.lat, this.props.long);
 
     return new Promise((resolve, reject) => {
       $.ajax({
@@ -74,8 +74,8 @@ class Signup extends React.Component {
           first_name: this.state.firstName,
           last_name: this.state.lastName,
           location: this.props.location,
-          lat: this.props.lat,
-          long: this.props.long
+          lat: this.props.lat.toString(),
+          long: this.props.long.toString()
         },
         success: (data) => {
           alert('You have successfully created an account');
@@ -116,7 +116,7 @@ class Signup extends React.Component {
     ))
     return (
       <div className="container signup-container">
-        <PageHeader><small>Signup</small></PageHeader>
+        <PageHeader><small>Start your journey...</small></PageHeader>
         <ControlLabel className="signup-username">
           Username<FormControl type="text" placeholder="username..." onChange={this.onUsernameChange.bind(this)} />
         </ControlLabel>
@@ -136,6 +136,7 @@ class Signup extends React.Component {
         <ControlLabel className="signup-password">
           Type Password Again<FormControl type="password" placeholder="password..." onChange={this.onCheckPasswordChange.bind(this)} />
         </ControlLabel>
+        <br />
         <br />
 
         <div className="col-centered">

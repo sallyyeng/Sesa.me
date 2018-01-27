@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 const {
   Marker,
   InfoWindow,
-} = require("react-google-maps");
+} = require('react-google-maps');
 
 
-class MarkerItem extends Component{
-  constructor(props){
+class MarkerItem extends Component {
+  constructor(props) {
     super(props);
-    this.state={isOpen: false}
+    this.state = {isOpen: false};
   }
   render() {
-   const name = this.props.location.name ? this.props.location.name : 'user';
-   console.log(name);
+    const name = this.props.location.name ? this.props.location.name : 'user';
+    console.log(name);
     return (
       <Marker
         icon={this.props.location.icon.url}
@@ -22,7 +22,7 @@ class MarkerItem extends Component{
           <p><b>{name}</b> : {this.props.location.address}</p>
         </InfoWindow>}
       </Marker>
-    )
+    );
   }
 }
 

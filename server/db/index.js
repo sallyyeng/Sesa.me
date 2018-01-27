@@ -7,6 +7,8 @@ const passportLocalSequelize = require('passport-local-sequelize');
 const bcrypt = require('bcrypt');
 const db = {};
 
+console.log('DATABASE TO CONNECT ', env, config.database);
+
 // sequelize.query('CREATE DATABASE IF NOT EXISTS messages')
 //   .then(() => console.log('Database created'));
 
@@ -14,7 +16,6 @@ const User = sequelize.define('user', {
   //id is already created by default as PK
   username: {
     type: Sequelize.STRING,
-    unique: true,
     ignoreDuplicates: true,
   },
   hash: Sequelize.STRING,
@@ -23,8 +24,8 @@ const User = sequelize.define('user', {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,
   location: Sequelize.STRING,
-  lat: Sequelize.INTEGER,
-  long: Sequelize.INTEGER,
+  lat: Sequelize.STRING,
+  long: Sequelize.STRING,
 });
 
 const Submission = sequelize.define('submission', {
@@ -68,9 +69,6 @@ User.sync()
       last_name: 'admin',
     });
   })
-  .catch((err) => {
-    console.error(`unable to autofill table with admin record w/error msg: ${err}`);
-  });
 
 Submission.sync();
 Message.sync();
