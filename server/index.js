@@ -31,11 +31,6 @@ const options = {
   expiration: 1,
 };
 
-console.log('SERVER ', process.env.DBSERVER)
-console.log('PORT ', process.env.PORT)
-console.log('DBUSER ', process.env.DBUSER)
-console.log('DBPASSWORD', process.env.DBPASSWORD)
-
 //USE CREDENTIALS FOR HEROKU STAGING
 // const options = {
 //   host: 'us-cdbr-iron-east-05.cleardb.net',
@@ -126,9 +121,9 @@ io.on('connection', function(socket) {
     socket.room = userData.room;
     console.log('WHAT THE ROOM?! ', userData.room)
     socket.join(userData.room);
-    
 
-    
+
+
 
     if (socket.username === 'admin_1') {
       sequelize.User.findOne({
@@ -168,7 +163,7 @@ io.on('connection', function(socket) {
 
   console.log('Joined the room', users);
 
-  
+
   socket.on('send:message', (msg) => {
     console.log('Users: ', users)
     console.log('Message: ', msg)
@@ -190,9 +185,9 @@ io.on('connection', function(socket) {
         res.sendStatus(400);
       });
     });
-     
+
     console.log('SOCKET user', socket.username)
-    console.log('SOCKET ROOM', socket.room) 
+    console.log('SOCKET ROOM', socket.room)
 
     io.sockets.in(socket.room).emit('update:chat', {
       id: id,
@@ -212,9 +207,6 @@ io.on('connection', function(socket) {
     socket.emit('update:rooms', users);
   })
 });
-
-
-
 
 
 //react router's path
