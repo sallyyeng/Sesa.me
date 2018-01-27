@@ -18,9 +18,7 @@
     1. [Starting Server](#starting-server)
     1. [Webpack Bundling](#webpack-bundling)
     1. [Testing](#testing)
-1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
-1. [Documentation](#documentation)
 
 ## Developer Instructions
 > Follow instructions for starting the server, installing dependencies, and webpack bundling below.
