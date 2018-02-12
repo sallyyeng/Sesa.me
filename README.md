@@ -2,6 +2,9 @@
 
 > sesa.me is a pacman board that is more than meets the eye. Click a pattern on the board to unlock a discrete authenticated messaging interface. The app is targeted to victims of human trafficking and domestic violence where special access administrators will interface with said users to coordinate help.
 
+
+![Main Page](https://github.com/sallyyeng/Sesa.me/blob/master/pacman.png)
+
 ## Team
 
   - Sally Eng
